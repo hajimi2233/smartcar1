@@ -1,0 +1,5 @@
+map_id=slam_current
+map_version=slam_v1
+frame_id=map
+units=m
+target_reference=front_axle_midpoint

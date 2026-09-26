@@ -1,0 +1,39 @@
+<launch>
+  <!-- Simulation only. Uses existing localization, never launches a second TF source. -->
+  <arg name="turn_radius" default="1.30" />
+  <arg name="ground_truth_test" default="false" />
+  <arg name="test_replay_speed_scale" default="2.0" />
+  <arg name="test_auto_arrive" default="false" />
+  <arg name="test_auto_arrive_delay" default="1.0" />
+  <arg name="local_turn_radius" default="1.10" />
+  <arg name="steering_rate" default="1.0" />
+  <arg name="tracking_lateral_gain" default="6.0" />
+  <arg name="tracking_heading_gain" default="4.0" />
+  <arg name="tracking_preview_distance" default="0.35" />
+  <arg name="zero_cost_line_width" default="0.01" />
+  <arg name="zero_cost_line_x1" default="nan" /><arg name="zero_cost_line_y1" default="nan" />
+  <arg name="zero_cost_line_x2" default="nan" /><arg name="zero_cost_line_y2" default="nan" />
+  <arg name="scan_timeout" default="1.0" />
+  <arg name="goal_position_tolerance" default="0.04" />
+  <arg name="goal_heading_tolerance_deg" default="1.5" />
+  <node pkg="smartcar_navigation" type="single_goal_nav.py" name="single_goal_nav" output="screen" required="true">
+    <param name="ground_truth_test" value="$(arg ground_truth_test)" />
+    <param name="test_replay_speed_scale" value="$(arg test_replay_speed_scale)" />
+    <param name="test_auto_arrive" value="$(arg test_auto_arrive)" />
+    <param name="test_auto_arrive_delay" value="$(arg test_auto_arrive_delay)" />
+    <param name="turn_radius" value="$(arg turn_radius)" />
+    <param name="local_turn_radius" value="$(arg local_turn_radius)" />
+    <param name="steering_rate" value="$(arg steering_rate)" />
+    <param name="tracking_lateral_gain" value="$(arg tracking_lateral_gain)" />
+    <param name="tracking_heading_gain" value="$(arg tracking_heading_gain)" />
+    <param name="tracking_preview_distance" value="$(arg tracking_preview_distance)" />
+    <param name="collision_margin" value="0.02" />
+    <param name="zero_cost_line_width" value="$(arg zero_cost_line_width)" />
+    <param name="zero_cost_line_x1" value="$(arg zero_cost_line_x1)" /><param name="zero_cost_line_y1" value="$(arg zero_cost_line_y1)" />
+    <param name="zero_cost_line_x2" value="$(arg zero_cost_line_x2)" /><param name="zero_cost_line_y2" value="$(arg zero_cost_line_y2)" />
+    <param name="planning_timeout" value="5.0" />
+    <param name="scan_timeout" value="$(arg scan_timeout)" />
+    <param name="goal_position_tolerance" value="$(arg goal_position_tolerance)" />
+    <param name="goal_heading_tolerance_deg" value="$(arg goal_heading_tolerance_deg)" />
+  </node>
+</launch>

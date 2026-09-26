@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+*.log
+.ros/
+build/
+devel/
+install/
+local_project/inspection_c/build/

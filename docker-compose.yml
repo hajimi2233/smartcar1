@@ -1,0 +1,27 @@
+services:
+  sim:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: smartcar:baseline-v1
+    container_name: smartcar-baseline
+    network_mode: host
+    stdin_open: true
+    tty: true
+
+    devices:
+       -  /dev/dri:/dev/dri
+
+    environment:
+      DISPLAY: ${DISPLAY:-:0}
+      QT_X11_NO_MITSHM: "1"
+      QT_AUTO_SCREEN_SCALE_FACTOR: "0"
+      # Ubuntu 16.04/ROS Kinetic 使用 Mesa 软件渲染，避免旧版 GLX
+      # 与宿主机 NVIDIA 驱动不兼容。
+      LIBGL_ALWAYS_SOFTWARE: "0"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ./data/maps/slam_current:/home/hajimi/smartcar_2026_ws/data/maps/slam_current:rw
+      - ./data/logs:/home/hajimi/smartcar_2026_ws/data/logs:rw
+      - ./config/localization.yaml:/home/hajimi/smartcar_2026_ws/src/smartcar_navigation/config/localization.yaml:ro
+    command: ["sim", "gui:=false", "rviz:=false"]

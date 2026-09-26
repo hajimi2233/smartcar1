@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 2.8.3)
+project(smartcar_navigation)
+find_package(catkin REQUIRED)
+catkin_package()
+catkin_install_python(PROGRAMS
+  scripts/waypoint_nav.py
+  scripts/laser_noise.py
+  scripts/imu_bridge.py
+  scripts/scan_in_map.py
+  scripts/scan_match_localizer.py
+  scripts/reset_to_start.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

@@ -1,0 +1,10 @@
+**/*.exe
+**/*.obj
+.git
+.cache
+**/.DS_Store
+docker/ws
+
+maintenance_backups
+logs
+**/__pycache__

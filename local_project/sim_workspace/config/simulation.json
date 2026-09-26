@@ -1,0 +1,26 @@
+{
+  "vehicle": {
+    "length": 0.80, "width": 0.55, "wheelbase": 0.62,
+    "front_track": 0.45, "rear_track": 0.45,
+    "wheel_diameter": 0.18, "wheel_width": 0.07,
+    "max_wheel_angle_deg": 50.35,
+    "body_height_assumed": 0.10, "body_center_z_assumed": 0.24,
+    "body_mass_assumed": 12.0, "wheel_mass_assumed": 0.5,
+    "drive_torque_assumed": 8.0,
+    "max_speed_test": 0.35, "acceleration_test": 0.3,
+    "steer_rate_assumed": 2.5,
+    "laser_x_from_body_center_assumed": 0.0,
+    "laser_y_assumed": 0.0, "laser_z_assumed": 0.50,
+    "laser_samples_test": 360, "laser_hz": 10,
+    "laser_min_range": 0.2, "laser_max_range": 25.0
+  },
+  "field": {
+    "lane_clear_width": 0.90, "wall_thickness_assumed": 0.08,
+    "channel_length_assumed": 3.60, "wall_height_assumed": 1.0,
+    "inspection_y_assumed": 1.05, "inspection_depth_assumed": 0.35,
+    "portal_clearance_assumed": 1.0,
+    "outer_width": 12.0, "outer_height": 8.0,
+    "map_resolution": 0.05
+  },
+  "layout_example": "A1A2B3B4A5B6A7B8A9B10"
+}

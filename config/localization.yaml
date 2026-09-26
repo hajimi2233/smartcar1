@@ -1,0 +1,77 @@
+# sensors.ideal=true 仅关闭模拟雷达的附加噪声；不发布真值里程计。
+# 当前定位：laser_scan_matcher（use_odom/use_imu=false）+ 官方 AMCL
+sensors:
+  ideal: false
+
+# 定位可调参数（改完需重启 localization）
+# 路径: smartcar_navigation/config/localization.yaml
+
+# ---------- 雷达 vs 里程计（AMCL）----------
+amcl:
+  odom_frame_id: odom
+  base_frame_id: base_footprint
+  global_frame_id: map
+  tf_broadcast: true
+  odom_model_type: diff
+  use_map_topic: true
+  first_map_only: true
+  update_min_d: 0.03          # 0=停下也用雷达更新
+  update_min_a: 0.05
+  resample_interval: 1
+  transform_tolerance: 0.3
+  gui_publish_rate: 10.0
+  kld_err: 0.02
+  # 里程计噪声：越大越不信轮子，雷达越好拉回来（太大容易跳列）
+  odom_alpha1: 0.6
+  odom_alpha2: 0.4
+  odom_alpha3: 0.4
+  odom_alpha4: 0.6
+  # 激光模型：z_hit 越大越信「打在墙上」；sigma_hit 越小匹配越锐
+  laser_model_type: likelihood_field
+  laser_z_hit: 0.85
+  laser_z_short: 0.05
+  laser_z_max: 0.05
+  laser_z_rand: 0.05
+  laser_sigma_hit: 0.05      # 米
+  laser_likelihood_max_dist: 2.0
+  laser_max_range: 12.0
+  laser_max_beams: 360
+  min_particles: 300
+  max_particles: 1500
+  # 粒子重撒：0=不跳；fast>0 雷达对不上时会跳
+  recovery_alpha_slow: 0.001
+  recovery_alpha_fast: 0.1
+  initial_cov_xx: 0.25
+  initial_cov_yy: 0.25
+  initial_cov_aa: 0.5
+
+# ---------- 轮速 + 转向 + IMU 里程计 ----------
+wheel_odom:
+  wheel_radius: 0.09         # 米
+  wheelbase: 0.62
+  max_steer: 0.88            # 内侧前轮约 50.35 度（取消原 40 度机械上限）
+  distance_scale: 1.0        # 直走标定：实际距离/里程计距离。走了2m若计成2.2m则填 2.0/2.2≈0.91
+  alpha_v: 0.02              # 轮速相对噪声
+  cmd_deadzone: 0.02         # 小于此视为没打键盘
+  wheel_deadzone: 0.02       # 小于此视为轮子没转
+  w_steer_weight: 0.75       # 航向：转向编码器权重
+  w_imu_weight: 0.25         # 航向：IMU 陀螺权重
+  nomotion_period: 0.5       # 停车后隔多少秒做一次雷达无运动更新
+
+# ---------- 激光噪声（仿真传感器）----------
+laser_noise:
+  stddev: 0.02               # 米
+
+# ---------- 自制 scan_match（当前 launch 未启动，仅留档）----------
+scan_match_localizer:
+  sigma: 0.08                # 射线距离差的高斯 sigma，米
+  min_score: 0.30            # 低于此分保持上一帧，不跳图
+  xy_win: 0.18               # 每帧搜索半宽，米
+  xy_step: 0.06
+  yaw_win: 0.12              # 约 7 度
+  yaw_step: 0.04
+  stride: 8                  # 每 N 条射线用 1 条
+  max_xy: 0.15               # 单帧最大修正，米（防跳列）
+  max_yaw: 0.14              # 单帧最大修正，弧度
+  freeze_xy: 0.02            # 小于此视为静止，去掉抖动
+  freeze_yaw: 0.015

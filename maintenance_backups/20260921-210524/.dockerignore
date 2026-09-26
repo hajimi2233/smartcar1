@@ -1,0 +1,6 @@
+**/*.exe
+**/*.obj
+.git
+.cache
+**/.DS_Store
+docker/ws
