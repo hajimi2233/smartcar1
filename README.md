@@ -92,6 +92,15 @@ bash smartcar1/scripts/smartcar.sh keyboard
 bash smartcar1/scripts/smartcar.sh nav
 ```
 
+导航测试：
+
+bash smartcar1/scripts/smartcar.sh nav-test
+bash smartcar1/scripts/smartcar.sh multi-nav
+bash smartcar1/scripts/smartcar.sh multi-execute
+bash smartcar1/scripts/smartcar.sh multi-clear
+、bash smartcar1/scripts/smartcar.sh multi-cancel
+
+
 在 RViz 选择 **2D Nav Goal**，在目标位置按住鼠标并拖出箭头。**箭头起点是最终前轴中点，箭头方向是最终车头方向。** 小车可以前进和倒退就位，换向前先停车。
 
 也可以在另一终端精确输入：
