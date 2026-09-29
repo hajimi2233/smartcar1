@@ -1,0 +1,113 @@
+# Real vehicle integration template: measure geometry and supply the driver bridge before navigation.
+# Navigation startup configuration. Units: metres, seconds, radians unless *_deg.
+# Edit this file, then stop/restart nav or nav-test. No image rebuild for tuning.
+# Existing launch arguments override these values only when explicitly supplied.
+turn_radius: 1.30
+local_turn_radius: 1.10
+steering_rate: 1.0
+tracking_lateral_gain: 6.0
+tracking_heading_gain: 4.0
+tracking_preview_distance: 0.35
+collision_margin: 0.02
+zero_cost_line_width: 0.01
+planning_timeout: 5.0
+scan_timeout: 1.0
+goal_position_tolerance: 0.04
+goal_heading_tolerance_deg: 1.5
+ground_truth_test: false
+test_replay_speed_scale: 2.0
+test_auto_arrive: false
+test_auto_arrive_delay: 1.0
+cmd_topic: /vehicle/cmd_vel
+joint_topic: /vehicle/joint_states
+actuator_model_param: /vehicle/actuator_model
+
+# See docs/PARAMETERS.md for reference frames, dimensions and tuning examples.
+tuning:
+  # TF frames; all orientations use vehicle heading.
+  map_frame: map
+  odom_frame: odom
+  base_frame: base_footprint
+  truth_frame: sim_world
+  # Vehicle geometry; update the actual actuator model to match.
+  wheelbase: 0.62
+  front_track: 0.45
+  wheel_radius: 0.09
+  # Region body envelope measured from rear axle; positive lengths.
+  body_front: 0.71
+  body_rear: 0.09
+  body_half_width: 0.275
+  # Existing map/scan collision envelope, independent of region envelope.
+  collision_half_length: 0.4
+  collision_half_width: 0.25
+  collision_center_x: 0.31
+  boundary_half_length: 0.4
+  tire_half_width: 0.035
+  region_margin: 0.01
+  physical_min_radius: 1.1
+  global_min_radius: 1.3
+  # References: rear_axle / front_axle / custom. Offsets only apply to custom.
+  base_reference: custom
+  base_offset_x: 0.31
+  base_offset_y: 0.0
+  # RViz goal point. Orientation always denotes VEHICLE heading.
+  goal_reference: front_axle
+  goal_offset_x: 0.0
+  goal_offset_y: 0.0
+  # Published global/local Path point; internal bicycle model stays rear axle.
+  path_reference: rear_axle
+  path_offset_x: 0.0
+  path_offset_y: 0.0
+  # Stage distances and arrival tolerances; preserve existing strategy.
+  line_entry_distance: 1.5
+  line_retreat_distance: 1.5
+  stage_plan_position: 0.06
+  stage_plan_heading_deg: 5.0
+  maneuver_plan_heading_deg: 4.0
+  stage_finish_position: 0.12
+  stage_finish_heading_deg: 10.0
+  final_finish_position: 0.075
+  final_finish_heading_deg: 5.0
+  normal_finish_heading_deg: 4.0
+  stage_early_position: 0.1
+  stage_early_heading_deg: 8.0
+  final_early_position: 0.06
+  final_early_heading_deg: 4.0
+  # Normal planned speed caps; nav-test scale is applied separately.
+  forward_speed: 0.07
+  reverse_speed: 0.045
+  tracking_forward_speed: 0.15
+  tracking_reverse_speed: 0.08
+  tracking_min_speed: 0.02
+  approach_speed_gain: 0.4
+  replay_forward_speed: 0.04
+  replay_reverse_speed: 0.03
+  replay_min_speed: 0.012
+  # Timing and feedback limits. Values load only at navigation startup.
+  control_period: 0.05
+  max_control_dt: 0.35
+  feedback_timeout: 0.3
+  pose_timeout: 0.4
+  truth_timeout: 0.35
+  stop_window: 1.0
+  stop_position_span: 0.02
+  stop_heading_span: 0.015
+  stop_timeout: 10.0
+  progress_timeout: 8.0
+  max_replans: 2
+  # Local prediction settings; defaults unchanged.
+  prediction_step: 0.01
+  rollout_steps: 15
+  rollout_dt: 0.15
+  steering_sample_offset: 0.035
+  tracking_max_error: 0.2
+  tracking_recover_error: 0.18
+  scan_obstacle_range: 0.8
+  scan_stride: 2
+  # Wall contribution in [0,1]; path contribution is 1 minus this.
+  wall_straight_weight: 0.7
+  wall_maneuver_weight: 0.0
+  wall_normal_weight: 0.5
+  wall_gain: 0.45
+  wall_max_angle_deg: 15.0
+  planner_max_records: 60000

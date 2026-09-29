@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>smartcar_mapping</name><version>0.2.0</version>
+  <description>Gmapping with an explicitly selected local odometry source</description>
+  <maintainer email="smartcar@example.com">Project team</maintainer>
+  <license>TODO</license><buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>gmapping</exec_depend>
+  <exec_depend>map_server</exec_depend>
+  <exec_depend>smartcar_localization</exec_depend>
+</package>

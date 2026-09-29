@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>smartcar_localization</name><version>0.2.0</version>
+  <description>Local laser odometry and AMCL localization</description>
+  <maintainer email="smartcar@example.com">Project team</maintainer>
+  <license>TODO</license><buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>laser_scan_matcher</exec_depend>
+  <exec_depend>amcl</exec_depend>
+  <exec_depend>map_server</exec_depend>
+  <exec_depend>tf</exec_depend>
+</package>

@@ -6,3 +6,6 @@ build/
 devel/
 install/
 local_project/inspection_c/build/
+
+restructure-tests.txt
+parameter-test-results.txt

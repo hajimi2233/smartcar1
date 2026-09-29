@@ -1,0 +1,4 @@
+<launch>
+  <arg name="config_file" />
+  <include file="$(find smartcar_navigation)/launch/single_goal.launch"><arg name="config_file" value="$(arg config_file)" /></include>
+</launch>

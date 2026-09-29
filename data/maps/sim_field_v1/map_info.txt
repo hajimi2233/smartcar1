@@ -1,0 +1,5 @@
+map_id=sim_field
+map_version=sim_v1
+frame_id=sim_world
+units=m
+target_reference=front_axle_midpoint

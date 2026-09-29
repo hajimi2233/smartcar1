@@ -1,5 +1,5 @@
-import sys,time,unittest
-sys.path.insert(0,'/home/hajimi/smartcar_2026_ws/src/smartcar_navigation/scripts')
+import sys,time,unittest,os
+sys.path.insert(0,os.path.abspath(os.path.join(os.path.dirname(__file__),'../../src/smartcar_navigation/scripts')))
 from single_goal_nav import Navigator
 from ackermann_core import Grid
 from nav_obstacles import ConsecutiveFailures

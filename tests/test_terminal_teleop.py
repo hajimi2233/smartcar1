@@ -36,7 +36,7 @@ class TeleopTest(unittest.TestCase):
                        tcsetattr=lambda *a: None, TCSADRAIN=0),
             'tty': types.SimpleNamespace(setcbreak=lambda _: None),
         }
-        path = Path(__file__).resolve().parents[1] / 'docker/overlay/terminal_teleop.py'
+        path = Path(__file__).resolve().parents[1] / 'src/smartcar_sim/scripts/terminal_teleop.py'
         with patch.dict(sys.modules, mocks):
             spec = importlib.util.spec_from_file_location('teleop_test_target', path)
             module = importlib.util.module_from_spec(spec)

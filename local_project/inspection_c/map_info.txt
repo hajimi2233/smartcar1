@@ -1,6 +1,0 @@
-# DEMO ONLY: replace both this file and points.csv with surveyed data.
-map_id=demo_field
-map_version=demo_v1
-frame_id=map_demo
-units=m
-target_reference=front_axle_midpoint

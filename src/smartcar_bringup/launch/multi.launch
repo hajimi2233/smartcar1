@@ -1,0 +1,5 @@
+<launch>
+  <arg name="config_file" />
+  <include file="$(find smartcar_bringup)/launch/single.launch"><arg name="config_file" value="$(arg config_file)" /></include>
+  <include file="$(find smartcar_mission)/launch/multi_goal_nav.launch" />
+</launch>

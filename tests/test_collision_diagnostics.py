@@ -1,7 +1,7 @@
 import sys
 import unittest
 from pathlib import Path
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'docker/overlay'))
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'src/smartcar_navigation/scripts'))
 from ackermann_core import Grid
 
 class DiagnosticsTests(unittest.TestCase):

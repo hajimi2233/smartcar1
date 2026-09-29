@@ -3,8 +3,8 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile
-    image: smartcar:baseline-v1
-    container_name: smartcar-baseline
+    image: smartcar:layered-v1
+    container_name: smartcar-layered
     network_mode: host
     stdin_open: true
     tty: true
@@ -21,7 +21,6 @@ services:
       LIBGL_ALWAYS_SOFTWARE: "0"
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - ./data/maps/slam_current:/home/hajimi/smartcar_2026_ws/data/maps/slam_current:rw
-      - ./data/logs:/home/hajimi/smartcar_2026_ws/data/logs:rw
-      - ./config/localization.yaml:/home/hajimi/smartcar_2026_ws/src/smartcar_navigation/config/localization.yaml:ro
-    command: ["sim", "gui:=false", "rviz:=false"]
+      - ./data:/home/hajimi/smartcar/data:rw
+      - ./config:/home/hajimi/smartcar/config:ro
+    command: ["drivers-sim", "gui:=false", "rviz:=false"]

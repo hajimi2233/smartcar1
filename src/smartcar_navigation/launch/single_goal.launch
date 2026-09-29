@@ -1,0 +1,39 @@
+<launch>
+  <arg name="config_file"  />
+  <!-- Uses existing localization; no driver or TF source is started here. -->
+  <arg name="turn_radius" default="" />
+  <arg name="ground_truth_test" default="" />
+  <arg name="test_replay_speed_scale" default="" />
+  <arg name="test_auto_arrive" default="" />
+  <arg name="test_auto_arrive_delay" default="" />
+  <arg name="local_turn_radius" default="" />
+  <arg name="steering_rate" default="" />
+  <arg name="tracking_lateral_gain" default="" />
+  <arg name="tracking_heading_gain" default="" />
+  <arg name="tracking_preview_distance" default="" />
+  <arg name="zero_cost_line_width" default="" />
+  <arg name="zero_cost_line_x1" default="nan" /><arg name="zero_cost_line_y1" default="nan" />
+  <arg name="zero_cost_line_x2" default="nan" /><arg name="zero_cost_line_y2" default="nan" />
+  <arg name="scan_timeout" default="" />
+  <arg name="goal_position_tolerance" default="" />
+  <arg name="goal_heading_tolerance_deg" default="" />
+  <node pkg="smartcar_navigation" type="single_goal_nav.py" name="single_goal_nav" output="screen" required="true">
+    <rosparam command="load" file="$(arg config_file)" />
+    <param if="$(eval arg('ground_truth_test') != '')" name="ground_truth_test" value="$(arg ground_truth_test)" />
+    <param if="$(eval arg('test_replay_speed_scale') != '')" name="test_replay_speed_scale" value="$(arg test_replay_speed_scale)" />
+    <param if="$(eval arg('test_auto_arrive') != '')" name="test_auto_arrive" value="$(arg test_auto_arrive)" />
+    <param if="$(eval arg('test_auto_arrive_delay') != '')" name="test_auto_arrive_delay" value="$(arg test_auto_arrive_delay)" />
+    <param if="$(eval arg('turn_radius') != '')" name="turn_radius" value="$(arg turn_radius)" />
+    <param if="$(eval arg('local_turn_radius') != '')" name="local_turn_radius" value="$(arg local_turn_radius)" />
+    <param if="$(eval arg('steering_rate') != '')" name="steering_rate" value="$(arg steering_rate)" />
+    <param if="$(eval arg('tracking_lateral_gain') != '')" name="tracking_lateral_gain" value="$(arg tracking_lateral_gain)" />
+    <param if="$(eval arg('tracking_heading_gain') != '')" name="tracking_heading_gain" value="$(arg tracking_heading_gain)" />
+    <param if="$(eval arg('tracking_preview_distance') != '')" name="tracking_preview_distance" value="$(arg tracking_preview_distance)" />
+    <param if="$(eval arg('zero_cost_line_width') != '')" name="zero_cost_line_width" value="$(arg zero_cost_line_width)" />
+    <param if="$(eval arg('zero_cost_line_x1') != '')" name="zero_cost_line_x1" value="$(arg zero_cost_line_x1)" /><param if="$(eval arg('zero_cost_line_y1') != '')" name="zero_cost_line_y1" value="$(arg zero_cost_line_y1)" />
+    <param if="$(eval arg('zero_cost_line_x2') != '')" name="zero_cost_line_x2" value="$(arg zero_cost_line_x2)" /><param if="$(eval arg('zero_cost_line_y2') != '')" name="zero_cost_line_y2" value="$(arg zero_cost_line_y2)" />
+    <param if="$(eval arg('scan_timeout') != '')" name="scan_timeout" value="$(arg scan_timeout)" />
+    <param if="$(eval arg('goal_position_tolerance') != '')" name="goal_position_tolerance" value="$(arg goal_position_tolerance)" />
+    <param if="$(eval arg('goal_heading_tolerance_deg') != '')" name="goal_heading_tolerance_deg" value="$(arg goal_heading_tolerance_deg)" />
+  </node>
+</launch>

@@ -1,0 +1,7 @@
+<launch>
+  <!-- Supply vendor-specific adapter launches; no placeholder driver is started. -->
+  <arg name="chassis_launch" /><arg name="lidar_launch" />
+  <param name="use_sim_time" value="false" />
+  <include file="$(arg chassis_launch)" />
+  <include file="$(arg lidar_launch)" />
+</launch>

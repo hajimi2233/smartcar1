@@ -1,0 +1,6 @@
+<launch>
+  <arg name="chassis_launch" /><arg name="lidar_launch" />
+  <include file="$(find smartcar_drivers)/launch/hardware.launch">
+    <arg name="chassis_launch" value="$(arg chassis_launch)" /><arg name="lidar_launch" value="$(arg lidar_launch)" />
+  </include>
+</launch>

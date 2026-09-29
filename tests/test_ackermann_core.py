@@ -4,7 +4,7 @@ from pathlib import Path
 import sys
 import unittest
 from unittest.mock import patch
-sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'docker/overlay'))
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'src/smartcar_navigation/scripts'))
 from ackermann_core import Grid, advance, plan, plan_prefer_lines, plan_line_approach, line_stage_candidates, line_retreat_target, line_approaches, segments, tracking, speed_profile, rear_target, front_position, wrap, StopWindow
 
 

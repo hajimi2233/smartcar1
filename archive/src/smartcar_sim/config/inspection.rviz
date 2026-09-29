@@ -1,0 +1,46 @@
+Panels:
+  - Class: rviz/Displays
+    Name: Displays
+Visualization Manager:
+  Class: ""
+  Global Options:
+    Fixed Frame: sim_world
+    Background Color: 40; 40; 45
+    Frame Rate: 20
+  Displays:
+    - Class: rviz/Grid
+      Name: Grid
+      Enabled: true
+      Cell Size: 1
+      Plane Cell Count: 20
+    - Class: rviz/Map
+      Name: Geometry reference map (not SLAM)
+      Enabled: true
+      Topic: /map
+      Alpha: 0.25
+    - Class: rviz/RobotModel
+      Name: Measured car dimensions
+      Enabled: true
+      Robot Description: robot_description
+    - Class: rviz/LaserScan
+      Name: Sim lidar
+      Enabled: true
+      Topic: /sim/scan
+      Size (m): 0.06
+      Style: Squares
+      Color Transformer: FlatColor
+      Color: 255; 30; 30
+    - Class: rviz/MarkerArray
+      Name: Inspection points (plan only)
+      Enabled: true
+      Marker Topic: /inspection/preview
+  Views:
+    Current:
+      Class: rviz/TopDownOrtho
+      Name: Top down
+      Scale: 60
+      X: 0
+      Y: 0
+Window Geometry:
+  Width: 1100
+  Height: 720

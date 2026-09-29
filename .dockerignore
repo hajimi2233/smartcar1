@@ -8,3 +8,13 @@ docker/ws
 maintenance_backups
 logs
 **/__pycache__
+
+archive
+legacy-reference.zip
+docs
+reference_docs
+tests
+build
+devel
+install
+*.zip

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>smartcar_bringup</name><version>0.2.0</version>
+  <description>Independent staged entry points for sim and hardware</description>
+  <maintainer email="smartcar@example.com">Project team</maintainer>
+  <license>TODO</license><buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>smartcar_drivers</exec_depend>
+  <exec_depend>smartcar_mapping</exec_depend>
+  <exec_depend>smartcar_localization</exec_depend>
+  <exec_depend>smartcar_navigation</exec_depend>
+  <exec_depend>smartcar_mission</exec_depend>
+  <exec_depend>rviz</exec_depend>
+  <exec_depend>smartcar_region_tool</exec_depend>
+</package>

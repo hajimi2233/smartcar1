@@ -3,7 +3,7 @@ import sys
 import unittest
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'docker/overlay'))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src/smartcar_navigation/scripts'))
 from ground_truth_pose import alignment, rear_pose
 from path_tracking import tracking_command, replay_command
 

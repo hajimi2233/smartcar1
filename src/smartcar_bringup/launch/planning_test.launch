@@ -1,0 +1,8 @@
+<launch>
+  <arg name="config_file" /><arg name="multi" default="false" />
+  <include file="$(find smartcar_navigation)/launch/single_goal.launch">
+    <arg name="config_file" value="$(arg config_file)" />
+    <arg name="ground_truth_test" value="true" /><arg name="test_auto_arrive" value="true" />
+  </include>
+  <include if="$(arg multi)" file="$(find smartcar_mission)/launch/multi_goal_nav.launch" />
+</launch>

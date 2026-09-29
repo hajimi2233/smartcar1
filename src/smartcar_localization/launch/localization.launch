@@ -1,0 +1,17 @@
+<launch>
+  <arg name="map_file" /><arg name="params" />
+  <arg name="scan_odometry" default="true" />
+  <arg name="scan_topic" default="/scan" />
+  <arg name="base_frame" default="base_footprint" /><arg name="odom_frame" default="odom" /><arg name="map_frame" default="map" />
+  <rosparam command="load" file="$(arg params)" />
+  <include if="$(arg scan_odometry)" file="$(find smartcar_localization)/launch/frontend.launch">
+    <arg name="scan_topic" value="$(arg scan_topic)" /><arg name="base_frame" value="$(arg base_frame)" /><arg name="odom_frame" value="$(arg odom_frame)" />
+  </include>
+  <node pkg="map_server" type="map_server" name="slam_map_server" args="$(arg map_file)" required="true">
+    <param name="frame_id" value="$(arg map_frame)" />
+  </node>
+  <node pkg="amcl" type="amcl" name="amcl" output="screen" required="true">
+    <param name="base_frame_id" value="$(arg base_frame)" /><param name="odom_frame_id" value="$(arg odom_frame)" /><param name="global_frame_id" value="$(arg map_frame)" />
+    <remap from="scan" to="$(arg scan_topic)" />
+  </node>
+</launch>

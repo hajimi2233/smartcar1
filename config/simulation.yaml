@@ -1,0 +1,4 @@
+sensors:
+  ideal: false
+laser_noise:
+  stddev: 0.02

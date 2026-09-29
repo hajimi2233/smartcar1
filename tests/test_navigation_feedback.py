@@ -34,7 +34,7 @@ def load_navigation():
     for name in ('rospy', 'rosgraph', 'tf'):
         stubs[name] = types.ModuleType(name)
     stubs['rospy'].Time = types.SimpleNamespace(now=lambda: types.SimpleNamespace(to_sec=lambda: 10.))
-    path = Path(__file__).resolve().parents[1] / 'docker/overlay/single_goal_nav.py'
+    path = Path(__file__).resolve().parents[1] / 'src/smartcar_navigation/scripts/single_goal_nav.py'
     sys.path.insert(0, str(path.parent))
     spec = importlib.util.spec_from_file_location('navigation_under_test', path)
     module = importlib.util.module_from_spec(spec)
