@@ -20,6 +20,7 @@ class Editor(object):
         self.map_id = None
         self.active, self.draft = [], []
         self.editing = False
+        self.definition = rospy.Publisher('/external_region/definition', String, queue_size=1, latch=True)
         self.poly = rospy.Publisher('/external_region/polygon', PolygonStamped, queue_size=1, latch=True)
         self.marks = rospy.Publisher('/external_region/markers', MarkerArray, queue_size=1, latch=True)
         self.status = rospy.Publisher('/external_region/status', String, queue_size=1, latch=True)
@@ -85,7 +86,7 @@ class Editor(object):
     def click(self, msg):
         with self.lock:
             if not self.editing:
-                self.report('Run: bash scripts/smartcar.sh region begin'); return
+                self.report('Run: bash scripts/robot.sh region begin'); return
             if msg.header.frame_id.lstrip('/') != 'map':
                 self.report('Set RViz Fixed Frame to map'); return
             if len(self.draft) >= 4:
@@ -95,6 +96,7 @@ class Editor(object):
             self.report('Draft corner %d/4; save explicitly to apply' % len(self.draft))
 
     def publish(self):
+        self.definition.publish(json.dumps(dict(map_sha256=self.map_id, frame_id='map', corners=self.active)))
         poly = PolygonStamped(); poly.header.frame_id = 'map'
         poly.polygon.points = [Point32(x,y,0) for x,y in self.active]
         self.poly.publish(poly)

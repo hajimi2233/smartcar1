@@ -62,7 +62,7 @@ def main():
         check(listener.canTransform(tuning['odom_frame'],tuning['base_frame'],rospy.Time(0)),'odom -> base TF')
         check(listener.canTransform(tuning['map_frame'],tuning['base_frame'],rospy.Time(0)),'map -> base TF')
     nodes=set(n for _,ns in publishers+subscribers for n in ns)
-    if stage in ('localization','single','multi'): check('/amcl' in nodes,'AMCL running')
+    if stage in ('localization','single','multi'): check('/amcl' in nodes or '/wall_localizer' in nodes,'AMCL or wall feature localization running')
     if stage=='mapping': check('/slam_gmapping' in nodes,'gmapping running')
     if stage in ('single','multi'): check('/single_goal_nav' in nodes,'single-goal executor running')
     if stage=='multi': check('/multi_goal_nav' in nodes,'mission queue running')

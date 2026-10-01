@@ -26,7 +26,7 @@ RUN tar -xzf /tmp/vm_setup_and_logs.tar.gz -C /tmp \
  && apt-get update \
  && apt-get install -y --no-install-recommends \
       build-essential cmake git mesa-utils x11-xserver-utils \
-      python python-yaml \
+      python python-yaml python-numpy \
       ros-kinetic-ros-base \
       ros-kinetic-rviz \
       ros-kinetic-gazebo-ros-pkgs \

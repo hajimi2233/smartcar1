@@ -37,3 +37,23 @@ amcl:
   initial_cov_yy: 0.25
   initial_cov_aa: 0.5
 
+
+# Used only with localization wall_features:=true. AMCL is not launched in this mode.
+wall_localizer:
+  association_distance: 0.30  # initial pose must be close enough to associate the selected wall
+  endpoint_margin: 0.05
+  normal_angle_deg: 25.0
+  surface_gap: 0.06          # split distinct return surfaces; never choose by point count
+  min_points: 8
+  min_span: 0.20
+  max_rms: 0.06
+  max_translation: 0.25      # reject ambiguous large per-scan corrections
+  max_rotation: 0.20         # radians
+  iterations: 10
+  eigen_ratio: 0.005         # leave weakly constrained directions to odometry
+  coast_timeout: 2.0         # stop publishing map->odom after prolonged feature loss
+  scan_timeout: 0.5
+  state_confirm_time: 0.3
+
+wall_editor:
+  selection_radius: 0.30  # capsule dilation radius around each drawn selection, metres

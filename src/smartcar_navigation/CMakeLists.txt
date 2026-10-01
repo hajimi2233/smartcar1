@@ -4,6 +4,7 @@ find_package(catkin REQUIRED)
 catkin_package()
 catkin_install_python(PROGRAMS
   scripts/single_goal_nav.py
+  scripts/corridor_monitor.py
   scripts/region_editor.py
   scripts/send_single_goal.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
@@ -18,3 +19,6 @@ configure_file(scripts/nav_obstacles.py ${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_
 configure_file(scripts/region_geometry.py ${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_BIN_DESTINATION}/region_geometry.py COPYONLY)
 install(FILES scripts/ackermann_core.py scripts/local_planner.py scripts/path_tracking.py scripts/actuator_model.py scripts/ground_truth_pose.py scripts/nav_config.py scripts/nav_obstacles.py scripts/region_geometry.py DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 install(DIRECTORY launch DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+
+configure_file(scripts/corridor_geometry.py ${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_BIN_DESTINATION}/corridor_geometry.py COPYONLY)
+install(FILES scripts/corridor_geometry.py DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

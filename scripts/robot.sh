@@ -29,7 +29,7 @@ case "$stage" in
     reject_nodes /gazebo /laser_noise
     exec roslaunch smartcar_bringup drivers_real.launch chassis_launch:="$1" lidar_launch:="$2" ;;
   mapping)
-    require_ros; reject_nodes /slam_gmapping /amcl /slam_map_server /single_goal_nav /multi_goal_nav
+    require_ros; reject_nodes /slam_gmapping /amcl /slam_map_server /wall_localizer /single_goal_nav /multi_goal_nav
     exec roslaunch smartcar_mapping gmapping.launch "$@" ;;
   save-map)
     require_ros
@@ -39,10 +39,13 @@ case "$stage" in
     mkdir -p "$(dirname "$1")"
     exec rosrun map_server map_saver -f "$1" ;;
   localization)
-    require_ros; reject_nodes /slam_gmapping /amcl /slam_map_server /single_goal_nav /multi_goal_nav
+    require_ros; reject_nodes /slam_gmapping /amcl /slam_map_server /wall_localizer /single_goal_nav /multi_goal_nav
     if [ "$#" -lt 1 ]; then echo 'Usage: robot.sh localization /absolute/map.yaml [scan_odometry:=false ...]'; exit 2; fi
     check_abs_file "$1"; map_file="$1"; shift
-    exec roslaunch smartcar_localization localization.launch map_file:="$map_file" params:="$project_root/config/localization.yaml" "$@" ;;
+    for arg in "$@"; do
+      if [ "$arg" = wall_features:=true ]; then reject_nodes /region_editor /corridor_monitor /wall_editor; fi
+    done
+    exec roslaunch smartcar_localization localization.launch map_file:="$map_file" params:="$project_root/config/localization.yaml" nav_config:="$nav_config" walls_file:="$(dirname "$map_file")/localization_walls.json" region_file:="$(dirname "$map_file")/external_region.json" "$@" ;;
   single|multi|planning-test)
     require_ros; reject_nodes /single_goal_nav /multi_goal_nav /slam_gmapping
     if [ "$stage" = planning-test ]; then
@@ -50,6 +53,21 @@ case "$stage" in
       launch=planning_test.launch
     else launch="$stage.launch"; fi
     exec roslaunch smartcar_bringup "$launch" config_file:="$nav_config" "$@" ;;
+  walls)
+    require_ros; exec rosrun smartcar_localization wall_command.py "$@" ;;
+  wall-status)
+    require_ros; exec rostopic echo /wall_localization/status ;;
+  corridor)
+    require_ros; reject_nodes /region_editor /corridor_monitor
+    exec roslaunch smartcar_navigation corridor.launch config_file:="$nav_config" region_file:="$project_root/data/maps/slam_current/external_region.json" "$@" ;;
+  region)
+    require_ros
+    case "${1:-}" in
+      begin|undo|save|cancel|clear) exec rosservice call "/region_editor/$1" ;;
+      *) echo 'Usage: robot.sh region begin|undo|save|cancel|clear'; exit 2 ;;
+    esac ;;
+  corridor-state)
+    require_ros; exec rostopic echo /corridor/state ;;
   rviz|rviz-multi)
     require_ros
     view=single; if [ "$stage" = rviz-multi ]; then view=multi; fi
@@ -74,6 +92,8 @@ case "$stage" in
     exec rosrun smartcar_drivers check_stage.py _stage:="$1" _profile:="$profile" _navigation_config:="$nav_config" ;;
   *)
     echo 'Stages: drivers-real, drivers-sim, mapping, save-map, localization, single, multi, planning-test'
+    echo 'Walls: localization MAP wall_features:=true; walls inside|outside|undo|delete GROUP ID|clear GROUP|radius METRES|preview|save|load|cancel|list; wall-status'
+    echo 'Corridor: corridor [region_file:=/absolute/region.json], region begin|undo|save|cancel|clear, corridor-state'
     echo 'Tools: check STAGE, rviz, rviz-multi, keyboard-sim, goal X Y YAW, cancel, multi-execute/clear/undo/cancel'
     echo 'See docs/REPRODUCE.md for the stage-by-stage workflow.' ;;
 esac

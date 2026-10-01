@@ -42,3 +42,7 @@ bash scripts/sim.sh single
 `start` 只启动驱动层，不会自动启动定位。原 `smartcar.sh nav/nav-test/multi-nav` 的替代命令见复现手册。停止项目用 `bash scripts/sim.sh stop`。首次使用分层版应先停止旧版容器，不能让两套 ROS 共用端口同时运行。
 
 实车当前仍针对 ROS1 Kinetic 接口；没有执行 ROS 版本升级。Linux/ROS/Gazebo 的构建和实际运行需要在目标环境验收，离线检查结果见 `docs/VALIDATION.md`。
+
+通道内外判断：复用四角画框工具，按车辆定位参考点是否进框发布状态，操作见 [通道判断说明](docs/CORRIDOR.md)。
+
+手动墙体特征定位：分别画线选择通道内/外优先墙，将线膨胀成区域，匹配区域覆盖的地图墙体，支持编号删除及保存加载，见 [墙体定位说明](docs/WALL_FEATURES.md)。

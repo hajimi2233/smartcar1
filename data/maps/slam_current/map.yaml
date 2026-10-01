@@ -1,4 +1,4 @@
-image: /home/hajimi/smartcar_2026_ws/data/maps/slam_current/map.pgm
+image: map.pgm
 resolution: 0.050000
 origin: [-8.000000, -6.000000, 0.000000]
 negate: 0

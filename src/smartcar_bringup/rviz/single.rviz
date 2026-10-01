@@ -100,6 +100,22 @@ Visualization Manager:
       Name: AMCL particles
       Enabled: false
       Topic: /particlecloud
+    - Class: rviz/MarkerArray
+      Name: Corridor region
+      Enabled: true
+      Marker Topic: /external_region/markers
+    - Class: rviz/Marker
+      Name: Corridor state
+      Enabled: true
+      Marker Topic: /corridor/marker
+    - Class: rviz/MarkerArray
+      Name: Localization walls
+      Enabled: true
+      Marker Topic: /wall_features/markers
+    - Class: rviz/PoseWithCovariance
+      Name: Wall feature pose
+      Enabled: true
+      Topic: /wall_localization/pose
   Tools:
     - Class: rviz/Interact
       Hide Inactive Objects: true
@@ -107,6 +123,12 @@ Visualization Manager:
     - Class: rviz/Select
     - Class: rviz/FocusCamera
     - Class: rviz/Measure
+    - Class: smartcar_region_tool/SetWallPoint
+      Single click: false
+      Topic: /wall_features/point
+    - Class: smartcar_region_tool/DrawRegion
+      Single click: false
+      Topic: /external_region/corner
     - Class: smartcar_region_tool/SetLinePoint
       Single click: false
       Topic: /single_nav/line_point

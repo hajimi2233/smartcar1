@@ -10,6 +10,15 @@ public:
     setName("Draw Region");
   }
 };
+class SetWallPoint : public rviz::PointTool {
+public:
+  SetWallPoint() {
+    shortcut_key_ = 'w';
+    getPropertyContainer()->subProp("Single click")->setValue(false);
+    getPropertyContainer()->subProp("Topic")->setValue("/wall_features/point");
+  }
+  void onInitialize() override { rviz::PointTool::onInitialize(); setName("Draw Localization Walls"); }
+};
 class SetLinePoint : public rviz::PointTool {
 public:
   SetLinePoint() {
@@ -22,3 +31,5 @@ public:
 }
 PLUGINLIB_EXPORT_CLASS(smartcar_region_tool::DrawRegion, rviz::Tool)
 PLUGINLIB_EXPORT_CLASS(smartcar_region_tool::SetLinePoint, rviz::Tool)
+
+PLUGINLIB_EXPORT_CLASS(smartcar_region_tool::SetWallPoint, rviz::Tool)
