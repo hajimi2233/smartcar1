@@ -2,6 +2,7 @@
 import math
 import sys
 import unittest
+import yaml
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src/smartcar_navigation/scripts'))
@@ -19,6 +20,14 @@ class ConfigTests(unittest.TestCase):
 
     def tearDown(self):
         configure()
+
+    def test_shipped_navigation_config_passes_startup_validation(self):
+        path = Path(__file__).resolve().parents[1] / 'config/navigation.yaml'
+        with path.open() as stream:
+            config = yaml.safe_load(stream)
+        values = configure(config['tuning'])
+        for key in ('normal_finish_heading_deg', 'final_finish_heading_deg'):
+            self.assertGreaterEqual(values[key], config['goal_heading_tolerance_deg'])
 
     def test_reference_roundtrip_at_rotated_heading(self):
         configure(dict(wheelbase=.83, goal_reference='custom',

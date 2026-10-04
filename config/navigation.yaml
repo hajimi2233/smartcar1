@@ -70,7 +70,7 @@ tuning:
   stage_finish_heading_deg: 10.0
   final_finish_position: 0.075
   final_finish_heading_deg: 10.0
-  normal_finish_heading_deg: 4.0
+  normal_finish_heading_deg: 10.0
   stage_early_position: 0.1
   stage_early_heading_deg: 8.0
   final_early_position: 0.06
