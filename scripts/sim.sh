@@ -27,6 +27,31 @@ prepare_display() {
   rm -rf "$auth_dir"
 }
 case "$action" in
+  nav)
+    if [ "$#" -gt 1 ]; then echo 'Usage: sim.sh nav [normal|narrow]'; exit 2; fi
+    scene="${1:-narrow}"
+    case "$scene" in
+      normal) map_dir=sim_field_v1; lines=data/navigation/low_cost_lines.json ;;
+      narrow) map_dir=sim_field_narrow; lines=data/maps/sim_field_narrow/low_cost_lines.json ;;
+      *) echo 'Usage: sim.sh nav [normal|narrow]'; exit 2 ;;
+    esac
+    for name in smartcar-baseline smartcar-sim smartcar-sim-gui; do
+      if [ "$("${d[@]}" inspect -f '{{.State.Running}}' "$name" 2>/dev/null || true)" = true ]; then
+        echo "Stop old container $name before starting this project (shared ROS ports)."; exit 2
+      fi
+    done
+    scene_compose=("${c[@]}" -f docker-compose.yml)
+    if [ "$scene" = narrow ]; then scene_compose+=(-f docker-compose.narrow.yml); fi
+    "${scene_compose[@]}" up -d sim
+    "${d[@]}" cp scripts/sim_navigation.py smartcar-layered:/tmp/smartcar-quick-nav.py
+    "${d[@]}" cp scripts/sim_navigation.launch smartcar-layered:/tmp/smartcar-quick-nav.launch
+    echo "Navigation scene: $scene. Open RViz with: bash ~/smartcar1/scripts/sim.sh rviz"
+    nav_terminal=(-i)
+    if [ -t 0 ] && [ -t 1 ]; then nav_terminal+=(-t); fi
+    "${d[@]}" exec "${nav_terminal[@]}" -e SMARTCAR_ROOT=/home/hajimi/smartcar -e SMARTCAR_PROFILE=sim smartcar-layered bash -c \
+      'source /opt/ros/kinetic/setup.bash; source /home/hajimi/smartcar_ws/devel/setup.bash; exec python /tmp/smartcar-quick-nav.py "$@"' \
+      -- "/home/hajimi/smartcar/data/maps/$map_dir/map.yaml" "/home/hajimi/smartcar/$lines"
+    ;;
   build) COMPOSE_BAKE=false DOCKER_BUILDKIT=0 "${c[@]}" build sim ;;
   start)
     for name in smartcar-baseline smartcar-sim smartcar-sim-gui; do
@@ -38,7 +63,8 @@ case "$action" in
   stop) "${c[@]}" stop sim ;;
   logs) "${c[@]}" logs --tail=120 sim ;;
   shell) "${c[@]}" exec sim bash ;;
-  help) echo 'sim.sh build|start|stop|logs|shell; sim.sh <robot.sh stage/tool> [arguments]' ;;
+  help) echo 'Quick navigation: sim.sh nav [normal|narrow]; sim.sh rviz; sim.sh stop'
+    echo 'Advanced: sim.sh build|start|logs|shell; sim.sh <robot.sh stage/tool> [arguments]' ;;
   *)
     display_args=()
     if [ "$action" = rviz ] || [ "$action" = rviz-multi ]; then
