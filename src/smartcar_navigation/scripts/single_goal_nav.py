@@ -3,6 +3,7 @@
 """Simulation-only single front-axle pose navigation. Python 2 / ROS Kinetic."""
 from __future__ import print_function, division
 import math
+import os
 import threading
 import time
 from collections import deque
@@ -16,11 +17,12 @@ from sensor_msgs.msg import LaserScan, JointState
 from std_msgs.msg import String
 from std_srvs.srv import Trigger, TriggerResponse
 from visualization_msgs.msg import Marker
-from local_planner import choose, explain
+from local_planner import choose, explain, guarded_track
 from actuator_model import decode_joints
 from path_tracking import project, motion_observed, replay_command
 from ground_truth_pose import alignment, rear_pose
-from nav_obstacles import smooth_ranges, Recovery, ConsecutiveFailures, obstacle_key
+from low_cost_lines import LineStore, map_key
+from nav_obstacles import smooth_ranges, ConfirmedHits, Recovery, ConsecutiveFailures, obstacle_key
 from ackermann_core import Grid, plan, plan_line_approach, line_retreat_target, segments, speed_profile, rear_target, front_position, wrap, finite, StopWindow
 
 
@@ -72,17 +74,20 @@ class Navigator(object):
         self.joint_feedback = None
         self.last_control_stamp = None
         self.margin = float(rospy.get_param('~collision_margin', .04))
+        self.planning_margin = float(rospy.get_param('~planning_collision_margin', .04))
+        if not finite([self.planning_margin]) or self.planning_margin < self.margin:
+            raise ValueError('planning_collision_margin must be >= collision_margin')
+        self.local_guard_distance = float(rospy.get_param('~local_guard_distance', .10))
+        if not finite([self.local_guard_distance]) or self.local_guard_distance < 0:
+            raise ValueError('local_guard_distance must be finite and nonnegative')
         self.zero_cost_width = float(rospy.get_param('~zero_cost_line_width', .01))
+        self.line_store=LineStore(rospy.get_param('~low_cost_lines_file',os.path.join(
+            os.environ.get('SMARTCAR_ROOT',os.path.expanduser('~/.ros/smartcar')),'data','navigation','low_cost_lines.json')))
+        self.line_map_key=None
         line = [float(rospy.get_param('~zero_cost_line_x1', float('nan'))), float(rospy.get_param('~zero_cost_line_y1', float('nan'))), float(rospy.get_param('~zero_cost_line_x2', float('nan'))), float(rospy.get_param('~zero_cost_line_y2', float('nan')))]
         self.zero_cost_line = [((line[0],line[1]),(line[2],line[3]))] if finite(line) else []
-        for segment in rospy.get_param('/single_nav/zero_cost_lines', []):
-            try:
-                (x1, y1), (x2, y2) = segment
-                coords = tuple(float(v) for v in (x1, y1, x2, y2))
-            except (TypeError, ValueError):
-                continue
-            if finite(coords) and math.hypot(coords[2]-coords[0], coords[3]-coords[1]) >= .001:
-                self.zero_cost_line.append(((coords[0], coords[1]), (coords[2], coords[3])))
+        # Disk records are map-bound. Do not restore unbound ROS parameters
+        # left by another map/session; the first map callback loads the record.
         self.timeout = float(rospy.get_param('~planning_timeout', 5.))
         self.scan_timeout = float(rospy.get_param('~scan_timeout', 1.0))
         self.goal_position_tolerance = float(rospy.get_param('~goal_position_tolerance', .08))
@@ -217,33 +222,36 @@ class Navigator(object):
 
     def local_candidate(self, p, part, diagnostics=None, cap=None):
         steer, speed = self.actuator_state()
-        candidate = choose(self.grid,p,part,self.index,self.local_radius,steer,diagnostics,cap,
+        mode=getattr(self,'maneuver_mode','NORMAL')
+        wall_steer=None
+        if mode=='STRAIGHT' and self.scan is not None:
+            def side_clearance(lo,hi):
+                vals=[v for i,v in enumerate(self.scan.ranges)
+                      if lo<=self.scan.angle_min+i*self.scan.angle_increment<=hi
+                      and finite([v]) and self.scan.range_min<=v<min(self.scan.range_max,2.)]
+                return sorted(vals)[len(vals)//2] if vals else None
+            left,right=side_clearance(.55,1.57),side_clearance(-1.57,-.55)
+            if left is not None and right is not None:
+                imbalance=max(-.35,min(.35,left-right))
+                limit=math.radians(P['wall_max_angle_deg'])
+                # Reverse motion needs the opposite steering sign to move away
+                # from the same side wall.
+                direction=part[-1][3] if part else 1
+                wall_steer=direction*max(-limit,min(limit,imbalance*P['wall_gain']))
+        controller = guarded_track if getattr(self, 'local_guard_distance', 0.) > 0 else choose
+        options = dict(self.tracking_options)
+        if controller is guarded_track:
+            options['guard_distance'] = self.local_guard_distance
+        candidate = controller(self.grid,p,part,self.index,self.local_radius,steer,diagnostics,cap,
                            control_dt=self.control_dt, current_speed=speed,
                            steering_rate=self.steering_rate, actuator_steer_rate=self.actuator['steer_rate'],
                            acceleration=self.actuator['acceleration'], braking=self.actuator['braking'],
-                           **self.tracking_options)
-        if candidate is None or self.scan is None:
-            return candidate
-        # Mode-specific blend: actions 1/2/3 favor path control (80/20);
-        # straight motion favors wall-centering (30/70); NORMAL stays 50/50.
-        ranges = self.scan.ranges; amin = self.scan.angle_min; inc = self.scan.angle_increment
-        def side_clearance(lo, hi):
-            vals=[]
-            for i, value in enumerate(ranges):
-                a=amin+i*inc
-                if lo <= a <= hi and finite([value]) and self.scan.range_min <= value < min(self.scan.range_max, 2.0):
-                    vals.append(value)
-            if not vals: return None
-            vals.sort(); return vals[len(vals)//2]
-        left, right = side_clearance(0.55, 1.57), side_clearance(-1.57, -0.55)
-        if left is None or right is None: return candidate
-        imbalance=max(-0.35,min(0.35,left-right))
-        planned_angle=math.atan(P['wheelbase']*candidate[2])
-        wall_angle=max(-math.radians(P['wall_max_angle_deg']),min(math.radians(P['wall_max_angle_deg']), imbalance*P['wall_gain']))
-        scan_weight = (P['wall_straight_weight'] if self.maneuver_mode == 'STRAIGHT' else (P['wall_maneuver_weight'] if self.maneuver_mode in ('TURN_90_LEFT','TURN_90_RIGHT','LATERAL','LATERAL_TURN_180') else P['wall_normal_weight']))
-        path_weight = 1. - scan_weight
-        blended=path_weight*planned_angle+scan_weight*wall_angle
-        return (candidate[0],candidate[1],math.tan(blended)/P['wheelbase'],blended,candidate[4])
+                           maneuver_mode=mode,wall_steer=wall_steer,wall_weight=P['wall_straight_weight'] if wall_steer is not None else 0.,
+                           **options)
+        # Execute exactly the candidate checked by the actuator rollout and
+        # collision tests. Post-hoc wall blending changes curvature without
+        # validating its swept path and can prevent steering from ramping up.
+        return candidate
 
     def active_speed_cap(self):
         if not self.speed_caps:
@@ -316,6 +324,8 @@ class Navigator(object):
 
     def clear_zero_cost_line(self, _req):
         with self.lock:
+            try:self.line_store.save(self.line_map_key,[])
+            except (IOError,OSError,ValueError) as exc:return TriggerResponse(False,'Lines not cleared: '+str(exc))
             self.zero_cost_line = []
             rospy.set_param('/single_nav/zero_cost_lines', [])
             self._pending_line_point = None
@@ -329,6 +339,8 @@ class Navigator(object):
         if not finite(point):
             self.status('ZERO_COST_LINE: rejected nonfinite point'); return
         with self.lock:
+            if self.line_map_key is None:
+                self.status('ZERO_COST_LINE: wait for map before drawing');return
             pending = self._pending_line_point
             if pending is None:
                 self._pending_line_point=point
@@ -337,10 +349,14 @@ class Navigator(object):
                 return
             if math.hypot(point[0]-pending[0],point[1]-pending[1]) < .001:
                 self.status('ZERO_COST_LINE: endpoint too close; choose another endpoint'); return
-            self.zero_cost_line.append((pending,point)); self._pending_line_point=None
+            lines=self.zero_cost_line+[(pending,point)]
+            try:self.line_store.save(self.line_map_key,lines)
+            except (IOError,OSError,ValueError) as exc:
+                self.status('ZERO_COST_LINE: save failed; endpoint not committed: '+str(exc));return
+            self.zero_cost_line=lines; self._pending_line_point=None
             rospy.set_param('/single_nav/zero_cost_lines', self.zero_cost_line)
             self.publish_line_markers()
-            self.status('ZERO_COST_LINE: %d lines; click next start/end pair; applies to next plan' % len(self.zero_cost_line))
+            self.status('ZERO_COST_LINE: %d lines saved; click next start/end pair; applies to next plan' % len(self.zero_cost_line))
 
     def publish_line_markers(self):
         # One latched message contains every line and the pending-start cross.
@@ -371,11 +387,25 @@ class Navigator(object):
             if self.goal is not None:
                 self.halt('MAP_CHANGED: resend goal after localization stabilizes')
             self.grid = grid
+            self.hit_confirmation = ConfirmedHits()
+            key=map_key(msg)
+            if key!=self.line_map_key:
+                first=self.line_map_key is None
+                self.line_map_key=key;self._pending_line_point=None
+                try:
+                    saved=self.line_store.load(key)
+                    self.zero_cost_line=saved if saved is not None else (self.zero_cost_line if first else [])
+                    if saved is None and self.zero_cost_line:self.line_store.save(key,self.zero_cost_line)
+                    self.status('ZERO_COST_LINE: loaded %d lines for this map; draw with RViz L tool' % len(self.zero_cost_line))
+                except (IOError,OSError,ValueError) as exc:
+                    self.zero_cost_line=[];self.status('ZERO_COST_LINE: load failed: '+str(exc))
+                rospy.set_param('/single_nav/zero_cost_lines',self.zero_cost_line)
+                self.publish_line_markers()
 
     def on_scan(self, msg):
-        with self.lock:
-            self.scan, self.scan_received = msg, time.time()
-            self.scans.append(msg)
+        # Sensor delivery must not queue behind planning/control work.
+        self.scan, self.scan_received = msg, time.time()
+        self.scans.append(msg)
 
     def pose(self):
         if self.ground_truth_test:
@@ -387,12 +417,22 @@ class Navigator(object):
         now = rospy.Time.now()
         stamp = self.tf.getLatestCommonTime(P['odom_frame'],P['base_frame'])
         age = (now-stamp).to_sec()
-        if not 0 <= age <= P['pose_timeout']:
+        if stamp.to_sec()==0 or not 0 <= age <= P['pose_timeout']:
             raise RuntimeError('local odom TF stale or time reset')
-        # Query map pose at the continuous odom sample time, not stale AMCL pose.
-        xyz, q = self.tf.lookupTransform(P['map_frame'],P['base_frame'],stamp)
-        yaw = tf.transformations.euler_from_quaternion(q)[2]
-        p = to_rear((xyz[0],xyz[1],yaw), 'base')
+        # Map matching finishes after scan odometry. Hold the latest fresh map
+        # correction and advance it with odometry; never query a map TF in its
+        # future or silently freeze the vehicle at the previous scan position.
+        map_stamp = self.tf.getLatestCommonTime(P['map_frame'],P['base_frame'])
+        map_age = (now-map_stamp).to_sec()
+        if map_stamp.to_sec()==0 or not 0 <= map_age <= P['pose_timeout']:
+            raise RuntimeError('map localization TF stale or time reset')
+        correction, cq = self.tf.lookupTransform(P['map_frame'],P['odom_frame'],map_stamp)
+        xyz, q = self.tf.lookupTransform(P['odom_frame'],P['base_frame'],stamp)
+        angle = tf.transformations.euler_from_quaternion(cq)[2]
+        c,s = math.cos(angle),math.sin(angle)
+        yaw = wrap(angle+tf.transformations.euler_from_quaternion(q)[2])
+        p = to_rear((correction[0]+c*xyz[0]-s*xyz[1],
+                     correction[1]+s*xyz[0]+c*xyz[1],yaw), 'base')
         if not finite(p): raise RuntimeError('nonfinite pose')
         return p
 
@@ -407,7 +447,7 @@ class Navigator(object):
 
     def obstacles(self):
         """Transform fresh laser hits at scan timestamp, including laser extrinsic."""
-        scan = next((s for s in reversed(self.scans)
+        scan = next((s for s in reversed(tuple(self.scans))
                      if 0 <= (rospy.Time.now()-s.header.stamp).to_sec() <= self.scan_timeout
                      and self.tf.canTransform(P['map_frame'],s.header.frame_id,s.header.stamp)),None)
         if scan is None:
@@ -420,8 +460,15 @@ class Navigator(object):
         for i, distance in enumerate(ranges[::P['scan_stride']]):
             if finite([distance]) and scan.range_min <= distance < min(scan.range_max, P['scan_obstacle_range']):
                 a = yaw + scan.angle_min + (P['scan_stride']*i)*scan.angle_increment
-                cells.add(self.grid.cell(xyz[0]+distance*math.cos(a),xyz[1]+distance*math.sin(a)))
-        self.grid.dynamic = cells  # All valid live hits; collision margin remains minimal.
+                cell = self.grid.cell(xyz[0]+distance*math.cos(a),xyz[1]+distance*math.sin(a))
+                # A mapped wall is already represented by the static grid.  Do
+                # not feed its normal laser return back as LIVE_SCAN, otherwise
+                # the safety supervisor sees the same wall twice and may stop.
+                if not self.grid.known_static_near(cell[0], cell[1], 1):
+                    cells.add(cell)
+        if not hasattr(self, 'hit_confirmation'):
+            self.hit_confirmation = ConfirmedHits()
+        self.grid.set_dynamic(self.hit_confirmation.update(cells, scan.header.stamp.to_sec()))
 
     def wait_obstacle(self, reason):
         self.cmd.publish(Twist())
@@ -579,7 +626,7 @@ class Navigator(object):
                   if mode != 'NORMAL' else self.goal_heading_tolerance)
         goal = to_rear(requested_goal, 'goal')
         # A snapshot prevents /scan and map updates mutating a planner's grid.
-        grid = Grid(self.grid.w,self.grid.h,self.grid.res,self.grid.origin,self.grid.data,self.margin)
+        grid = Grid(self.grid.w,self.grid.h,self.grid.res,self.grid.origin,self.grid.data,self.planning_margin)
         grid.dynamic = set(self.grid.dynamic)
         grid.zero_cost_width = self.zero_cost_width
         grid.zero_cost_line = list(self.zero_cost_line)
@@ -590,8 +637,13 @@ class Navigator(object):
                 stage = self.line_stage
                 selected = None
                 if stage == 'FINAL':
+                    # The final approach may finish within the configured
+                    # left/right heading window.  The maneuver heading cap
+                    # belongs to the line entry/retreat stages and must not
+                    # silently reduce the final-goal tolerance.
+                    final_sector = self.goal_heading_tolerance
                     path = plan(grid,pose,goal,self.radius,self.timeout,cancel,
-                                self.goal_position_tolerance,sector,mode,requested_goal)
+                                min(self.goal_position_tolerance, .025),final_sector,mode,requested_goal)
                     target = requested_goal
                 elif stage == 'RETREAT_LINE':
                     target = line_target
@@ -601,7 +653,7 @@ class Navigator(object):
                     special = mode in ('LATERAL','LATERAL_TURN_180')
                     path, selected = (plan_line_approach(
                         grid,pose,goal,self.radius,self.timeout,cancel,
-                        self.goal_position_tolerance,sector,mode,requested_goal)
+                        min(self.goal_position_tolerance, .025),min(sector, self.goal_heading_tolerance),mode,requested_goal)
                         if special and grid.zero_cost_line else (None,None))
                     if selected is None:
                         if special and grid.zero_cost_line:
@@ -796,6 +848,13 @@ class Navigator(object):
         cmd.angular.z = v*k
         self.cmd.publish(cmd)
 
+    def early_arrival_tolerances(self):
+        # FINAL is also a nonempty line-stage name, but it must use the
+        # final-goal thresholds rather than the looser intermediate stop.
+        transition = self.line_stage in ('APPROACH_LINE', 'RETREAT_LINE')
+        return (P['stage_early_position'] if transition else P['final_early_position'],
+                math.radians(P['stage_early_heading_deg'] if transition else P['final_early_heading_deg']))
+
     def tick(self):
         stamp = rospy.Time.now().to_sec()
         elapsed = P['control_period'] if self.last_control_stamp is None else stamp-self.last_control_stamp
@@ -876,11 +935,12 @@ class Navigator(object):
         actual_xy = p[:2] if self.line_stage in ('APPROACH_LINE', 'RETREAT_LINE') else (fx,fy)
         early_heading = (self.execution_heading if self.line_stage in ('APPROACH_LINE', 'RETREAT_LINE')
                          else self.goal[2])
-        if final and math.hypot(actual_xy[0]-target_xy[0],actual_xy[1]-target_xy[1]) <= (P['stage_early_position'] if self.line_stage else P['final_early_position']) and abs(wrap(p[2]-early_heading)) <= math.radians(P['stage_early_heading_deg'] if self.line_stage else P['final_early_heading_deg']):
+        early_position, early_angle = self.early_arrival_tolerances()
+        if final and math.hypot(actual_xy[0]-target_xy[0],actual_xy[1]-target_xy[1]) <= early_position and abs(wrap(p[2]-early_heading)) <= early_angle:
             self.state='VERIFY_STOP';self.still_since=None;self.cmd.publish(Twist());return
         if not final and remaining < .035 and index >= len(part)-8:
             self.state='CUSP';self.still_since=None;self.cmd.publish(Twist());return
-        if final and index >= len(part)-2 and remaining < .025:
+        if final and index >= len(part)-2 and remaining < .005:
             self.state='VERIFY_STOP';self.still_since=None;self.cmd.publish(Twist());return
         if now-self.last_movement > P['progress_timeout']:
             raise RuntimeError('no measurable motion within configured timeout')

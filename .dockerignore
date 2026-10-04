@@ -18,3 +18,8 @@ build
 devel
 install
 *.zip
+
+# Runtime user drawings are bind-mounted, never baked into an image.
+data/navigation
+data/logs
+local_project

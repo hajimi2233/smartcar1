@@ -2,6 +2,7 @@
 # Native ROS entry point. Every long-running stage stays in its own terminal.
 set -euo pipefail
 project_root="${SMARTCAR_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
+export SMARTCAR_ROOT="$project_root"
 profile="${SMARTCAR_PROFILE:-real}"
 case "$profile" in sim) nav_config="$project_root/config/navigation.yaml" ;; real) nav_config="$project_root/config/navigation-real.yaml" ;; *) echo 'SMARTCAR_PROFILE must be sim or real'; exit 2 ;; esac
 nav_config="${SMARTCAR_NAV_CONFIG:-$nav_config}"
@@ -42,6 +43,9 @@ case "$stage" in
     require_ros; reject_nodes /slam_gmapping /amcl /slam_map_server /wall_localizer /single_goal_nav /multi_goal_nav
     if [ "$#" -lt 1 ]; then echo 'Usage: robot.sh localization /absolute/map.yaml [scan_odometry:=false ...]'; exit 2; fi
     check_abs_file "$1"; map_file="$1"; shift
+    if [[ " $* " == *" wheel_fusion:=true "* ]] && [[ " $* " != *" wall_features:=true "* ]]; then
+      echo 'wheel_fusion:=true currently requires wall_features:=true'; exit 2
+    fi
     for arg in "$@"; do
       if [ "$arg" = wall_features:=true ]; then reject_nodes /region_editor /corridor_monitor /wall_editor; fi
     done
@@ -53,6 +57,13 @@ case "$stage" in
       launch=planning_test.launch
     else launch="$stage.launch"; fi
     exec roslaunch smartcar_bringup "$launch" config_file:="$nav_config" "$@" ;;
+  wheel-test)
+    require_ros
+    if [ "$profile" != sim ]; then echo 'wheel-test is simulation-only'; exit 2; fi
+    reject_nodes /sim_wheel_pulses /localization_evaluator
+    exec roslaunch smartcar_localization wheel_experiment.launch output:="$project_root/data/logs/wheel_eval_$(date +%Y%m%d_%H%M%S).jsonl" "$@" ;;
+  wheel-results)
+    require_ros; exec rostopic echo /localization_eval/summary ;;
   walls)
     require_ros; exec rosrun smartcar_localization wall_command.py "$@" ;;
   wall-status)
@@ -82,6 +93,8 @@ case "$stage" in
     if [ "$#" -ne 3 ]; then echo 'Usage: robot.sh goal X Y YAW_DEGREES'; exit 2; fi
     reject_nodes /multi_goal_nav
     exec rosrun smartcar_navigation send_single_goal.py "$@" ;;
+  lines-clear)
+    require_ros; exec rosservice call /single_nav/clear_zero_cost_line ;;
   multi-execute|multi-clear|multi-undo|multi-cancel)
     require_ros; exec rosservice call "/multi_goal_nav/${stage#multi-}" ;;
   cancel)
@@ -92,6 +105,7 @@ case "$stage" in
     exec rosrun smartcar_drivers check_stage.py _stage:="$1" _profile:="$profile" _navigation_config:="$nav_config" ;;
   *)
     echo 'Stages: drivers-real, drivers-sim, mapping, save-map, localization, single, multi, planning-test'
+    echo 'Wheel experiment (sim): wheel-test [scale_error:=0.05], localization MAP wall_features:=true wheel_fusion:=true, wheel-results'
     echo 'Walls: localization MAP wall_features:=true; walls inside|outside|undo|delete GROUP ID|clear GROUP|radius METRES|preview|save|load|cancel|list; wall-status'
     echo 'Corridor: corridor [region_file:=/absolute/region.json], region begin|undo|save|cancel|clear, corridor-state'
     echo 'Tools: check STAGE, rviz, rviz-multi, keyboard-sim, goal X Y YAW, cancel, multi-execute/clear/undo/cancel'

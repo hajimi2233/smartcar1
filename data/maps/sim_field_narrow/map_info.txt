@@ -1,0 +1,6 @@
+frame_id=sim_world
+upper_wall_center_y=3.2
+lower_wall_center_y=-3.0
+upper_clear_turn_area=1.36
+lower_clear_turn_area=1.16
+map_source=laser-height SDF collision boxes

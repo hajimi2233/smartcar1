@@ -10,7 +10,7 @@ src/
   smartcar_description/   仿真车体模型
   smartcar_sim/           Gazebo 底盘插件、模拟雷达与仿真工具
   smartcar_mapping/       建图
-  smartcar_localization/  激光里程计与 AMCL 定位
+  smartcar_localization/  激光里程计与全地图/选墙匹配，保留 AMCL
   smartcar_navigation/    单点全局规划、局部跟踪、导航参数
   smartcar_mission/       多点任务顺序管理
   smartcar_bringup/       各层组合入口、RViz 配置
@@ -39,6 +39,8 @@ bash scripts/sim.sh rviz
 bash scripts/sim.sh single
 ```
 
+默认 `localization` 使用雷达帧间里程计＋全地图墙面局部匹配，需要在 RViz 用 **2D Pose Estimate** 设置初始位姿；不需要画框、选墙或轮脉冲。用 `bash scripts/sim.sh wall-status` 查看 `target_mode: full_map` 与 `state: MATCHED`。显式添加 `wall_features:=true` 仍使用手动选墙模式；添加 `localization_mode:=amcl` 可使用原 AMCL。当前不会自动按通道内外切换算法。
+
 `start` 只启动驱动层，不会自动启动定位。原 `smartcar.sh nav/nav-test/multi-nav` 的替代命令见复现手册。停止项目用 `bash scripts/sim.sh stop`。首次使用分层版应先停止旧版容器，不能让两套 ROS 共用端口同时运行。
 
 实车当前仍针对 ROS1 Kinetic 接口；没有执行 ROS 版本升级。Linux/ROS/Gazebo 的构建和实际运行需要在目标环境验收，离线检查结果见 `docs/VALIDATION.md`。
@@ -46,3 +48,13 @@ bash scripts/sim.sh single
 通道内外判断：复用四角画框工具，按车辆定位参考点是否进框发布状态，操作见 [通道判断说明](docs/CORRIDOR.md)。
 
 手动墙体特征定位：分别画线选择通道内/外优先墙，将线膨胀成区域，匹配区域覆盖的地图墙体，支持编号删除及保存加载，见 [墙体定位说明](docs/WALL_FEATURES.md)。
+
+轮距融合仿真：模拟有符号累计脉冲，与墙体定位融合，并同步对比纯雷达估计，见 [轮距融合验证](docs/WHEEL_FUSION.md)。
+
+低代价线随导航启动自动加载：启动 `single` 或 `multi` 后，在 RViz 点击 **Draw Low-Cost Lines**（快捷键 **L**），依次点击起点和终点；每条完成后自动保存，下次使用同一张地图自动恢复。记录保存在 `data/navigation/low_cost_lines.json`，重启容器也保留。新画的线用于下一次规划，不会突然修改正在执行的路径。清空并保存用：
+
+```bash
+bash ~/smartcar1/scripts/sim.sh lines-clear
+```
+
+墙体居中修正仅在 `STRAIGHT` 模式且当前路径段为直线时参与，修正后的转向仍经过转向速率限制、轨迹预测及碰撞检查。普通模式和弯道不再被墙体居中修改。

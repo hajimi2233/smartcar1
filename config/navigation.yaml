@@ -8,11 +8,14 @@ tracking_lateral_gain: 6.0
 tracking_heading_gain: 4.0
 tracking_preview_distance: 0.35
 collision_margin: 0.02
+planning_collision_margin: 0.04
+# 0 selects the previous local candidate rollout for comparison.
+local_guard_distance: 0.10
 zero_cost_line_width: 0.01
 planning_timeout: 5.0
 scan_timeout: 1.0
 goal_position_tolerance: 0.04
-goal_heading_tolerance_deg: 1.5
+goal_heading_tolerance_deg: 10.0
 ground_truth_test: false
 test_replay_speed_scale: 2.0
 test_auto_arrive: false
@@ -66,12 +69,12 @@ tuning:
   stage_finish_position: 0.12
   stage_finish_heading_deg: 10.0
   final_finish_position: 0.075
-  final_finish_heading_deg: 5.0
+  final_finish_heading_deg: 10.0
   normal_finish_heading_deg: 4.0
   stage_early_position: 0.1
   stage_early_heading_deg: 8.0
   final_early_position: 0.06
-  final_early_heading_deg: 4.0
+  final_early_heading_deg: 8.0
   # Normal planned speed caps; nav-test scale is applied separately.
   forward_speed: 0.07
   reverse_speed: 0.045

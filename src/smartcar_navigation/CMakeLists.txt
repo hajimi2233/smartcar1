@@ -22,3 +22,6 @@ install(DIRECTORY launch DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 
 configure_file(scripts/corridor_geometry.py ${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_BIN_DESTINATION}/corridor_geometry.py COPYONLY)
 install(FILES scripts/corridor_geometry.py DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
+configure_file(scripts/low_cost_lines.py ${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_BIN_DESTINATION}/low_cost_lines.py COPYONLY)
+install(FILES scripts/low_cost_lines.py DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

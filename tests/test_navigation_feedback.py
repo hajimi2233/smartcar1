@@ -58,6 +58,17 @@ class FeedbackTests(unittest.TestCase):
                           acceleration=.3, braking=.5, steer_rate=2.5)
         return n
 
+    def test_guard_controller_receives_measured_actuator_state(self):
+        n=self.node()
+        n.local_guard_distance=.1
+        n.grid=object();n.index=2;n.local_radius=1.1
+        n.steering_rate=1.;n.control_dt=.05
+        n.actuator_state=lambda:(.2,.04)
+        with patch.object(self.module,'guarded_track',return_value='guarded') as guard:
+            self.assertEqual(n.local_candidate((0,0,0),[]),'guarded')
+            self.assertEqual(guard.call_args[1]['guard_distance'],.1)
+            self.assertEqual(guard.call_args[1]['current_speed'],.04)
+
     def test_feedback_freshness_both_clocks(self):
         n = self.node()
         with patch.object(self.module.time, 'time', return_value=20.):
@@ -220,3 +231,131 @@ class FeedbackTests(unittest.TestCase):
         self.assertTrue(n.halt.call_args[0][0].startswith('FINAL_TOLERANCE_FAILED:'))
         n.finish_stage((.69-.62*math.cos(.08), -.62*math.sin(.08), .08))
         self.assertTrue(n.halt.call_args[0][0].startswith('SUCCEEDED:'))
+
+class LocalizationTimingTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.module = load_navigation()
+
+    class Stamp:
+        def __init__(self, value): self.value = value
+        def to_sec(self): return self.value
+        def __sub__(self, other): return type(self)(self.value-other.value)
+
+    def setup_pose(self, odom_time=666.458, map_time=666.358):
+        module=self.module
+        n=module.Navigator.__new__(module.Navigator);n.ground_truth_test=False
+        calls=[];stamp=self.Stamp
+        def latest(parent,child):
+            return stamp(odom_time if parent==module.P['odom_frame'] else map_time)
+        def lookup(parent,child,t):
+            calls.append((parent,child,t.to_sec()))
+            if parent==module.P['map_frame'] and child==module.P['odom_frame']:
+                if t.to_sec()>map_time:raise RuntimeError('future map TF')
+                return (1.,2.,0.),math.pi/2
+            if parent==module.P['odom_frame'] and child==module.P['base_frame']:
+                return (3.,4.,0.),.2
+            raise AssertionError('Must not query map->base at newest odometry time')
+        n.tf=types.SimpleNamespace(getLatestCommonTime=latest,lookupTransform=lookup)
+        return n,calls
+
+    def test_one_scan_map_delay_uses_current_odometry(self):
+        m=self.module;n,calls=self.setup_pose()
+        with patch.object(m.rospy,'Time',types.SimpleNamespace(now=lambda:self.Stamp(666.492))), \
+             patch.object(m.tf,'transformations',types.SimpleNamespace(euler_from_quaternion=lambda q:(0,0,q)),create=True), \
+             patch.object(m,'to_rear',lambda p,ref:p):
+            pose=n.pose()
+        self.assertAlmostEqual(pose[0],-3.)
+        self.assertAlmostEqual(pose[1],5.)
+        self.assertAlmostEqual(pose[2],math.pi/2+.2)
+        self.assertEqual([c[2] for c in calls],[666.358,666.458])
+
+    def test_fresh_odometry_does_not_hide_stale_localization(self):
+        m=self.module;n,calls=self.setup_pose(map_time=665.8)
+        with patch.object(m.rospy,'Time',types.SimpleNamespace(now=lambda:self.Stamp(666.492))):
+            with self.assertRaisesRegex(RuntimeError,'map localization TF stale'):n.pose()
+        self.assertEqual(calls,[])
+
+    def test_stale_odometry_still_stops(self):
+        m=self.module;n,calls=self.setup_pose(odom_time=665.8)
+        with patch.object(m.rospy,'Time',types.SimpleNamespace(now=lambda:self.Stamp(666.492))):
+            with self.assertRaisesRegex(RuntimeError,'local odom TF stale'):n.pose()
+
+
+class ExecutedTrajectoryTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):cls.module=load_navigation()
+
+    def test_wall_returns_cannot_rewrite_validated_command(self):
+        m=self.module
+        for mode in ('NORMAL','STRAIGHT','TURN_90_LEFT'):
+            for left,right in ((1.,1.),(.4,1.2),(1.2,.4)):
+                for angle in (.05,-.05):
+                    n=m.Navigator.__new__(m.Navigator)
+                    n.actuator_state=lambda:(0.,.05)
+                    n.grid=object();n.index=0;n.local_radius=1.1;n.control_dt=.05;n.steering_rate=1.
+                    n.actuator=dict(steer_rate=2.5,acceleration=.3,braking=.5)
+                    n.tracking_options={};n.maneuver_mode=mode
+                    n.scan=types.SimpleNamespace(ranges=[right,left],angle_min=-1.,angle_increment=2.,range_min=.05,range_max=25.)
+                    candidate=(.1,.05,math.tan(angle)/m.P['wheelbase'],angle,[(0.,0.,0.)])
+                    with patch.object(m,'choose',return_value=candidate):
+                        self.assertIs(n.local_candidate((0,0,0),[]),candidate)
+
+    def test_no_safe_candidate_remains_no_command(self):
+        m=self.module;n=m.Navigator.__new__(m.Navigator)
+        n.actuator_state=lambda:(0.,0.)
+        n.grid=object();n.index=0;n.local_radius=1.1;n.control_dt=.05;n.steering_rate=1.
+        n.actuator=dict(steer_rate=2.5,acceleration=.3,braking=.5);n.tracking_options={}
+        with patch.object(m,'choose',return_value=None):self.assertIsNone(n.local_candidate((0,0,0),[]))
+
+if __name__ == '__main__':
+    unittest.main()
+
+class ScanFilterTests(unittest.TestCase):
+    def test_invalid_returns_skipped_and_free_space_obstacle_kept(self):
+        from ackermann_core import Grid
+        m=load_navigation()
+        class Stamp:
+            def __sub__(self, other): return self
+            def to_sec(self): return 0.
+            def to_nsec(self): return 100
+        m.rospy.Time=types.SimpleNamespace(now=lambda:Stamp())
+        m.tf.transformations=types.SimpleNamespace(euler_from_quaternion=lambda q:(0,0,0))
+        n=m.Navigator.__new__(m.Navigator)
+        data=[0]*40000
+        g=Grid(200,200,.02,(-2,-2,0),data,.02)
+        wall=g.cell(.4,0);data[wall[1]*200+wall[0]]=100
+        n.grid=Grid(200,200,.02,(-2,-2,0),data,.02)
+        n.scan_timeout=1.
+        n.hit_confirmation=types.SimpleNamespace(update=lambda cells, stamp: cells)
+        scan=types.SimpleNamespace(header=types.SimpleNamespace(stamp=Stamp(),frame_id='laser'),
+             ranges=[float('nan'),float('inf'),.4,.6,.01],range_min=.05,range_max=20.,angle_min=0.,angle_increment=0.)
+        n.scans=[scan]
+        n.tf=types.SimpleNamespace(canTransform=lambda *a:True,lookupTransform=lambda *a:((0,0,0),(0,0,0,1)))
+        with patch.object(m,'smooth_ranges',side_effect=lambda ranges,*a:ranges), patch.dict(m.P,scan_stride=1):
+            n.obstacles()
+        self.assertEqual(n.grid.dynamic,{n.grid.cell(.6,0.)})
+
+class ScanDeliveryTests(unittest.TestCase):
+    def test_scan_callback_does_not_wait_for_navigation_lock(self):
+        from collections import deque
+        m=load_navigation();n=m.Navigator.__new__(m.Navigator)
+        class HeldLock:
+            def __enter__(self): raise AssertionError('scan blocked by planner')
+            def __exit__(self,*args): pass
+        n.lock=HeldLock();n.scans=deque(maxlen=8)
+        msg=object()
+        n.on_scan(msg)
+        self.assertIs(n.scan,msg)
+        self.assertEqual(list(n.scans),[msg])
+
+class ArrivalStageTests(unittest.TestCase):
+    def test_final_line_stage_uses_final_not_intermediate_tolerance(self):
+        m=load_navigation();n=m.Navigator.__new__(m.Navigator)
+        for stage in (None,'FINAL'):
+            n.line_stage=stage
+            self.assertEqual(n.early_arrival_tolerances(),(m.P['final_early_position'],math.radians(m.P['final_early_heading_deg'])))
+            self.assertLess(n.early_arrival_tolerances()[0],m.P['final_finish_position'])
+        for stage in ('APPROACH_LINE','RETREAT_LINE'):
+            n.line_stage=stage
+            self.assertEqual(n.early_arrival_tolerances()[0],m.P['stage_early_position'])

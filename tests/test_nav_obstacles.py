@@ -38,3 +38,18 @@ class ConsecutiveTests(unittest.TestCase):
         for key in ['REGION','SCAN','TRACKING','REGION','SCAN']:
             self.assertTrue(f.record(key))
         self.assertFalse(f.record('SCAN'))
+
+class ConfirmedHitTests(unittest.TestCase):
+    def test_spike_and_repeat_tick_do_not_confirm(self):
+        from nav_obstacles import ConfirmedHits
+        c=ConfirmedHits()
+        self.assertEqual(c.update({(1,2)},1.),set())
+        self.assertEqual(c.update({(1,2)},1.),set())
+        self.assertEqual(c.update(set(),1.1),set())
+    def test_thin_obstacle_confirmed_and_stale_cleared(self):
+        from nav_obstacles import ConfirmedHits
+        c=ConfirmedHits()
+        c.update({(1,2)},1.)
+        self.assertEqual(c.update({(1,3)},1.1),{(1,3)})
+        self.assertEqual(c.update({(1,3)},2.),set())
+        self.assertEqual(c.update({(1,3)},.5),set())

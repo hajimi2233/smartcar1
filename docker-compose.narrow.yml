@@ -1,0 +1,9 @@
+# Explicit opt-in; geometry and occupancy map must switch together.
+services:
+  sim:
+    command:
+      - drivers-sim
+      - gui:=false
+      - rviz:=false
+      - data_dir:=/home/hajimi/smartcar/data/maps/sim_field_narrow
+      - world_file:=/home/hajimi/smartcar/data/maps/sim_field_narrow/inspection.world

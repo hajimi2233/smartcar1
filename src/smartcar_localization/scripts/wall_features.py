@@ -120,7 +120,7 @@ def scan_points(scan, laser_pose, max_range=12.):
             np.dot(normals[continuous],rot.T))
 
 
-def match(points, normals, predicted, walls, options=None):
+def match(points, normals, predicted, walls, options=None, motion_prior=None):
     """Only selected wall residuals enter the solve. Nullspace stays at odometry.
 
     Local association needs a reasonable initial pose; this is not global
@@ -202,7 +202,16 @@ def match(points, normals, predicted, walls, options=None):
         last=associate(pose)
         if last is None: return None,dict(reason='NO_WALL_SUPPORT')
         j,r,w,used=last;h=np.dot(j.T*w,j);g=np.dot(j.T,w*r)
-        values,vectors=np.linalg.eigh(h);keep=values>max(values[-1]*cfg['eigen_ratio'],1e-9)
+        rank_threshold=max(np.linalg.eigvalsh(h)[-1]*cfg['eigen_ratio'],1e-9)
+        if motion_prior is not None:
+            from wheel_distance import prior_residual_jacobian
+            residual,jacobian=prior_residual_jacobian(pose,motion_prior)
+            jacobian=np.asarray(jacobian)
+            # Map residual scale is 5 cm. Encoder is a longitudinal increment only;
+            # it supplies no absolute position or independent yaw observation.
+            strength=.0025/motion_prior['sigma']**2
+            h+=strength*np.outer(jacobian,jacobian);g+=strength*jacobian*residual
+        values,vectors=np.linalg.eigh(h);keep=values>rank_threshold
         rank=int(np.sum(keep))
         if rank < 2: return None,dict(reason='DEGENERATE',rank=rank)
         step=-np.dot(vectors[:,keep],np.dot(vectors[:,keep].T,g)/values[keep])
@@ -216,7 +225,13 @@ def match(points, normals, predicted, walls, options=None):
     j,r,w,used=last;rms=math.sqrt(float(np.sum(w*r*r)/np.sum(w)))
     if rms>cfg['max_rms']: return None,dict(reason='RESIDUAL_TOO_HIGH',rms=rms)
     # Report weak directions explicitly, never claim a parallel wall fixes along-wall position.
-    h=np.dot(j.T*w,j);values,vectors=np.linalg.eigh(h);keep=values>max(values[-1]*cfg['eigen_ratio'],1e-9)
+    h=np.dot(j.T*w,j)
+    rank_threshold=max(np.linalg.eigvalsh(h)[-1]*cfg['eigen_ratio'],1e-9)
+    map_rank=int(np.sum(np.linalg.eigvalsh(h)>rank_threshold))
+    if motion_prior is not None:
+        residual,jacobian=prior_residual_jacobian(pose,motion_prior)
+        h+=(.0025/motion_prior['sigma']**2)*np.outer(jacobian,jacobian)
+    values,vectors=np.linalg.eigh(h);keep=values>rank_threshold
     covariance=np.dot(vectors,np.dot(np.diag(np.where(keep,.0025/np.maximum(values,1e-9),1.)),vectors.T))
-    return tuple(pose),dict(reason='MATCHED' if np.sum(keep)==3 else 'PARTIAL',rank=int(np.sum(keep)),
+    return tuple(pose),dict(reason='MATCHED' if map_rank==3 else 'PARTIAL',rank=int(np.sum(keep)),map_rank=map_rank,
                            rms=rms,points=len(r),wall_ids=used,covariance=covariance.tolist())

@@ -68,3 +68,25 @@ class SteeringReversalTests(unittest.TestCase):
  def test_same_direction_adjustment_has_no_reversal_penalty(self):
   g=Grid(160,160,.05,(-4,-4,0),[0]*25600); out=choose(g,(0,0,0),[(i*.0125,0,0,1,0) for i in range(81)],0,1.3,.04)
   self.assertIsNotNone(out)
+
+class WallPreferenceTests(unittest.TestCase):
+ def test_nonstraight_modes_ignore_wall_preference(self):
+  g=Grid(160,160,.05,(-4,-4,0),[0]*25600)
+  segment=[(i*.0125,0,0,1,0) for i in range(81)]
+  for mode in ('NORMAL','TURN_90_LEFT','LATERAL'):
+   baseline=choose(g,(0,0,0),segment,0,1.1,0,maneuver_mode=mode)
+   biased=choose(g,(0,0,0),segment,0,1.1,0,maneuver_mode=mode,wall_steer=.25,wall_weight=.7)
+   self.assertEqual(baseline,biased)
+ def test_straight_goal_curved_segment_keeps_tracking(self):
+  g=Grid(160,160,.05,(-4,-4,0),[0]*25600);p=(0,0,0);segment=[p+(1,.2)]
+  for i in range(80):
+   p=advance(p,.0125,.2);segment.append(p+(1,.2))
+  a=choose(g,(0,0,0),segment,0,1.1,0,maneuver_mode='STRAIGHT')
+  b=choose(g,(0,0,0),segment,0,1.1,0,maneuver_mode='STRAIGHT',wall_steer=-.25,wall_weight=.7)
+  self.assertEqual(a,b)
+ def test_straight_bias_is_slew_limited_and_in_predicted_path(self):
+  g=Grid(160,160,.05,(-4,-4,0),[0]*25600);segment=[(i*.0125,0,0,1,0) for i in range(81)]
+  result=choose(g,(0,0,0),segment,0,1.1,0,current_speed=.05,maneuver_mode='STRAIGHT',wall_steer=.2,wall_weight=.7)
+  self.assertIsNotNone(result);self.assertGreater(result[3],0);self.assertLessEqual(result[3],.05+1e-9)
+  self.assertGreater(result[4][0][2],0)
+  self.assertTrue(all(g.free(p) for p in result[4]))

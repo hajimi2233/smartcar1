@@ -5,6 +5,7 @@ from __future__ import division
 import heapq
 import math
 import time
+import bisect
 from region_geometry import intersects
 from nav_config import P, from_rear
 
@@ -52,6 +53,7 @@ class Grid(object):
         self.margin = margin
         self.front, self.back, self.half_width = P['body_front'], P['body_rear'], P['collision_half_width']
         self.dynamic = set()
+        self.static_rows = [[] for _ in range(height)]
         self.region = []
         self.region_margin = P['region_margin']
         self.zero_cost_line = []
@@ -61,7 +63,10 @@ class Grid(object):
         for j in range(height):
             row = 0
             for i in range(width):
-                row += int(data[j*width+i] < 0 or data[j*width+i] >= 50)
+                blocked = data[j*width+i] < 0 or data[j*width+i] >= 50
+                row += int(blocked)
+                if blocked:
+                    self.static_rows[j].append(i)
                 self.prefix[(j+1)*(width+1)+i+1] = self.prefix[j*(width+1)+i+1] + row
 
     def cell(self, x, y):
@@ -78,6 +83,22 @@ class Grid(object):
         return (i < 0 or j < 0 or i >= self.w or j >= self.h or
                 self.data[j * self.w + i] < 0 or self.data[j * self.w + i] >= 50 or
                 (i, j) in self.dynamic)
+
+    def static_occupied(self, i, j):
+        return (i < 0 or j < 0 or i >= self.w or j >= self.h or
+                self.data[j * self.w + i] < 0 or self.data[j * self.w + i] >= 50)
+
+    def known_static_near(self, i, j, radius_cells=1):
+        for row in range(max(0, j-radius_cells), min(self.h, j+radius_cells+1)):
+            xs = self.static_rows[row]
+            k = bisect.bisect_left(xs, i-radius_cells)
+            for x in xs[k:bisect.bisect_right(xs, i+radius_cells)]:
+                if self.data[row*self.w+x] >= 50:
+                    return True
+        return False
+
+    def set_dynamic(self, cells):
+        self.dynamic = set(cells)
 
     def region_blocked(self, pose, extra=0.):
         if not self.region:
@@ -171,12 +192,18 @@ class Grid(object):
         stride = self.w+1
         count = (self.prefix[(jmax+1)*stride+imax+1] - self.prefix[jmin*stride+imax+1]
                  - self.prefix[(jmax+1)*stride+imin] + self.prefix[jmin*stride+imin])
-        if count == 0 and not any(imin <= i <= imax and jmin <= j <= jmax for i,j in self.dynamic):
+        dynamic_rows = {}
+        for i, j in self.dynamic:
+            if imin <= i <= imax and jmin <= j <= jmax:
+                dynamic_rows.setdefault(j, []).append(i)
+        if count == 0 and not dynamic_rows:
             return hits
         for j in range(jmin, jmax+1):
-            for i in range(imin, imax+1):
-                if not self.occupied(i, j):
-                    continue
+            xs = self.static_rows[j]
+            row = xs[bisect.bisect_left(xs, imin):bisect.bisect_right(xs, imax)] if count else []
+            if j in dynamic_rows:
+                row = sorted(set(row).union(dynamic_rows[j]))
+            for i in row:
                 dx, dy = (i+.5)*self.res-center_x, (j+.5)*self.res-center_y
                 if abs(c*dx+s*dy) <= a and abs(-s*dx+c*dy) <= b:
                     cell = ((i+.5)*self.res, (j+.5)*self.res)
@@ -237,12 +264,18 @@ def plan(grid, start, goal, radius=1.3, max_seconds=12.0, cancel=lambda: False, 
     records = [(start, 0, 0., None, [])]
     queue = [(heuristic(start), 0)]
     best = {key(start, 0): 0.}
+    last_yield = time.time()
     while queue:
         if cancel():
             raise RuntimeError('cancelled')
         if time.time()-started > max_seconds or len(records) > P['planner_max_records']:
             raise RuntimeError('planning budget exceeded; choose a roomier approach point')
         _, idx = heapq.heappop(queue)
+        # Planning is intentionally bounded, but it must not monopolize the
+        # interpreter while ROS sensor callbacks deliver fresh scans.
+        if time.time()-last_yield >= .01:
+            time.sleep(.001)
+            last_yield = time.time()
         p, previous_sign, cost, parent, _ = records[idx]
         if cost > best.get(key(p, previous_sign), float('inf')) + 1e-8:
             continue

@@ -1,4 +1,5 @@
 <launch>
   <arg name="config_file" />
-  <include file="$(find smartcar_navigation)/launch/single_goal.launch"><arg name="config_file" value="$(arg config_file)" /></include>
+  <arg name="low_cost_lines_file" default="" />
+  <include file="$(find smartcar_navigation)/launch/single_goal.launch"><arg name="config_file" value="$(arg config_file)" /><arg name="low_cost_lines_file" value="$(arg low_cost_lines_file)" /></include>
 </launch>

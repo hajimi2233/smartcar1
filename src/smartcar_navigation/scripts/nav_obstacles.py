@@ -59,3 +59,29 @@ def obstacle_key(reason):
     if not sources and 'TRACKING_ENVELOPE' in reason:
         return 'LOCAL:TRACKING_ENVELOPE'
     return 'OBSTACLE:' + ('+'.join(sources) if sources else 'LOCAL_TRAJECTORY')
+
+
+class ConfirmedHits(object):
+    """Two consecutive scans confirm free-space hits; repeated ticks do not.
+
+    A one-cell association tolerates quantization. A gap/reset discards history.
+    The controller reserves two scan periods in its stopping horizon.
+    """
+    def __init__(self):
+        self.stamp = None
+        self.previous = set()
+        self.confirmed = set()
+
+    def update(self, cells, stamp):
+        if stamp == self.stamp:
+            return set(self.confirmed)
+        fresh = self.stamp is not None and 0 < stamp-self.stamp <= .25
+        confirmed = set()
+        if fresh:
+            for i, j in cells:
+                if any((i+di, j+dj) in self.previous for di in (-1,0,1) for dj in (-1,0,1)):
+                    confirmed.add((i,j))
+        self.previous = set(cells)
+        self.stamp = stamp
+        self.confirmed = confirmed
+        return set(confirmed)
