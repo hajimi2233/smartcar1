@@ -8,6 +8,7 @@ import time
 import bisect
 from region_geometry import intersects
 from nav_config import P, from_rear
+from inspection_depth import blocked as depth_blocked, segment_blocked
 
 
 def wrap(a):
@@ -55,6 +56,7 @@ class Grid(object):
         self.dynamic = set()
         self.static_rows = [[] for _ in range(height)]
         self.region = []
+        self.depth_rules = []
         self.region_margin = P['region_margin']
         self.zero_cost_line = []
         self.zero_cost_width = .01
@@ -174,6 +176,11 @@ class Grid(object):
 
         if not finite(pose):
             return {'INVALID_POSE': None}
+        front = front_position(pose)
+        rule = depth_blocked(front, self.depth_rules, extra)
+        if rule:
+            hits['INSPECTION_DEPTH_'+rule] = front
+            if not detailed: return hits
         if self.region_blocked(pose, extra):
             hits['REGION'] = None
             if not detailed: return hits
@@ -221,6 +228,16 @@ class Grid(object):
         # Maximum body-point speed / rear axle speed < 1.7 at radius >= 1.3.
         n = max(1, int(math.ceil(abs(distance) / min(.025, self.res / 4))))
         pts = [advance(pose, distance*i/n, curvature) for i in range(1, n+1)]
+        if self.depth_rules:
+            previous = front_position(pose)
+            # A bicycle arc's front axle follows a circle; cover chord sagitta.
+            theta = abs(distance*curvature/n)
+            sagitta = (math.hypot(1./curvature, P['wheelbase'])*(1-math.cos(theta/2))
+                        if abs(curvature)>1e-9 else 0.)
+            for p in pts:
+                current = front_position(p)
+                if segment_blocked(previous, current, self.depth_rules, sagitta): return None
+                previous = current
         return pts if all(self.free(p) for p in pts) else None
 
     def blocked_detail(self, pose, distance=0., curvature=0.):
@@ -238,7 +255,7 @@ class Grid(object):
         return 'no collision in checked samples'
 
 
-def plan(grid, start, goal, radius=1.3, max_seconds=12.0, cancel=lambda: False, goal_position_tolerance=.08, goal_heading_tolerance=.0523598776, maneuver_mode='NORMAL', front_goal=None, start_reverse_only=False):
+def plan(grid, start, goal, radius=1.3, max_seconds=12.0, cancel=lambda: False, goal_position_tolerance=.08, goal_heading_tolerance=.0523598776, maneuver_mode='NORMAL', front_goal=None, start_reverse_only=False, goal_region=False, max_direction_changes=None):
     """Returns [(x,y,yaw,direction,curvature), ...], no endpoint snapping.
 
     Weighted Hybrid A*: finite budget, non-optimal; fails if search cannot find
@@ -246,11 +263,18 @@ def plan(grid, start, goal, radius=1.3, max_seconds=12.0, cancel=lambda: False, 
     """
     if (radius < P['global_min_radius'] or not finite([goal_position_tolerance, goal_heading_tolerance])
             or goal_position_tolerance <= 0 or goal_heading_tolerance <= 0
-            or not finite(start+goal) or not grid.free(start) or not grid.free(goal)):
+            or not finite(start+goal) or not grid.free(start) or (not goal_region and not grid.free(goal))):
         raise ValueError('start/goal collision, nonfinite pose, or radius below configured global minimum')
     started = time.time()
-    def key(p, d):
-        return int(round(p[0]/.08)), int(round(p[1]/.08)), int(round(wrap(p[2])/(math.pi/36))) % 72, d
+    if max_direction_changes is not None and (isinstance(max_direction_changes, bool)
+            or not isinstance(max_direction_changes, int) or max_direction_changes < 0):
+        raise ValueError('max_direction_changes must be a nonnegative integer or None')
+    def key(p, d, changes=0):
+        base = (int(round(p[0]/.08)), int(round(p[1]/.08)),
+                int(round(wrap(p[2])/(math.pi/36))) % 72, d)
+        # A route with remaining gear changes must not be pruned by a route
+        # reaching the same pose after consuming that allowance.
+        return base if max_direction_changes is None else base+(changes,)
     def goal_error(p):
         xy = from_rear(p, 'goal')[:2] if front_goal is not None else p[:2]
         target = front_goal if front_goal is not None else goal
@@ -262,6 +286,7 @@ def plan(grid, start, goal, radius=1.3, max_seconds=12.0, cancel=lambda: False, 
     # Immutable parent records: updating a discretized state's score must never
     # mutate a previously generated child's geometric ancestor.
     records = [(start, 0, 0., None, [])]
+    direction_changes = [0]
     queue = [(heuristic(start), 0)]
     best = {key(start, 0): 0.}
     last_yield = time.time()
@@ -277,7 +302,7 @@ def plan(grid, start, goal, radius=1.3, max_seconds=12.0, cancel=lambda: False, 
             time.sleep(.001)
             last_yield = time.time()
         p, previous_sign, cost, parent, _ = records[idx]
-        if cost > best.get(key(p, previous_sign), float('inf')) + 1e-8:
+        if cost > best.get(key(p, previous_sign, direction_changes[idx]), float('inf')) + 1e-8:
             continue
         dist = math.hypot(p[0]-goal[0], p[1]-goal[1])
         goal_distance, goal_angle = goal_error(p)
@@ -295,10 +320,27 @@ def plan(grid, start, goal, radius=1.3, max_seconds=12.0, cancel=lambda: False, 
             across = -(goal[0]-p[0])*math.sin(p[2]) + (goal[1]-p[1])*math.cos(p[2])
             if .015 < abs(along) < .8 and along*direction > 0 and abs(across) < .025:
                 lengths = lengths + [abs(along)]
+                if goal_region and abs(along)>goal_position_tolerance*.75:
+                    lengths.append(abs(along)-goal_position_tolerance*.75)
             for length in lengths:
                 for curvature in (0., -1./radius, -.5/radius, .5/radius, 1./radius):
                     endpoint = advance(p, direction*length, curvature)
-                    switch = .35 if previous_sign and previous_sign != direction else 0.
+                    switching = previous_sign and previous_sign != direction
+                    changes = direction_changes[idx] + (1 if switching else 0)
+                    if max_direction_changes is not None and changes > max_direction_changes:
+                        continue
+                    switch = P['planner_switch_cost'] if switching else 0.
+                    last_k = records[idx][4][-1][4] if records[idx][4] else 0.
+                    steer_change = abs(math.atan(P['wheelbase']*curvature)-math.atan(P['wheelbase']*last_k))
+                    if switching:
+                        run, ancestor = 0., idx
+                        while ancestor is not None and records[ancestor][1] == previous_sign and run < .3:
+                            record = records[ancestor]
+                            prev = records[record[3]][0] if record[3] is not None else record[0]
+                            for sample in record[4]:
+                                run += math.hypot(sample[0]-prev[0],sample[1]-prev[1]); prev=sample
+                            ancestor = record[3]
+                        switch += P['planner_short_segment_cost']*max(0.,1.-run/.3)
                     reverse = 1.35 if direction < 0 else 1.0
                     maneuver_bonus = 0.0
                     if maneuver_mode == 'STRAIGHT' and abs(curvature) > 1e-9:
@@ -320,8 +362,8 @@ def plan(grid, start, goal, radius=1.3, max_seconds=12.0, cancel=lambda: False, 
                             maneuver_bonus = -.28 * length
                         elif travelled >= .30 and curvature * desired_sign > 0:
                             maneuver_bonus = -.16 * length
-                    newcost = cost + length*reverse + switch + maneuver_bonus
-                    k = key(endpoint, direction)
+                    newcost = cost + length*reverse + switch + maneuver_bonus + P['planner_steer_cost']*steer_change
+                    k = key(endpoint, direction, changes)
                     if newcost >= best.get(k, float('inf')):
                         continue
                     arc = grid.arc(p, direction*length, curvature)
@@ -333,14 +375,68 @@ def plan(grid, start, goal, radius=1.3, max_seconds=12.0, cancel=lambda: False, 
                         continue
                     newcost += length * (1.5 if grid.collision(endpoint, extra=.02) else 0.)
                     newcost += length * edge_cost
+                    # Failed tracking locations are soft, episode-local preferences.
+                    # They never turn a necessary narrow passage into a hard obstacle.
+                    for fx,fy in getattr(grid, 'failed_tracking', []):
+                        newcost += length * .8 * max(0.,1.-math.hypot(endpoint[0]-fx,endpoint[1]-fy)/.35)
                     newcost -= .70 * length * grid.line_bonus(endpoint)
                     if newcost >= best.get(k, float('inf')):
                         continue
                     best[k] = newcost
                     segment = [(q[0],q[1],q[2],direction,curvature) for q in arc]
                     records.append((endpoint,direction,newcost,idx,segment))
+                    direction_changes.append(changes)
                     heapq.heappush(queue,(newcost+1.6*heuristic(endpoint),len(records)-1))
     raise RuntimeError('no path found')
+
+
+def gear_route_effort(path):
+    """Whole-route gear changes first; estimated travel time breaks ties."""
+    return (entry_route_effort(path)[0], route_seconds(path))
+
+
+def improve_gear_route(grid, start, goal, incumbent, radius, max_seconds,
+                       cancel, position_tolerance, heading_tolerance,
+                       mode='NORMAL', front_goal=None, start_reverse_only=False,
+                       goal_region=False):
+    """Keep a feasible incumbent through every unsuccessful optimization attempt."""
+    deadline = time.time()+max_seconds
+    best = incumbent
+    initial_changes = gear_route_effort(best)[0]
+    for limit in range(initial_changes):
+        if cancel():
+            raise RuntimeError('cancelled')
+        if limit >= gear_route_effort(best)[0]:
+            break
+        remaining = deadline-time.time()
+        if remaining < .1:
+            break
+        try:
+            candidate = plan(grid, start, goal, radius,
+                             remaining/(initial_changes-limit), cancel,
+                             position_tolerance, heading_tolerance, mode,
+                             front_goal, start_reverse_only=start_reverse_only,
+                             goal_region=goal_region, max_direction_changes=limit)
+            if gear_route_effort(candidate) < gear_route_effort(best):
+                best = candidate
+        except (ValueError, RuntimeError):
+            pass  # A failed optimization must not discard the feasible route.
+    if cancel():
+        raise RuntimeError('cancelled')
+    return best
+
+
+def plan_fewer_changes(grid, start, goal, radius=1.3, max_seconds=12.,
+                       cancel=lambda:False, goal_position_tolerance=.08,
+                       goal_heading_tolerance=.0523598776, maneuver_mode='NORMAL',
+                       front_goal=None, start_reverse_only=False, goal_region=False):
+    deadline=time.time()+max_seconds
+    path=plan(grid,start,goal,radius,max_seconds,cancel,goal_position_tolerance,
+              goal_heading_tolerance,maneuver_mode,front_goal,
+              start_reverse_only=start_reverse_only,goal_region=goal_region)
+    return improve_gear_route(grid,start,goal,path,radius,max(0.,deadline-time.time()),
+                              cancel,goal_position_tolerance,goal_heading_tolerance,
+                              maneuver_mode,front_goal,start_reverse_only,goal_region)
 
 
 def line_approaches(grid, start, goal, limit=4):
@@ -381,14 +477,33 @@ def line_approaches(grid, start, goal, limit=4):
     return result
 
 
-def line_stage_candidates(grid, start, goal, maneuver_mode='LATERAL'):
-    """Body-clear entries 1.5 m from the start's closest point on each line."""
+def nearest_line_number(lines, goal):
+    """Select by final goal-reference position before testing feasibility."""
+    x, y = goal[:2]
+    ranked = []
+    for number, line in enumerate(lines):
+        (x1, y1), (x2, y2) = line
+        dx, dy = x2-x1, y2-y1
+        length2 = dx*dx+dy*dy
+        if not finite((x1,y1,x2,y2)) or length2 < 1e-6:
+            raise ValueError('invalid low-cost line')
+        t = max(0., min(1., ((x-x1)*dx+(y-y1)*dy)/length2))
+        ranked.append((math.hypot(x-x1-t*dx, y-y1-t*dy), number))
+    if not ranked:
+        raise RuntimeError('draw a low-cost line before a lateral maneuver')
+    return min(ranked)[1]
+
+
+def line_stage_candidates(grid, start, goal, maneuver_mode='LATERAL', offsets=(0.,),
+                          rear_offsets=False):
+    """Only the nearest line may supply an entry, even if it is blocked."""
     candidates = []
+    number = nearest_line_number(grid.zero_cost_line, goal)
     lateral = (goal[0]-start[0]) * -math.sin(start[2]) + (goal[1]-start[1]) * math.cos(start[2])
     if abs(lateral) < 1e-6:
         return candidates
     desired_side = (1 if lateral > 0 else -1) * (-1 if maneuver_mode == 'LATERAL' else 1)
-    for number, line in enumerate(grid.zero_cost_line):
+    for number, line in [(number, grid.zero_cost_line[number])]:
         try:
             (x1, y1), (x2, y2) = line
         except (TypeError, ValueError):
@@ -411,8 +526,14 @@ def line_stage_candidates(grid, start, goal, maneuver_mode='LATERAL'):
         map_right = goal[0] > start[0]
         heading = 0. if map_right else math.pi
         entry = (x1+entry_t*dx, y1+entry_t*dy, heading)
-        if grid.free(entry):
-            candidates.append((distance, number, abs(wrap(heading-start[2])), entry))
+        alignment = (dx*math.cos(heading)+dy*math.sin(heading))/length
+        rear_sign = -1. if alignment >= 0. else 1.
+        for shift in offsets:
+            if rear_offsets:
+                shift *= rear_sign
+            candidate=(entry[0]+shift*dx/length,entry[1]+shift*dy/length,heading)
+            if grid.free(candidate):
+                candidates.append((distance, number, abs(wrap(heading-start[2])), candidate))
     candidates.sort(key=lambda item: (item[0], item[1], item[2]))
     return candidates
 
@@ -437,10 +558,15 @@ def plan_line_approach(grid, start, goal, radius=1.3, max_seconds=5.,
                        cancel=lambda: False, goal_position_tolerance=.08,
                        goal_heading_tolerance=.0523598776, maneuver_mode='NORMAL',
                        front_goal=None):
-    """Choose a reachable entry on the closest feasible line to the goal."""
+    """Accept the first cusp-free entry; otherwise compare within one budget."""
     deadline = time.time() + max_seconds
     line_goal = front_goal if front_goal is not None else goal
-    for _, number, _, entry in line_stage_candidates(grid, start, line_goal, maneuver_mode):
+    candidates = line_stage_candidates(
+        grid, start, line_goal, maneuver_mode,
+        offsets=tuple(P['line_entry_search_span']*scale
+                      for scale in (1./3., 2./3., 1.)), rear_offsets=True)
+    best = None
+    for index, (_, number, _, entry) in enumerate(candidates):
         if cancel():
             raise RuntimeError('cancelled')
         remaining = deadline-time.time()
@@ -448,17 +574,132 @@ def plan_line_approach(grid, start, goal, radius=1.3, max_seconds=5.,
             break
         try:
             first = plan(grid, start, entry, radius=radius,
-                         max_seconds=min(remaining*.45, 2.), cancel=cancel,
+                         max_seconds=remaining/(len(candidates)-index), cancel=cancel,
                          goal_position_tolerance=P['stage_plan_position'],
                          goal_heading_tolerance=math.radians(P['stage_plan_heading_deg']),
                          start_reverse_only=maneuver_mode == 'LATERAL')
             if (maneuver_mode == 'LATERAL' and len(first) > 1
                     and first[1][3] >= 0):
                 raise RuntimeError('lateral approach must start in reverse')
-            return first, (number, entry)
+            cost = gear_route_effort(first)
+            if best is None or cost < best[0]:
+                best = (cost, first, (number, entry))
+            # A continuous forward/reverse route already meets the entry goal.
+            # Stop searching, but keep the cancellation check below the loop.
+            if cost[0] == 0:
+                break
         except (RuntimeError, ValueError):
             continue
+    if cancel():
+        raise RuntimeError('cancelled')
+    if best is not None:
+        improved = improve_gear_route(
+            grid, start, best[2][1], best[1], radius, max(0.,deadline-time.time()),
+            cancel, P['stage_plan_position'], math.radians(P['stage_plan_heading_deg']),
+            start_reverse_only=maneuver_mode == 'LATERAL')
+        return improved, best[2]
     return None, None
+
+
+
+def entry_route_effort(path):
+    """Prefer fewer gear changes, then trade travel time for quieter steering.
+
+    This ranks completed entry candidates only; safety and the planner's
+    feasibility search are unchanged. It is not a global optimality proof.
+    """
+    switches = 0
+    previous = 0
+    last_delta = 0.
+    steering_travel = 0.
+    for p in path[1:]:
+        direction = p[3]
+        if direction and previous and direction != previous:
+            switches += 1
+        if direction:
+            previous = direction
+        delta = math.atan(P['wheelbase']*p[4])
+        steering_travel += abs(delta-last_delta)
+        last_delta = delta
+    steering_travel += abs(last_delta)  # straighten at the entry stop
+    return (switches, route_seconds(path) +
+            P['line_entry_steer_seconds']*steering_travel)
+
+
+def route_seconds(path):
+    """Comparable travel estimate including curvature, steering and cusp stops."""
+    total=0.;previous=0;last_delta=0.
+    for a,b in zip(path,path[1:]):
+        speed=P['forward_speed'] if b[3]>0 else P['reverse_speed']
+        total+=math.hypot(b[0]-a[0],b[1]-a[1])*(1.+1.8*abs(b[4]))/speed
+        delta=math.atan(P['wheelbase']*b[4])
+        total+=abs(delta-last_delta) # nominal 1 rad/s steering
+        if previous and previous!=b[3]:total+=P['stop_window']+speed/.5
+        previous=b[3];last_delta=delta
+    return total
+
+
+def suffix_route_effort(second, third):
+    """Count every actual gear change, including the join at point 2."""
+    return gear_route_effort(second + third[1:])
+
+
+def plan_line_suffix(grid, start, goal, line, heading, radius, max_seconds,
+                     cancel, position_tolerance, heading_tolerance, mode,
+                     front_goal, goal_region=False):
+    """Plan entry -> retreat -> goal atomically on the already locked line.
+
+    Each final leg starts at the actual planned retreat endpoint. Only complete
+    candidates prefer fewer internal direction changes and less steering;
+    no partial-route fallback.
+    """
+    deadline = time.time() + max_seconds
+    best = None
+    shifts = tuple(P['line_search_span']*scale for scale in (1./3., 2./3., 1.))
+    for i, shift in enumerate(shifts):
+        if cancel():
+            raise RuntimeError('cancelled')
+        remaining = deadline - time.time()
+        if remaining < .1:
+            break
+        # Share time among candidates, reserving most of each share for the
+        # harder final approach. Unused time carries to later candidates.
+        allowance = remaining / (len(shifts)-i)
+        retreat = line_retreat_target(line, front_goal, heading,
+                                     max(.3, P['line_retreat_distance']+shift))
+        try:
+            second = plan(grid, start, retreat, radius, allowance*.4, cancel,
+                          P['stage_plan_position'],
+                          math.radians(P['stage_plan_heading_deg']))
+            remaining = deadline - time.time()
+            if remaining < .1:
+                break
+            third = plan(grid, second[-1][:3], goal, radius,
+                         min(remaining, allowance*.6), cancel,
+                         position_tolerance, heading_tolerance, mode, front_goal,
+                         goal_region=goal_region)
+            route = second + third[1:]
+            cost = suffix_route_effort(second, third)
+            # A normal change of direction at point 2 is allowed. Neither
+            # individual leg may need extra shunting for early acceptance.
+            if entry_route_effort(second)[0] == 0 and entry_route_effort(third)[0] == 0:
+                best = (cost, route, retreat, second, third)
+                break
+            if best is None or cost < best[0]:
+                best = (cost, route, retreat, second, third)
+        except (ValueError, RuntimeError):
+            continue
+    if cancel():
+        raise RuntimeError('cancelled')
+    if best is None:
+        raise RuntimeError('line suffix search budget exhausted; no complete retreat-to-goal route')
+    second, third = best[3], best[4]
+    improved = improve_gear_route(
+        grid, second[-1][:3], goal, third, radius, max(0.,deadline-time.time()),
+        cancel, position_tolerance, heading_tolerance, mode, front_goal,
+        goal_region=goal_region)
+    route = second + improved[1:]
+    return (route if gear_route_effort(route) < best[0] else best[1]), best[2]
 
 
 def plan_prefer_lines(grid, start, goal, radius=1.3, max_seconds=5.,

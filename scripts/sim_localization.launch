@@ -1,0 +1,9 @@
+<launch>
+  <arg name="root" />
+  <arg name="map_file" />
+  <include file="$(find smartcar_localization)/launch/localization.launch">
+    <arg name="map_file" value="$(arg map_file)" />
+    <arg name="params" value="$(arg root)/config/localization.yaml" />
+    <arg name="nav_config" value="$(arg root)/config/navigation.yaml" />
+  </include>
+</launch>

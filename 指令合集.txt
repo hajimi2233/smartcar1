@@ -1,0 +1,123 @@
+smartcar1 指令合集：plan-test 多任务规划测试
+
+说明：以下 bash 指令均可从任意目录复制执行。
+每个长期运行的程序单独占用一个终端，不要一次把全文粘贴进终端。
+命令是 plan-test（有横杠），不是 plantest。
+
+一、启动前
+
+目前代码已构建并同步，不需要再次 build。
+先在旧 nav、plan、multi、plan-test 或键盘控制的终端按 Ctrl+C 退出，避免节点冲突。
+如果 start 和定位已正常运行，且不切换地图，可以直接跳到第三步。
+
+二、终端 1：启动仿真和定位（二选一）
+
+小地图：
+bash ~/smartcar1/scripts/sim.sh start narrow
+
+原大地图：
+bash ~/smartcar1/scripts/sim.sh start normal
+
+保持这个终端运行。切换地图前，先退出测试、RViz 和旧 start，再重新启动。
+切换地图不会自动换算已标定任务点坐标，需要确认点位适用于当前地图。
+
+三、终端 2：打开 RViz
+
+bash ~/smartcar1/scripts/sim.sh rviz-multi
+
+保持这个终端运行。
+检查地图和车的位置；若定位尚未初始化或不正确，用 RViz 的 2D Pose Estimate
+在车的实际位置按下并拖出车头朝向，等待雷达与地图对齐。
+
+四、终端 3：启动交互式多任务规划测试
+
+bash ~/smartcar1/scripts/sim.sh plan-test
+
+不要另外启动 nav、plan、multi，也不需要执行 multi-execute。
+plan-test 会自己启动规划测试节点和任务队列。
+默认使用之前保存的 ~/smartcar1/data/tasks/points.csv（16 个标定点）。
+
+出现输入提示后，粘贴一组配置，例如：
+B1B2A3B4A5A6B7A8B9A10
+
+程序显示目标顺序、坐标和朝向并启动测试节点后：
+1. 到 RViz 使用低代价线工具（快捷键 L），依次点击每条线的起点和终点。
+2. 画好需要的线，回到终端 3 按回车，开始这一组测试。
+3. 也可不画线直接回车：两种横移会采用普通导航规划。
+
+同一次 plan-test 内，后续各组自动复用本次画好的低代价线。
+退出整个 plan-test 后再次启动，从空线开始，不自动载入上次的线。
+
+五、查看结果与继续下一组
+
+SUCCEEDED: all ... points：这一整组逐目标规划流程通过。
+FAILED at goal N/...：在第 N 个目标失败，查看后面的原因。
+结果默认保存到 ~/smartcar1/data/tasks/last_plan_test.json（下一轮会覆盖）。
+
+结果出来后先在 RViz 查看路径和目标箭头，再回到终端 3 按回车结束本轮。
+随后输入下一组配置，回车确认；已有低代价线会复用，再按提示回车开始。
+配置输入提示处输入 q 退出；Ctrl+C 也可以退出整个测试。
+退出 plan-test 不会关闭 start 的仿真和定位。
+
+六、终端 4：可选操作
+
+清空当前测试节点的低代价线（节点必须仍在运行；建议开始执行前操作）：
+bash ~/smartcar1/scripts/sim.sh lines-clear
+
+清空后重新绘制。新线供同一次 plan-test 的后续各组继续使用。
+
+测试过程中取消当前任务：
+bash ~/smartcar1/scripts/sim.sh multi-cancel
+
+如需保留本轮结果，在下一轮完成前另存一份：
+cp ~/smartcar1/data/tasks/last_plan_test.json ~/smartcar1/data/tasks/plan_test_backup.json
+
+七、可逐行复制的测试配置（不保证每组都能规划成功）
+
+B1B2A3B4A5A6B7A8B9A10
+A1A2B3B4A5B6A7A8A9A10
+A1B2B3A4B5A6A7B8A9B10
+B1B2A3A4A5B6B7A8B9B10
+B1A2A3B4A5A6B7B8A9B10
+A1B2B3B4B5B6B7A8B9A10
+B1A2B3B4A5A6B7A8A9B10
+B1A2A3B4B5B6A7A8A9B10
+
+八、测试的范围
+
+plan-test 使用虚拟到达：真实仿真车不按任务路线行驶。
+它检查逐目标全局规划及阶段切换，不验证实际跟踪、停车、恢复耗时或整组真实行驶时间。
+正常导航的无限恢复不在 plan-test 中运行；测试失败会明确结束本轮。
+判断新方案是否更快，需要正常 nav 实际行驶数据，不能只用 plan-test 耗时判断。
+
+九、结束使用
+
+先在 plan-test 和 RViz 终端按 Ctrl+C，再退出 start 终端。
+如果还要关闭自己的 Gazebo 仿真：
+bash ~/smartcar1/scripts/sim.sh stop
+
+十、以后修改源码才需要的构建命令
+
+bash ~/smartcar1/scripts/sim.sh build
+
+构建完成后重启相关程序。单纯编辑 navigation.yaml 参数通常只需重启测试或导航。
+
+
+【横移两阶段规划】
+入口①从原标称点沿到达后的车尾方向偏移0.3、0.6、0.9米，只试三个候选，共享20秒预算。
+找到不需要前进/倒车换向的一段连续路径就立即采用，不必试完所有入口。
+如果都需要多段调整，则在预算内优先选换向次数少的路径，再比较预计时间加转向变化惩罚。
+先规划到低代价线入口①，确认停稳后，再整体规划①→退让点②→最终目标。
+②同样从原标称退让点沿车尾方向额外偏移0.3、0.6、0.9米。
+后两段都成功才行驶；每段各自无需换向时立即采用，否则先比较整条路线实际换向次数（包括②处），相同时比较预计时间。
+两处search_span默认0.9米，三个偏移为其1/3、2/3、1倍，不额外尝试标称点。
+入口范围和预算可在 tuning.line_entry_search_span、tuning.line_entry_timeout 修改。
+转向变化惩罚 tuning.line_entry_steer_seconds 默认30（秒/弧度），越大越不喜欢反复打方向。
+后两段默认最多搜索15秒，可在 config/navigation.yaml 的 tuning.line_suffix_timeout 修改。
+本次已完成build并同步当前容器，退出旧plan-test/nav再启动即可使用。
+
+普通模式规划上限：tuning.normal_planning_timeout，默认20秒，保留可行路径后使用剩余预算优化换向；无需换向可提前返回。
+
+恢复模式：候选终点限制在原目标参考点8厘米半径内，实际停车按10厘米半径验收，保留2厘米余量；朝向和碰撞约束仍有效。
+
+少换向搜索：先保存完整可行路径，再用剩余预算尝试限制换向次数；超时或优化失败保留已成功路线，取消任务则不执行。整条路线实际换向次数优先，相同次数比较预计时间。找不到任何完整可行路线时仍报告失败，不能保证所有几何场景有解。

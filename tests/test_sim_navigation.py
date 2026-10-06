@@ -27,23 +27,44 @@ class QuickNavigationTests(unittest.TestCase):
         self.enterContext(patch.object(self.nav, 'ServerProxy'))
         self.enterContext(patch('builtins.open', mock_open(read_data=(
             'map_server\0' + self.map + '\0').encode())))
-        self.enterContext(patch.object(sys, 'argv', ['quick-nav', self.map, self.lines]))
+        self.enterContext(patch.object(sys, 'argv', ['quick-nav', 'nav', self.map, self.lines]))
         self.enterContext(patch.dict(os.environ, SMARTCAR_ROOT='/home/hajimi/smartcar'))
 
     def localizer_running(self):
         self.ros['rosnode'].get_node_names.return_value += ['/wall_localizer', '/slam_map_server']
 
-    def test_clean_start_launches_localization_and_navigation(self):
+    def test_start_only_launches_localization(self):
+        sys.argv[1] = 'start'
         self.nav.main()
         args = self.launch.call_args[0][1]
-        self.assertIn('start_localization:=true', args)
+        self.assertIn('/tmp/smartcar-quick-localization.launch', args)
         self.assertIn('map_file:=' + self.map, args)
-        self.assertIn('low_cost_lines_file:=' + self.lines, args)
+        self.assertFalse(any('low_cost_lines' in arg for arg in args))
+
+    def test_nav_requires_localization(self):
+        with self.assertRaisesRegex(SystemExit, 'Run sim.sh start'):
+            self.nav.main()
+        self.launch.assert_not_called()
 
     def test_matching_localization_is_reused(self):
         self.localizer_running()
         self.nav.main()
-        self.assertIn('start_localization:=false', self.launch.call_args[0][1])
+        args = self.launch.call_args[0][1]
+        self.assertIn('/tmp/smartcar-quick-nav.launch', args)
+        self.assertFalse(any('localization' in arg for arg in args))
+
+    def test_start_reuses_localization_without_starting_navigation(self):
+        sys.argv[1] = 'start'
+        self.localizer_running()
+        self.nav.main()
+        self.launch.assert_not_called()
+
+    def test_keyboard_blocks_navigation(self):
+        self.localizer_running()
+        self.ros['rosnode'].get_node_names.return_value += ['/inspection_sim_keyboard']
+        with self.assertRaisesRegex(SystemExit, 'Keyboard control'):
+            self.nav.main()
+        self.launch.assert_not_called()
 
     def test_matching_navigation_is_not_started_twice(self):
         self.localizer_running()

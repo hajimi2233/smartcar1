@@ -69,6 +69,12 @@ def tracking_command(pose, segment, index, radius, actual_steer=0., steer_rate=1
     error_scale = max(.25,1./(1.+10.*abs(ref['lateral'])+3.*abs(ref['heading'])))
     speed = base*error_scale/(1.+3.*abs(delta-actual_steer))
     speed = min(speed,base/(1.+1.8*abs(ref['curvature'])))
+    # Bound travel while measured steering catches up after a cusp/curvature
+    # change. Do not steer at standstill: the current chassis resets steering
+    # on a zero-speed command. Slow creep keeps the requested radius active.
+    lag = abs(delta-actual_steer)
+    if lag > .08:
+        speed = min(speed, P['tracking_turn_allowance']/max(lag/steer_rate,.05))
     # Slow before a curvature transition; do not move/smooth the global line.
     distance = (1.-ref['fraction'])*ref['edge_length']
     last_delta = math.atan(P['wheelbase']*ref['curvature'])

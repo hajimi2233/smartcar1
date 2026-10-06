@@ -21,5 +21,6 @@ install
 
 # Runtime user drawings are bind-mounted, never baked into an image.
 data/navigation
+data/tasks
 data/logs
 local_project

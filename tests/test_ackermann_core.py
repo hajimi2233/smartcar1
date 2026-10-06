@@ -140,7 +140,7 @@ class PreferredLineTests(unittest.TestCase):
                                front_goal=(2.62, 0., 0.))
         self.assertEqual(candidates.call_args[0][2], (2.62, 0., 0.))
 
-    def test_staged_route_selects_closest_feasible_line_to_goal(self):
+    def test_staged_route_selects_nearest_line_to_final_front_axle(self):
         g = open_grid()
         g.zero_cost_line = [((.4, -1.), (.4, 1.)),
                             ((1.4, -1.), (1.4, 1.))]
@@ -150,8 +150,22 @@ class PreferredLineTests(unittest.TestCase):
                                              max_seconds=5., maneuver_mode='LATERAL')
         self.assertEqual(route[0], 1)
         self.assertAlmostEqual(route[1][0], 1.4)
-        self.assertAlmostEqual(route[1][1], -1.5)
+        self.assertAlmostEqual(route[1][1], -1.8)
         self.assertTrue(planner.call_args[1]['start_reverse_only'])
+
+    def test_nearest_failure_never_tries_farther_line(self):
+        g = open_grid()
+        g.zero_cost_line = [((.4, -2.), (.4, 2.)), ((1.4, -2.), (1.4, 2.))]
+        with patch('ackermann_core.plan', side_effect=RuntimeError('timeout')) as planner:
+            self.assertEqual(plan_line_approach(g, (0.,0.,0.), (2.,1.,0.), maneuver_mode='LATERAL'), (None,None))
+        self.assertEqual(planner.call_count, 3)
+        self.assertTrue(all(abs(c.args[2][0]-1.4)<1e-9 for c in planner.call_args_list))
+
+    def test_nearest_blocked_entry_never_tries_farther_line(self):
+        g = open_grid()
+        g.zero_cost_line = [((.4,-2.),(.4,2.)),((1.4,-2.),(1.4,2.))]
+        with patch.object(g, 'free', side_effect=lambda p: p[0]<1.):
+            self.assertEqual(line_stage_candidates(g,(0.,0.,0.),(2.,1.,0.)), [])
 
     def test_lateral_approach_starts_in_reverse(self):
         g = open_grid()

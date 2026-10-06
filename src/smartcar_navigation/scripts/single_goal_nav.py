@@ -23,7 +23,10 @@ from path_tracking import project, motion_observed, replay_command
 from ground_truth_pose import alignment, rear_pose
 from low_cost_lines import LineStore, map_key
 from nav_obstacles import smooth_ranges, ConfirmedHits, Recovery, ConsecutiveFailures, obstacle_key
-from ackermann_core import Grid, plan, plan_line_approach, line_retreat_target, segments, speed_profile, rear_target, front_position, wrap, finite, StopWindow
+from ackermann_core import plan_fewer_changes as plan
+from ackermann_core import Grid, plan_line_approach, plan_line_suffix, line_retreat_target, segments, speed_profile, rear_target, front_position, wrap, finite, StopWindow
+from inspection_depth import validate_regions, rules_for_goal
+import json
 
 
 class Navigator(object):
@@ -33,6 +36,16 @@ class Navigator(object):
         self.lock = threading.RLock()
         self.tf = tf.TransformListener()
         self.ground_truth_test = bool(rospy.get_param('~ground_truth_test', False))
+        # Planning-only tests must still terminate and report infeasible tasks.
+        self.persistent_recovery = not self.ground_truth_test
+        self.stop_history = deque(maxlen=100)
+        self.relaxed_goal = False
+        self.return_context = None
+        self.return_pending = False
+        self.recovery_checkpoint = None
+        self.planning_budget_failures = 0
+        self.failed_tracking = []
+        self.execution_target = None
         self.test_replay_speed_scale = float(rospy.get_param('~test_replay_speed_scale', 2.0))
         self.test_auto_arrive = bool(rospy.get_param('~test_auto_arrive', False))
         self.test_auto_arrive_delay = float(rospy.get_param('~test_auto_arrive_delay', 1.0))
@@ -46,6 +59,8 @@ class Navigator(object):
         self.path_errors = []
         self.test_arrival_deadline = None
         self.test_pose_override = None
+        self.inspection_regions = []
+        self.inspection_sides = {}
         self.master = rosgraph.Master(rospy.get_name())
         self.radius = float(rospy.get_param('~turn_radius', 1.3))
         if not finite([self.radius]) or self.radius < P['global_min_radius']:
@@ -84,10 +99,11 @@ class Navigator(object):
         self.line_store=LineStore(rospy.get_param('~low_cost_lines_file',os.path.join(
             os.environ.get('SMARTCAR_ROOT',os.path.expanduser('~/.ros/smartcar')),'data','navigation','low_cost_lines.json')))
         self.line_map_key=None
+        self.load_saved_lines = rospy.get_param('~load_saved_low_cost_lines', False)
         line = [float(rospy.get_param('~zero_cost_line_x1', float('nan'))), float(rospy.get_param('~zero_cost_line_y1', float('nan'))), float(rospy.get_param('~zero_cost_line_x2', float('nan'))), float(rospy.get_param('~zero_cost_line_y2', float('nan')))]
         self.zero_cost_line = [((line[0],line[1]),(line[2],line[3]))] if finite(line) else []
         # Disk records are map-bound. Do not restore unbound ROS parameters
-        # left by another map/session; the first map callback loads the record.
+        # left by another map/session. Disk restore is explicitly opt-in.
         self.timeout = float(rospy.get_param('~planning_timeout', 5.))
         self.scan_timeout = float(rospy.get_param('~scan_timeout', 1.0))
         self.goal_position_tolerance = float(rospy.get_param('~goal_position_tolerance', .08))
@@ -141,6 +157,7 @@ class Navigator(object):
         rospy.Subscriber('/scan', LaserScan, self.on_scan, queue_size=1)
         rospy.Subscriber(rospy.get_param('~joint_topic', '/sim/joint_states'), JointState, self.on_joints, queue_size=1)
         rospy.Subscriber('/move_base_simple/goal', PoseStamped, self.on_goal, queue_size=1)
+        rospy.Subscriber('/single_nav/inspection_goal', String, self.on_inspection_goal, queue_size=1)
         rospy.Subscriber('/single_nav/cancel', String, self.on_cancel, queue_size=1)
         self.publish_line_markers()
         rospy.on_shutdown(self.shutdown)
@@ -267,6 +284,12 @@ class Navigator(object):
         return cap
 
     def halt(self, reason):
+        if (getattr(self, 'persistent_recovery', False) and self.goal is not None
+                and reason.startswith(('STOPPED:', 'BLOCKED:', 'TRACKING_FAILED:',
+                                       'PLAN_FAILED:', 'FINAL_TOLERANCE_FAILED:',
+                                       'REPLAN_FAILED:', 'REPLAN_LIMIT:'))):
+            self.wait_retry(reason)
+            return
         if self.ground_truth_test and self.path_errors:
             rms = math.sqrt(sum(e*e for e in self.path_errors)/len(self.path_errors))
             self.status('PATH_ERROR: samples=%d rms=%.3fm max=%.3fm' %
@@ -281,6 +304,13 @@ class Navigator(object):
         self.truth_alignment = None
         self.recovery = None
         self.replan_count = 0
+        self.relaxed_goal = False
+        self.return_context = None
+        self.return_pending = False
+        self.recovery_checkpoint = None
+        self.planning_budget_failures = 0
+        self.failed_tracking = []
+        self.execution_target = None
         self.failures = ConsecutiveFailures()
         self.state = 'IDLE'
         self.stop_state = None
@@ -290,6 +320,93 @@ class Navigator(object):
         empty = Path(); empty.header.frame_id = P['map_frame']; empty.header.stamp = rospy.Time.now()
         self.path_pub.publish(empty)
         self.status(reason)
+
+    def remember_stop(self, pose):
+        """Only called after pose AND wheel-speed stop confirmation."""
+        if not getattr(self, 'persistent_recovery', False) or self.line_stage == 'RETURN_STOP':
+            return
+        point = tuple(pose[:3])
+        if not self.stop_history or math.hypot(point[0]-self.stop_history[-1][0],
+                                              point[1]-self.stop_history[-1][1]) > .05:
+            self.stop_history.append(point)
+            self.recovery_checkpoint = None
+            self.planning_budget_failures = 0
+
+    def wait_retry(self, reason):
+        self.generation += 1
+        self.cmd.publish(Twist())
+        self.parts = []
+        if any(tag in reason for tag in ('LOCAL_PLAN_BLOCKED','tracking deviation','path progress stalled')):
+            try:
+                p=self.pose()
+                history=getattr(self,'failed_tracking',[])
+                if not any(math.hypot(p[0]-q[0],p[1]-q[1])<.15 for q in history):
+                    self.failed_tracking=(history+[p[:2]])[-8:]
+            except Exception:pass
+        if reason.startswith('PLAN_FAILED:') and any(tag in reason for tag in (
+                'planning budget exceeded', 'line suffix search budget exhausted')):
+            self.planning_budget_failures = min(2, getattr(self, 'planning_budget_failures', 0)+1)
+        # Only a failed regional search requests a return. Sensor outages do not.
+        if reason.startswith('PLAN_FAILED:') and self.relaxed_goal and self.line_stage != 'RETURN_STOP':
+            self.return_pending = True
+        self.relaxed_goal = True
+        self.state = 'WAIT_RETRY'
+        self.stop_state = None
+        self.retry_after = time.time() + 2.
+        self.retry_window = StopWindow()
+        self.retry_last_pose = None
+        self.retry_scans = set()
+        self.status('RECOVERY_WAIT: goal retained; '+reason)
+
+    def recover_retry(self, elapsed):
+        self.cmd.publish(Twist())
+        now = time.time()
+        try:
+            if not 0 < elapsed <= P['max_control_dt']:
+                raise RuntimeError('waiting for control timing')
+            self.sensors(); self.authority()
+            pose = self.pose()
+            if self.retry_last_pose is not None and (
+                    math.hypot(pose[0]-self.retry_last_pose[0], pose[1]-self.retry_last_pose[1]) > .15
+                    or abs(wrap(pose[2]-self.retry_last_pose[2])) > .20):
+                self.retry_last_pose = pose
+                raise RuntimeError('waiting for stable localization')
+            self.retry_last_pose = pose
+            self.obstacles()
+            stopped = self.retry_window.update(now, self.stop_pose(pose)) and abs(self.actuator_state()[1]) <= .005
+            if not self.grid.free(pose):
+                raise RuntimeError('current footprint blocked; '+self.grid.blocked_detail(pose))
+            if len(self.retry_scans) < 5:
+                self.retry_scans.add(self.scan.header.stamp.to_nsec())
+        except Exception as exc:
+            self.retry_window = StopWindow()
+            self.retry_scans = set()
+            if now-getattr(self, 'retry_last_report', 0.) >= 5.:
+                self.retry_last_report = now
+                self.status('RECOVERY_WAIT: '+str(exc))
+            return
+        if now < self.retry_after or not stopped or len(self.retry_scans) < 5:
+            return
+        if self.return_pending:
+            # Do not choose the failure stop itself, or silently skip an unsafe
+            # latest checkpoint in favour of an older one.
+            previous = getattr(self, 'recovery_checkpoint', None)
+            if previous is None:
+                previous = next((p for p in reversed(self.stop_history)
+                                 if math.hypot(p[0]-pose[0], p[1]-pose[1]) > .15), None)
+                self.recovery_checkpoint = previous
+            self.return_pending = False
+            if previous is not None and math.hypot(previous[0]-pose[0], previous[1]-pose[1]) > .15:
+                self.return_context = (self.line_stage, self.stage_target)
+                self.line_stage, self.stage_target = 'RETURN_STOP', previous
+                self.status('RECOVERY_RETURN: previous confirmed stop (%.3f, %.3f)' % previous[:2])
+            else:
+                self.status('RECOVERY_RETRY: already at recovery stop or no checkpoint; retrying original goal region')
+        self.last_pose, self.last_pose_wall = pose, now
+        self.last_movement = self.progress_time = now
+        self.replan_count += 1
+        self.status('RECOVERY_RETRY: attempt %d; no retry limit' % self.replan_count)
+        self.start_plan(pose)
 
     def publish_virtual_pose(self, pose):
         """Publish the planning-only pose used by nav-test, for RViz inspection."""
@@ -390,13 +507,16 @@ class Navigator(object):
             self.hit_confirmation = ConfirmedHits()
             key=map_key(msg)
             if key!=self.line_map_key:
+                if hasattr(self, 'stop_history'):
+                    self.stop_history.clear()
                 first=self.line_map_key is None
                 self.line_map_key=key;self._pending_line_point=None
                 try:
-                    saved=self.line_store.load(key)
+                    saved=self.line_store.load(key) if self.load_saved_lines else None
                     self.zero_cost_line=saved if saved is not None else (self.zero_cost_line if first else [])
                     if saved is None and self.zero_cost_line:self.line_store.save(key,self.zero_cost_line)
-                    self.status('ZERO_COST_LINE: loaded %d lines for this map; draw with RViz L tool' % len(self.zero_cost_line))
+                    self.status('ZERO_COST_LINE: %d active lines; saved-line restore %s; draw with RViz L tool' %
+                                (len(self.zero_cost_line), 'enabled' if self.load_saved_lines else 'disabled'))
                 except (IOError,OSError,ValueError) as exc:
                     self.zero_cost_line=[];self.status('ZERO_COST_LINE: load failed: '+str(exc))
                 rospy.set_param('/single_nav/zero_cost_lines',self.zero_cost_line)
@@ -445,6 +565,23 @@ class Navigator(object):
         if sum(1 for v in self.scan.ranges if finite([v]) and self.scan.range_min <= v <= self.scan.range_max) < 5:
             raise RuntimeError('insufficient valid laser returns')
 
+    def stop_pose(self, map_pose):
+        """Measure standstill in continuous odom, not jittering map correction.
+
+        Map pose remains mandatory for planning, collision and goal acceptance.
+        """
+        if not getattr(self, 'persistent_recovery', False):
+            return map_pose
+        stamp = self.tf.getLatestCommonTime(P['odom_frame'], P['base_frame'])
+        age = (rospy.Time.now()-stamp).to_sec()
+        if stamp.to_sec() == 0 or not 0 <= age <= P['pose_timeout']:
+            raise RuntimeError('stop odometry stale')
+        xyz, q = self.tf.lookupTransform(P['odom_frame'], P['base_frame'], stamp)
+        pose = (xyz[0], xyz[1], tf.transformations.euler_from_quaternion(q)[2])
+        if not finite(pose):
+            raise RuntimeError('nonfinite stop odometry')
+        return pose
+
     def obstacles(self):
         """Transform fresh laser hits at scan timestamp, including laser extrinsic."""
         scan = next((s for s in reversed(tuple(self.scans))
@@ -471,6 +608,9 @@ class Navigator(object):
         self.grid.set_dynamic(self.hit_confirmation.update(cells, scan.header.stamp.to_sec()))
 
     def wait_obstacle(self, reason):
+        if getattr(self, 'persistent_recovery', False):
+            self.wait_retry(reason)
+            return
         self.cmd.publish(Twist())
         key = obstacle_key(reason)
         if not self.failures.record(key):
@@ -483,6 +623,9 @@ class Navigator(object):
         self.status('WAIT_OBSTACLE: goal retained; consecutive cause 1/2 [%s]; %s' % (key, reason))
 
     def wait_tracking(self, error):
+        if getattr(self, 'persistent_recovery', False):
+            self.wait_retry('tracking deviation %.3fm' % error)
+            return
         self.cmd.publish(Twist())
         if not self.failures.record('TRACKING_DEVIATION'):
             self.halt('TRACKING_FAILED: same cause twice consecutively [TRACKING_DEVIATION]')
@@ -542,7 +685,24 @@ class Navigator(object):
         if not self.authority_ok:
             raise RuntimeError('another /sim/cmd_vel publisher exists; close keyboard/old navigation')
 
-    def on_goal(self, msg):
+    def on_inspection_goal(self, msg):
+        # Coordinates and constraints travel in ONE message; no parameter/topic race.
+        try:
+            data = json.loads(msg.data)
+            regions = validate_regions(data['regions'])
+            values = [data[k] for k in ('x', 'y', 'yaw')]
+            if not finite(values): raise ValueError('Nonfinite inspection goal')
+            if P['goal_reference'] != 'front_axle': raise ValueError('Inspection goals require front axle reference')
+            target = PoseStamped(); target.header.frame_id = data['frame_id']
+            target.pose.position.x, target.pose.position.y = values[:2]
+            q = tf.transformations.quaternion_from_euler(0., 0., values[2])
+            target.pose.orientation.x, target.pose.orientation.y = q[0], q[1]
+            target.pose.orientation.z, target.pose.orientation.w = q[2], q[3]
+            self.on_goal(target, (regions, data.get('target_id')))
+        except (ValueError, TypeError, KeyError) as exc:
+            with self.lock: self.halt('REJECTED: inspection goal: '+str(exc))
+
+    def on_goal(self, msg, inspection_context=None):
         with self.lock:
             self.halt('NEW_GOAL: stopping before planning')
             try:
@@ -562,9 +722,23 @@ class Navigator(object):
                 else:
                     self.sensors(); self.authority()
                 current = self.pose()  # Reject missing/stale localization immediately.
+                regions = (inspection_context[0] if inspection_context is not None
+                           else getattr(self, 'inspection_regions', []))
+                target_id = inspection_context[1] if inspection_context is not None else None
+                sides = dict(getattr(self, 'inspection_sides', {}))
+                old = {r['id']: r for r in getattr(self, 'inspection_regions', [])}
+                sides = {key: value for key, value in sides.items()
+                         if any(r['id'] == key and r == old.get(key) for r in regions)}
+                front = front_position(current)
+                rules = rules_for_goal(regions, (front[0], front[1], current[2]),
+                                       (msg.pose.position.x,msg.pose.position.y,yaw), target_id, sides)
+                self.inspection_regions, self.inspection_sides = regions, sides
+                self.grid.depth_rules = rules
+                if rules:
+                    self.status('DEPTH_LIMIT: '+', '.join('%s %s y=%.3f width=0.80m' %
+                        (r['id'], 'max' if r['direction']>0 else 'min', r['y']+.4*r['direction']) for r in rules))
                 delta = wrap(yaw-current[2])
                 dx, dy = msg.pose.position.x-current[0], msg.pose.position.y-current[1]
-                along = dx*math.cos(current[2]) + dy*math.sin(current[2])
                 lateral = -dx*math.sin(current[2]) + dy*math.cos(current[2])
                 ad, al = abs(delta), abs(lateral)
                 if math.radians(60) <= ad <= math.radians(120):
@@ -573,7 +747,7 @@ class Navigator(object):
                 elif ad >= math.radians(150) and al >= .20:
                     self.maneuver_mode = 'LATERAL_TURN_180'
                     self.maneuver_heading_tolerance = math.radians(20.0)
-                elif al >= .20 and abs(along) <= max(.60, al):
+                elif al >= .20:
                     self.maneuver_mode = 'LATERAL'
                     self.maneuver_heading_tolerance = math.radians(12.0)
                 elif ad <= math.radians(15) and abs(lateral) <= .20:
@@ -588,6 +762,9 @@ class Navigator(object):
                 self.stage_target = None
                 self.status('GOAL_MODE: %s; heading_delta=%.1fdeg' % (self.maneuver_mode, math.degrees(delta)))
                 if not self.grid.free(to_rear(self.goal, 'goal')):
+                    if getattr(self, 'persistent_recovery', False):
+                        self.wait_retry('goal centre blocked; searching original 10cm region')
+                        return
                     raise ValueError('goal blocked; '+self.grid.blocked_detail(to_rear(self.goal, 'goal')))
                 self.state = 'WAIT_STOP'
                 self.status('WAIT_STOP: checking pose stability for 1 second (timeout 10 seconds)')
@@ -599,7 +776,10 @@ class Navigator(object):
                 self.halt('REJECTED: '+str(exc))
 
     def replan_from_current(self, pose, reason):
-        """Bounded automatic replan for a stalled but valid vehicle pose."""
+        """Stop and retry a retained goal after feedback recovers."""
+        if getattr(self, 'persistent_recovery', False):
+            self.wait_retry(reason)
+            return
         self.cmd.publish(Twist())
         if self.goal is None:
             self.halt('REPLAN_FAILED: no active goal; '+reason)
@@ -618,49 +798,97 @@ class Navigator(object):
         self.start_plan(pose)
 
     def start_plan(self, pose):
+        if (self.maneuver_mode in ('LATERAL', 'LATERAL_TURN_180') and not self.zero_cost_line
+                and self.line_stage != 'RETURN_STOP'):
+            self.maneuver_mode = 'NORMAL'
+            self.line_stage = None
+            self.line_route = None
+            self.stage_target = None
+            self.locked_line = None
+            self.status('GOAL_MODE: NORMAL; no low-cost lines, using ordinary navigation')
         generation = self.generation
         requested_goal = self.goal
         line_target = self.stage_target
         mode = self.maneuver_mode
+        relaxed = getattr(self, 'relaxed_goal', False)
+        budget = self.timeout
+        if mode == 'NORMAL':
+            budget = max(budget, P['normal_planning_timeout'])
+        if (mode in ('LATERAL', 'LATERAL_TURN_180') and self.zero_cost_line
+                and self.line_stage in (None, 'APPROACH_LINE')):
+            budget = max(budget, P['line_entry_timeout'])
+        if self.line_stage == 'LINE_SUFFIX':
+            budget = max(budget, P['line_suffix_timeout'])
+        if relaxed:
+            # Grow from this stage's budget, not the unrelated 5s base budget.
+            budget = max(budget, min(20., budget * 2**getattr(self, 'planning_budget_failures', 0)))
         sector = (min(self.maneuver_heading_tolerance, math.radians(P['maneuver_plan_heading_deg']))
                   if mode != 'NORMAL' else self.goal_heading_tolerance)
         goal = to_rear(requested_goal, 'goal')
         # A snapshot prevents /scan and map updates mutating a planner's grid.
         grid = Grid(self.grid.w,self.grid.h,self.grid.res,self.grid.origin,self.grid.data,self.planning_margin)
         grid.dynamic = set(self.grid.dynamic)
+        grid.depth_rules = list(self.grid.depth_rules)
+        grid.failed_tracking = list(getattr(self, 'failed_tracking', []))
         grid.zero_cost_width = self.zero_cost_width
         grid.zero_cost_line = list(self.zero_cost_line)
+        # Tracking may stop inside the additional planning clearance while
+        # remaining outside the controller's mandatory safety envelope. Use
+        # that same safety envelope to escape; never waive actual collisions.
+        if relaxed and (not grid.free(pose) or (self.line_stage == 'RETURN_STOP'
+                                                and not grid.free(line_target))):
+            grid.margin = self.margin
+            grid.cache.clear()
+            self.status('RECOVERY_CLEARANCE: using controller safety margin %.3fm' % self.margin)
         self.state = 'PLANNING'; self.status('PLANNING')
+        if budget > self.timeout:
+            self.status('PLANNING_BUDGET: %.1fs' % budget)
         def work():
             try:
                 cancel = lambda: self.generation != generation or self.stop_event.is_set()
                 stage = self.line_stage
                 selected = None
-                if stage == 'FINAL':
+                if stage == 'RETURN_STOP':
+                    target = line_target
+                    path = plan(grid,pose,target,self.radius,budget,cancel,
+                                .025,math.radians(P['stage_plan_heading_deg']),'NORMAL')
+                elif stage == 'LINE_SUFFIX':
+                    path, retreat = plan_line_suffix(
+                        grid, pose, goal, self.locked_line, line_target[2],
+                        self.radius, budget, cancel,
+                        .08 if relaxed else min(self.goal_position_tolerance, .025),
+                        self.goal_heading_tolerance, mode, requested_goal,
+                        goal_region=relaxed)
+                    # Execute the entire verified suffix. FINAL recovery can
+                    # replan from the current pose without revisiting point 2.
+                    stage, target = 'FINAL', requested_goal
+                elif stage == 'FINAL':
                     # The final approach may finish within the configured
                     # left/right heading window.  The maneuver heading cap
                     # belongs to the line entry/retreat stages and must not
                     # silently reduce the final-goal tolerance.
                     final_sector = self.goal_heading_tolerance
-                    path = plan(grid,pose,goal,self.radius,self.timeout,cancel,
-                                min(self.goal_position_tolerance, .025),final_sector,mode,requested_goal)
+                    path = plan(grid,pose,goal,self.radius,budget,cancel,
+                                .08 if relaxed else min(self.goal_position_tolerance, .025),
+                                final_sector,mode,requested_goal,goal_region=relaxed)
                     target = requested_goal
-                elif stage == 'RETREAT_LINE':
+                elif stage in ('APPROACH_LINE', 'RETREAT_LINE'):
                     target = line_target
-                    path = plan(grid,pose,target,self.radius,self.timeout,cancel,
-                                P['stage_plan_position'],math.radians(P['stage_plan_heading_deg']),mode)
+                    path = plan(grid,pose,target,self.radius,budget,cancel,
+                                P['stage_plan_position'],math.radians(P['stage_plan_heading_deg']),mode,
+                                start_reverse_only=stage == 'APPROACH_LINE' and mode == 'LATERAL')
                 else:
                     special = mode in ('LATERAL','LATERAL_TURN_180')
                     path, selected = (plan_line_approach(
-                        grid,pose,goal,self.radius,self.timeout,cancel,
+                        grid,pose,goal,self.radius,budget,cancel,
                         min(self.goal_position_tolerance, .025),min(sector, self.goal_heading_tolerance),mode,requested_goal)
                         if special and grid.zero_cost_line else (None,None))
                     if selected is None:
                         if special and grid.zero_cost_line:
-                            raise RuntimeError('no reachable entry on a drawn line; special move will not bypass line stages')
-                        path = plan(grid,pose,goal,self.radius,self.timeout,cancel,
-                                    self.goal_position_tolerance,sector,mode,requested_goal,
-                                    start_reverse_only=mode == 'LATERAL')
+                            raise RuntimeError('nearest low-cost line planning failed; switching lines is forbidden')
+                        path = plan(grid,pose,goal,self.radius,budget,cancel,
+                                    .08 if relaxed else self.goal_position_tolerance,sector,mode,requested_goal,
+                                    start_reverse_only=mode == 'LATERAL',goal_region=relaxed)
                         stage, target = None, requested_goal
                     else:
                         stage, target = 'APPROACH_LINE', selected[1]
@@ -668,10 +896,15 @@ class Navigator(object):
                     if generation != self.generation: return
                     if selected is not None:
                         self.line_route = selected
+                        self.locked_line = tuple(tuple(p) for p in grid.zero_cost_line[selected[0]])
                         self.status('VIA_LINE: line %d; entry=(%.2f,%.2f)' %
                                     (selected[0]+1,selected[1][0],selected[1][1]))
+                    if self.line_stage == 'LINE_SUFFIX':
+                        self.status('LINE_SUFFIX: retreat=(%.2f,%.2f); complete route verified' % retreat[:2])
                     self.line_stage = stage
                     self.stage_target = target
+                    self.execution_target = (from_rear(path[-1][:3], 'goal')
+                                             if relaxed and stage in (None, 'FINAL') else None)
                     self.execution_heading = path[-1][2] if stage or mode != 'NORMAL' else requested_goal[2]
                     self.status('PLAN_STAGE: %s; target=(%.2f,%.2f,%.1fdeg)' %
                                 (stage or 'DIRECT',target[0],target[1],math.degrees(self.execution_heading)))
@@ -683,6 +916,12 @@ class Navigator(object):
                     self.last_movement = time.time()
                     self.progress_time = time.time()
                     self.state = 'DRIVING' if self.parts else 'VERIFY_STOP'
+                    # A planner can finish between two control ticks, including
+                    # a zero-length route already inside the goal region. Never
+                    # reuse VERIFY_STOP's timestamp from the previous attempt.
+                    self.stop_state = None
+                    self.stop_started = time.time()
+                    self.stop_window = StopWindow()
                     self.test_arrival_deadline = (time.time() + self.test_auto_arrive_delay
                                                   if self.ground_truth_test and self.test_auto_arrive
                                                   else None)
@@ -695,6 +934,18 @@ class Navigator(object):
         worker = threading.Thread(target=work); worker.daemon=True; worker.start()
 
     def finish_stage(self, pose):
+        if self.line_stage == 'RETURN_STOP':
+            target = self.stage_target
+            if (math.hypot(pose[0]-target[0], pose[1]-target[1]) > P['stage_finish_position']
+                    or abs(wrap(pose[2]-target[2])) > math.radians(P['stage_finish_heading_deg'])):
+                self.wait_retry('return stop not yet reached')
+                return
+            self.line_stage, self.stage_target = self.return_context
+            self.return_context = None
+            self.status('RECOVERY_RETURNED: previous stop confirmed; retrying original goal region')
+            self.wait_retry('returned to previous stop')
+            return
+        self.remember_stop(pose)
         if self.line_stage in ('APPROACH_LINE', 'RETREAT_LINE'):
             target = self.stage_target
             error = math.hypot(pose[0]-target[0],pose[1]-target[1])
@@ -705,17 +956,10 @@ class Navigator(object):
                 return
             if (self.line_stage == 'APPROACH_LINE'
                     and self.maneuver_mode in ('LATERAL', 'LATERAL_TURN_180')):
-                try:
-                    line = self.zero_cost_line[self.line_route[0]]
-                    next_target = line_retreat_target(line, self.goal, target[2])
-                    if not self.grid.free(next_target):
-                        raise ValueError('second line-stage target blocked; '+self.grid.blocked_detail(next_target))
-                except (IndexError, TypeError, ValueError) as exc:
-                    self.halt('PLAN_FAILED: '+str(exc))
-                    return
-                self.line_stage = 'RETREAT_LINE'
-                self.stage_target = next_target
-                self.status('LINE_CONFIRMED: error %.3fm, %.1fdeg; planning second line point' %
+                self.line_stage = 'LINE_SUFFIX'
+                # Keep the confirmed entry heading and locked line for retries.
+                self.stage_target = target
+                self.status('LINE_CONFIRMED: error %.3fm, %.1fdeg; planning entry -> retreat -> goal together' %
                             (error,math.degrees(heading)))
                 self.start_plan(pose)
                 return
@@ -728,7 +972,7 @@ class Navigator(object):
         position_error = math.hypot(fx-self.goal[0],fy-self.goal[1])
         heading_error = abs(wrap(pose[2]-self.goal[2]))
         detail = 'goal-reference error %.3fm, heading error %.2fdeg' % (position_error,math.degrees(heading_error))
-        if position_error <= P['final_finish_position'] and heading_error <= math.radians(P['final_finish_heading_deg'] if self.maneuver_mode != 'NORMAL' else P['normal_finish_heading_deg']):
+        if position_error <= (.10 if getattr(self, 'relaxed_goal', False) else P['final_finish_position']) and heading_error <= math.radians(P['final_finish_heading_deg'] if self.maneuver_mode != 'NORMAL' else P['normal_finish_heading_deg']):
             self.halt('SUCCEEDED: '+detail)
         else:
             self.halt('FINAL_TOLERANCE_FAILED: '+detail)
@@ -744,6 +988,9 @@ class Navigator(object):
         self.path_pub.publish(msg)
 
     def wait_control(self, elapsed):
+        if getattr(self, 'persistent_recovery', False):
+            self.wait_retry('control interval %.3fs' % elapsed)
+            return
         # Invalidate any asynchronous planner before retaining the goal to retry.
         self.generation += 1
         self.cmd.publish(Twist())
@@ -819,7 +1066,7 @@ class Navigator(object):
                 self.stop_state = self.state
                 self.stop_window = StopWindow()
             self.cmd.publish(Twist())
-            stopped = self.stop_window.update(now, p)
+            stopped = self.stop_window.update(now, self.stop_pose(p))
             if self.state == 'WAIT_STOP' and stopped:
                 self.start_plan(p)
             elif self.state == 'CUSP' and stopped:
@@ -851,7 +1098,7 @@ class Navigator(object):
     def early_arrival_tolerances(self):
         # FINAL is also a nonempty line-stage name, but it must use the
         # final-goal thresholds rather than the looser intermediate stop.
-        transition = self.line_stage in ('APPROACH_LINE', 'RETREAT_LINE')
+        transition = self.line_stage in ('APPROACH_LINE', 'RETREAT_LINE', 'RETURN_STOP')
         return (P['stage_early_position'] if transition else P['final_early_position'],
                 math.radians(P['stage_early_heading_deg'] if transition else P['final_early_heading_deg']))
 
@@ -861,6 +1108,9 @@ class Navigator(object):
         self.last_control_stamp = stamp
         if self.goal is None:
             # Idle node never competes with a manual source; entering IDLE sent zero.
+            return
+        if self.state == 'WAIT_RETRY':
+            self.recover_retry(elapsed)
             return
         if self.ground_truth_test:
             self.tick_test()
@@ -900,17 +1150,19 @@ class Navigator(object):
                 self.stop_state = self.state
                 self.stop_started = now
                 self.stop_window = StopWindow()
-            stopped = self.stop_window.update(now, p)
+            stopped = self.stop_window.update(now, self.stop_pose(p))
             if self.state != 'PLANNING' and now-self.stop_started > P['stop_timeout']:
                 raise RuntimeError('stop not verified within configured timeout: vehicle motion or localization drift; check pose and resend goal')
             self.cmd.publish(Twist())
             # Pose stability alone cannot prove that the wheels have stopped.
             stopped = stopped and abs(self.actuator_state()[1]) <= .005
             if self.state == 'WAIT_STOP' and stopped:
+                self.remember_stop(p)
                 self.obstacles(); self.start_plan(p)
             elif self.state == 'VERIFY_STOP' and stopped:
                 self.finish_stage(p)
             elif self.state == 'CUSP' and stopped:
+                self.remember_stop(p)
                 self.part+=1; self.index=0; self.state='DRIVING'; self.last_movement=now
                 self.progress_time=now
             return
@@ -930,13 +1182,16 @@ class Navigator(object):
             return
         final=self.part == len(self.parts)-1
         fx,fy=from_rear(p, 'goal')[:2]
-        target_xy = (self.stage_target[:2] if self.line_stage in ('APPROACH_LINE', 'RETREAT_LINE')
-                     else self.goal[:2])
-        actual_xy = p[:2] if self.line_stage in ('APPROACH_LINE', 'RETREAT_LINE') else (fx,fy)
-        early_heading = (self.execution_heading if self.line_stage in ('APPROACH_LINE', 'RETREAT_LINE')
+        target_xy = (self.stage_target[:2] if self.line_stage in ('APPROACH_LINE', 'RETREAT_LINE', 'RETURN_STOP')
+                     else (getattr(self, 'execution_target', None) or self.goal)[:2])
+        actual_xy = p[:2] if self.line_stage in ('APPROACH_LINE', 'RETREAT_LINE', 'RETURN_STOP') else (fx,fy)
+        early_heading = (self.execution_heading if self.line_stage in ('APPROACH_LINE', 'RETREAT_LINE', 'RETURN_STOP')
                          else self.goal[2])
         early_position, early_angle = self.early_arrival_tolerances()
-        if final and math.hypot(actual_xy[0]-target_xy[0],actual_xy[1]-target_xy[1]) <= early_position and abs(wrap(p[2]-early_heading)) <= early_angle:
+        inside_region = (not getattr(self, 'relaxed_goal', False)
+                         or self.line_stage not in (None, 'FINAL')
+                         or math.hypot(fx-self.goal[0], fy-self.goal[1]) <= .10)
+        if final and inside_region and math.hypot(actual_xy[0]-target_xy[0],actual_xy[1]-target_xy[1]) <= early_position and abs(wrap(p[2]-early_heading)) <= early_angle:
             self.state='VERIFY_STOP';self.still_since=None;self.cmd.publish(Twist());return
         if not final and remaining < .035 and index >= len(part)-8:
             self.state='CUSP';self.still_since=None;self.cmd.publish(Twist());return

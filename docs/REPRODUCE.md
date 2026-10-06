@@ -26,7 +26,7 @@ export SMARTCAR_PROFILE=real
 cd ~/smartcar1
 # 停止旧版 smartcar-baseline/smartcar-sim 容器后再启动本版。
 bash scripts/sim.sh build
-bash scripts/sim.sh start
+bash scripts/sim.sh drivers
 ```
 
 图形窗口需要 Linux 图形桌面和 X11 授权，可按本机环境执行 `xhost +si:localuser:$(id -un)`；容器默认 UID=1000。DISPLAY/显卡配置属于运行环境，不影响模块边界。
@@ -41,7 +41,7 @@ bash scripts/robot.sh drivers-real /绝对路径/chassis_adapter.launch /绝对�
 bash scripts/robot.sh check drivers
 ```
 
-仿真：`sim.sh start` 已启动这一层；检查用 `bash scripts/sim.sh check drivers`。手动驾驶可另开终端运行 `bash scripts/sim.sh keyboard-sim`。
+仿真：`sim.sh drivers` 已启动这一层；检查用 `bash scripts/sim.sh check drivers`。手动驾驶可另开终端运行 `bash scripts/sim.sh keyboard-sim`。
 
 **通过标准**：底盘手动控制和停车正确；scan/转向/轮速反馈持续更新；雷达外参正确；驱动接受规定的指令话题。检查程序只做约 5 秒的只读连通性快照，仍需人工验收运动方向、比例和停车能力。
 
@@ -125,7 +125,7 @@ bash scripts/robot.sh multi-undo
 
 | 原命令 | 本版 |
 |---|---|
-| smartcar.sh start（带定位） | sim.sh start，然后显式 localization |
+| smartcar.sh start（带定位） | sim.sh start（默认窄场地，含定位）；分层调试用 drivers 后显式 localization |
 | smartcar.sh mapping | sim.sh mapping |
 | smartcar.sh nav | sim.sh single |
 | smartcar.sh nav-test | sim.sh planning-test |

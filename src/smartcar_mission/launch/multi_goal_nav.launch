@@ -1,8 +1,10 @@
 <launch>
   <arg name="frame_id" default="map" />
   <arg name="base_frame" default="base_footprint" />
+  <arg name="plan_file" default="" />
   <node pkg="smartcar_mission" type="multi_goal_nav.py" name="multi_goal_nav" output="screen" required="true">
     <param name="frame_id" value="$(arg frame_id)" />
     <param name="base_frame" value="$(arg base_frame)" />
+    <param name="plan_file" value="$(arg plan_file)" />
   </node>
 </launch>

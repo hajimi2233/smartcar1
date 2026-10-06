@@ -18,7 +18,9 @@ def fail(message):
 
 
 def main():
-    map_file, lines_file = sys.argv[1:]
+    stage, map_file, lines_file = sys.argv[1:]
+    if stage not in ('start', 'nav'):
+        sys.exit('Expected start or nav.')
     if not os.path.isfile(map_file):
         sys.exit('Missing map: ' + map_file)
     master = rosgraph.Master('/smartcar_quick_start')
@@ -53,6 +55,21 @@ def main():
         print('Reusing the running full-map localization.')
     elif '/laser_scan_matcher_node' in nodes:
         fail('A separate laser odometry stage is already running.')
+    root = os.environ['SMARTCAR_ROOT']
+    if stage == 'start':
+        if localization:
+            print('Simulation and localization are already running.')
+            return
+        if '/single_goal_nav' in nodes:
+            fail('Navigation is running without localization.')
+        sys.stdout.flush()
+        os.execvp('roslaunch', ['roslaunch', '/tmp/smartcar-quick-localization.launch',
+                              'root:=' + root, 'map_file:=' + map_file])
+        return
+    if not localization:
+        sys.exit('Localization is not running. Run sim.sh start in another terminal first.')
+    if '/inspection_sim_keyboard' in nodes:
+        fail('Keyboard control is still running. Stop it before navigation.')
     if '/single_goal_nav' in nodes:
         default_lines = '/home/hajimi/smartcar/data/navigation/low_cost_lines.json'
         active_lines = rospy.get_param('/single_goal_nav/low_cost_lines_file', default_lines)
@@ -60,12 +77,9 @@ def main():
             fail('Existing navigation has different localization or low-cost-line settings.')
         print('Localization and navigation are already running. Use RViz to set a goal.')
         return
-    root = os.environ['SMARTCAR_ROOT']
     sys.stdout.flush()
     os.execvp('roslaunch', ['roslaunch', '/tmp/smartcar-quick-nav.launch',
-                          'root:=' + root, 'map_file:=' + map_file,
-                          'low_cost_lines_file:=' + lines_file,
-                          'start_localization:=' + ('false' if localization else 'true')])
+                          'root:=' + root, 'low_cost_lines_file:=' + lines_file])
 
 
 if __name__ == '__main__':

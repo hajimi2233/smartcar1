@@ -1,6 +1,7 @@
 <launch>
   <arg name="config_file"  />
   <arg name="low_cost_lines_file" default="" />
+  <arg name="load_saved_low_cost_lines" default="" />
   <!-- Uses existing localization; no driver or TF source is started here. -->
   <arg name="turn_radius" default="" />
   <arg name="ground_truth_test" default="" />
@@ -20,6 +21,7 @@
   <arg name="goal_heading_tolerance_deg" default="" />
   <node pkg="smartcar_navigation" type="single_goal_nav.py" name="single_goal_nav" output="screen" required="true">
     <rosparam command="load" file="$(arg config_file)" />
+    <param if="$(eval arg('load_saved_low_cost_lines') != '')" name="load_saved_low_cost_lines" value="$(arg load_saved_low_cost_lines)" type="bool" />
     <param if="$(eval arg('low_cost_lines_file') != '')" name="low_cost_lines_file" value="$(arg low_cost_lines_file)" />
     <param if="$(eval arg('ground_truth_test') != '')" name="ground_truth_test" value="$(arg ground_truth_test)" />
     <param if="$(eval arg('test_replay_speed_scale') != '')" name="test_replay_speed_scale" value="$(arg test_replay_speed_scale)" />

@@ -7,6 +7,7 @@ import types
 import unittest
 from pathlib import Path
 from unittest.mock import patch
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'src/smartcar_mission/scripts'))
 
 
 def load_mission():
@@ -29,7 +30,7 @@ def load_mission():
 class MissionTests(unittest.TestCase):
     def node(self):
         node=load_mission().MultiGoalNav.__new__(load_mission().MultiGoalNav)
-        node.frame='map';node.active=False;node.points=[];node.lock=threading.RLock()
+        node.frame='map';node.active=False;node.points=[];node.labels=[];node.failed=False;node.lock=threading.RLock()
         node.status=lambda text:None;node.publish_marks=lambda:None
         return node
 

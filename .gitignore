@@ -9,3 +9,10 @@ local_project/inspection_c/build/
 
 restructure-tests.txt
 parameter-test-results.txt
+
+# Local navigation state and experiment output (source/scripts remain tracked).
+data/logs/
+data/tasks/
+data/navigation/
+local_project/
+data/maps/slam_current/localization_walls.json

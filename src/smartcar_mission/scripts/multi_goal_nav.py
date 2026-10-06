@@ -3,6 +3,7 @@
 """Select map points in click order and execute them through single_goal_nav."""
 from __future__ import print_function
 import math
+import json
 import threading
 import rospy
 import tf
@@ -10,13 +11,26 @@ from geometry_msgs.msg import PoseStamped
 from std_msgs.msg import String
 from visualization_msgs.msg import Marker, MarkerArray
 from std_srvs.srv import Trigger, TriggerResponse
+from plan_io import load_plan, load_regions
 
 
 class MultiGoalNav(object):
     def __init__(self):
         self.frame = rospy.get_param('/single_goal_nav/tuning/map_frame', rospy.get_param('~frame_id', 'map'))
         self.base = rospy.get_param('~base_frame', 'base_footprint')
-        self.points = []  # (x, y, yaw), in click order
+        self.points = []  # (x, y, yaw), in click order or C plan order
+        self.labels = []
+        self.inspection_regions = []
+        self.failed = False
+        plan_file = rospy.get_param('~plan_file', '')
+        if plan_file:
+            reference = rospy.get_param('/single_goal_nav/tuning/goal_reference', 'front_axle')
+            if reference != 'front_axle':
+                raise ValueError('Inspection plans require goal_reference=front_axle')
+            self.points, labels = load_plan(plan_file, self.frame)
+            self.labels = labels
+            self.inspection_regions = load_regions(plan_file)
+            rospy.loginfo('C plan loaded: %s', ' -> '.join(labels))
         self.active = False
         self.index = -1
         self.seen_active_status = False
@@ -24,6 +38,7 @@ class MultiGoalNav(object):
         self.listener = tf.TransformListener()
         self.mark_pub = rospy.Publisher('/multi_nav/points', MarkerArray, queue_size=1, latch=True)
         self.goal_pub = rospy.Publisher('/move_base_simple/goal', PoseStamped, queue_size=1)
+        self.inspection_goal_pub = rospy.Publisher('/single_nav/inspection_goal', String, queue_size=1)
         self.cancel_pub = rospy.Publisher('/single_nav/cancel', String, queue_size=1)
         self.status_pub = rospy.Publisher('/multi_nav/status', String, queue_size=1, latch=True)
         rospy.Subscriber('/multi_nav/goal', PoseStamped, self.on_goal_click, queue_size=20)
@@ -33,7 +48,7 @@ class MultiGoalNav(object):
         rospy.Service('~execute', Trigger, self.execute)
         rospy.Service('~cancel', Trigger, self.cancel)
         self.publish_marks()
-        self.status('READY: use RViz 2D Nav Goal in execution order; call /multi_goal_nav/execute')
+        self.status('READY: %d goals; call /multi_goal_nav/execute to start' % len(self.points))
 
     def status(self, text):
         self.status_pub.publish(String(data=text))
@@ -59,6 +74,8 @@ class MultiGoalNav(object):
                 return
             # Dedicated selection topic; execution starts only via execute service.
             self.points.append((x, y, yaw))
+            self.labels.append('point_%d' % len(self.points))
+            self.failed = False
             number = len(self.points)
             self.publish_marks()
             self.status('POINT %d: (%.3f, %.3f, %.1fdeg)' %
@@ -69,16 +86,36 @@ class MultiGoalNav(object):
         clear = Marker(); clear.action = Marker.DELETEALL; arr.markers.append(clear)
         now = rospy.Time.now()
         for i, (x, y, yaw) in enumerate(self.points):
+            current = i == (self.index if self.index >= 0 else 0)
+            following = i == (self.index+1 if self.index >= 0 else 1)
+            color = ((1., .15, .15) if self.failed and current else
+                     (1., .85, .05) if current else
+                     (.1, .9, 1.) if following else (.6, .6, .6))
             m = Marker(); m.header.frame_id = self.frame; m.header.stamp = now
             m.ns = 'multi_nav_points'; m.id = i; m.type = Marker.SPHERE; m.action = Marker.ADD
             m.pose.position.x = x; m.pose.position.y = y; m.pose.position.z = .08
             m.pose.orientation.w = 1.; m.scale.x = m.scale.y = m.scale.z = .16
-            m.color.r = 1.; m.color.g = .55; m.color.b = .05; m.color.a = 1.; arr.markers.append(m)
+            m.color.r, m.color.g, m.color.b = color
+            m.color.a = 1.; arr.markers.append(m)
+            arrow = Marker(); arrow.header = m.header
+            arrow.ns = 'multi_nav_headings'; arrow.id = i
+            arrow.type = Marker.ARROW; arrow.action = Marker.ADD
+            arrow.pose.position.x = x; arrow.pose.position.y = y; arrow.pose.position.z = .12
+            q = tf.transformations.quaternion_from_euler(0., 0., yaw)
+            arrow.pose.orientation.x, arrow.pose.orientation.y = q[0], q[1]
+            arrow.pose.orientation.z, arrow.pose.orientation.w = q[2], q[3]
+            arrow.scale.x = .65 if current else .4
+            arrow.scale.y = .07; arrow.scale.z = .10
+            arrow.color.r, arrow.color.g, arrow.color.b = color
+            arrow.color.a = 1.; arr.markers.append(arrow)
             t = Marker(); t.header = m.header; t.ns = 'multi_nav_numbers'; t.id = i
             t.type = Marker.TEXT_VIEW_FACING; t.action = Marker.ADD
             t.pose.position.x = x; t.pose.position.y = y; t.pose.position.z = .28
             t.pose.orientation.w = 1.; t.scale.z = .16
-            t.color.r = t.color.g = t.color.b = 1.; t.color.a = 1.; t.text = str(i + 1)
+            t.color.r = t.color.g = t.color.b = 1.; t.color.a = 1.
+            label = self.labels[i] if i < len(self.labels) else 'point_%d' % (i+1)
+            state = 'FAILED' if self.failed and current else 'TARGET' if current else 'NEXT' if following else ''
+            t.text = '%d %s %s\n(%.2f, %.2f) %.1f deg' % (i+1, label, state, x, y, math.degrees(yaw))
             arr.markers.append(t)
         self.mark_pub.publish(arr)
 
@@ -86,7 +123,7 @@ class MultiGoalNav(object):
         with self.lock:
             if self.active:
                 return TriggerResponse(False, 'cancel queue first')
-            self.points = []; self.publish_marks()
+            self.points = []; self.labels = []; self.failed = False; self.index = -1; self.publish_marks()
         self.status('CLEARED')
         return TriggerResponse(True, 'points cleared')
 
@@ -94,7 +131,9 @@ class MultiGoalNav(object):
         with self.lock:
             if self.active: return TriggerResponse(False, 'cancel queue first')
             if not self.points: return TriggerResponse(False, 'no points')
-            self.points.pop(); self.publish_marks()
+            self.points.pop()
+            if self.labels: self.labels.pop()
+            self.failed = False; self.index = -1; self.publish_marks()
         self.status('UNDO: %d points remain' % len(self.points))
         return TriggerResponse(True, 'last point removed')
 
@@ -103,18 +142,27 @@ class MultiGoalNav(object):
             if self.active: return TriggerResponse(False, 'already executing')
             if not self.points: return TriggerResponse(False, 'no points selected')
             self.active = True; self.index = 0; self.seen_active_status = False
+            self.failed = False
             self.status('STARTING: %d points' % len(self.points))
             self.publish_current()
         return TriggerResponse(True, 'queue started')
 
     def publish_current(self):
+        self.publish_marks()
         i = self.index; x, y, yaw = self.points[i]
         msg = PoseStamped(); msg.header.frame_id = self.frame; msg.header.stamp = rospy.Time.now()
         msg.pose.position.x = x; msg.pose.position.y = y
         q = tf.transformations.quaternion_from_euler(0., 0., yaw)
         msg.pose.orientation.x, msg.pose.orientation.y = q[0], q[1]
         msg.pose.orientation.z, msg.pose.orientation.w = q[2], q[3]
-        self.goal_pub.publish(msg)
+        if self.inspection_regions:
+            label = self.labels[i] if i < len(self.labels) else ''
+            self.inspection_goal_pub.publish(String(data=json.dumps(dict(
+                frame_id=self.frame, x=x, y=y, yaw=yaw,
+                target_id=label if label.startswith('inspect_') else None,
+                regions=self.inspection_regions))))
+        else:
+            self.goal_pub.publish(msg)
         self.status('GOAL %d/%d: (%.3f, %.3f, %.1fdeg)' %
                     (i + 1, len(self.points), x, y, math.degrees(yaw)))
 
@@ -127,8 +175,9 @@ class MultiGoalNav(object):
             if text.startswith(('PLAN_FAILED:', 'REJECTED:', 'STOPPED:', 'CANCELLED',
                                 'FINAL_TOLERANCE_FAILED:', 'REPLAN_LIMIT:')):
                 self.active = False
+                self.failed = True
+                self.publish_marks()
                 self.status('FAILED at goal %d/%d: %s' % (self.index + 1, len(self.points), text))
-                self.clear_queue()
                 return
             if not text.startswith('SUCCEEDED:') or not self.seen_active_status:
                 return
@@ -152,6 +201,8 @@ class MultiGoalNav(object):
     def clear_queue(self):
         """Forget the completed or aborted run before the next execution."""
         self.points = []
+        self.labels = []
+        self.failed = False
         self.index = -1
         self.publish_marks()
 

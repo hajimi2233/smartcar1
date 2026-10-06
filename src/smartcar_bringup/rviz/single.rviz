@@ -55,6 +55,10 @@ Visualization Manager:
       Color Transformer: FlatColor
       Color: 255; 40; 40
     - Class: rviz/MarkerArray
+      Name: Task goals and headings
+      Enabled: true
+      Marker Topic: /multi_nav/points
+    - Class: rviz/MarkerArray
       Name: Waypoints
       Enabled: true
       Marker Topic: /waypoint_marks
@@ -133,6 +137,9 @@ Visualization Manager:
       Single click: false
       Topic: /single_nav/line_point
 
+    - Class: rviz/PublishPoint
+      Single click: false
+      Topic: /clicked_point
     - Class: rviz/SetInitialPose
       Topic: /initialpose
     - Class: rviz/SetGoal

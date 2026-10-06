@@ -178,6 +178,38 @@ class FeedbackTests(unittest.TestCase):
         n.index=3
         self.assertEqual(n.active_speed_cap(),0.)
 
+    def test_lateral_without_lines_uses_normal_planner(self):
+        from unittest.mock import Mock
+        import threading
+        m = self.module
+        for mode in ('LATERAL', 'LATERAL_TURN_180'):
+            for stage in (None, 'APPROACH_LINE', 'RETREAT_LINE', 'FINAL'):
+                n = self.node()
+                n.maneuver_mode = mode; n.zero_cost_line = []
+                n.line_stage = stage; n.stage_target = (1., 0., 0.)
+                n.line_route = (0, n.stage_target); n.locked_line = ((0.,0.),(1.,0.))
+                n.generation = 0; n.goal = (2., 2., 0.)
+                n.goal_heading_tolerance = math.radians(10)
+                n.goal_position_tolerance = .08
+                n.grid = m.Grid(100,100,.1,(-5.,-5.,0.),[0]*10000)
+                n.planning_margin = 0.; n.zero_cost_width = .1
+                n.radius = 1.; n.timeout = 1.
+                n.lock = threading.RLock(); n.stop_event = threading.Event()
+                n.status = Mock(); n.halt = Mock(); n.publish_path = Mock()
+                with patch.object(m.threading, 'Thread') as thread, \
+                     patch.object(m, 'plan', return_value=[(0.,0.,0.,1,0.),(1.,1.,0.,1,0.)]) as planner, \
+                     patch.object(m, 'plan_line_approach') as line_planner:
+                    thread.side_effect = lambda **kw: types.SimpleNamespace(start=kw['target'])
+                    n.start_plan((0.,0.,0.))
+                n.halt.assert_not_called()
+                line_planner.assert_not_called()
+                self.assertEqual(planner.call_args[0][8], 'NORMAL')
+                self.assertEqual(planner.call_args[0][7], n.goal_heading_tolerance)
+                self.assertFalse(planner.call_args[1]['start_reverse_only'])
+                self.assertEqual(n.maneuver_mode, 'NORMAL')
+                self.assertIsNone(n.line_stage)
+                self.assertIsNone(n.locked_line)
+
     def test_line_stage_advances_only_after_pose_confirmation(self):
         from unittest.mock import Mock
         n = self.node()
@@ -186,6 +218,7 @@ class FeedbackTests(unittest.TestCase):
         n.stage_target = (1., .3, 0.)
         n.line_route = (0, n.stage_target)
         n.zero_cost_line = [((0., 0.), (2., 0.))]
+        n.locked_line = n.zero_cost_line[0]
         n.goal = (1.8, .4, 0.)
         n.grid = Mock()
         n.grid.free.return_value = True
@@ -195,10 +228,10 @@ class FeedbackTests(unittest.TestCase):
         n.start_plan.assert_not_called()
         n.replan_from_current.reset_mock()
         n.finish_stage((1.02, .3, .02))
-        self.assertEqual(n.line_stage, 'RETREAT_LINE')
+        self.assertEqual(n.line_stage, 'LINE_SUFFIX')
         n.start_plan.assert_called_once()
 
-    def test_turning_lateral_confirms_second_line_point_before_final(self):
+    def test_turning_lateral_confirms_entry_before_suffix(self):
         from unittest.mock import Mock
         n = self.node()
         n.line_stage = 'APPROACH_LINE'
@@ -206,17 +239,15 @@ class FeedbackTests(unittest.TestCase):
         n.stage_target = (0., 0., math.pi)
         n.line_route = (0, n.stage_target)
         n.zero_cost_line = [((0., 0.), (2., 0.))]
+        n.locked_line = n.zero_cost_line[0]
         n.goal = (1.8, .4, 0.)
         n.grid = Mock()
         n.grid.free.return_value = True
         n.status = Mock(); n.start_plan = Mock(); n.replan_from_current = Mock(); n.halt = Mock()
         n.finish_stage((.02, 0., math.pi))
-        self.assertEqual(n.line_stage, 'RETREAT_LINE')
-        self.assertAlmostEqual(n.stage_target[0], 3.3)
+        self.assertEqual(n.line_stage, 'LINE_SUFFIX')
+        self.assertEqual(n.stage_target, (0., 0., math.pi))
         self.assertEqual(n.start_plan.call_count, 1)
-        n.finish_stage((3.31, 0., math.pi))
-        self.assertEqual(n.line_stage, 'FINAL')
-        self.assertEqual(n.start_plan.call_count, 2)
         n.halt.assert_not_called()
 
     def test_final_verification_uses_requested_pose_and_halved_limits(self):

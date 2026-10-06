@@ -12,6 +12,7 @@ planning_collision_margin: 0.04
 # 0 selects the previous local candidate rollout for comparison.
 local_guard_distance: 0.10
 zero_cost_line_width: 0.01
+load_saved_low_cost_lines: false
 planning_timeout: 5.0
 scan_timeout: 1.0
 goal_position_tolerance: 0.04
@@ -61,7 +62,21 @@ tuning:
   path_offset_x: 0.0
   path_offset_y: 0.0
   # Stage distances and arrival tolerances; preserve existing strategy.
+  # 两种特殊横移：从当前后轴中心在线上的最近点，沿低代价线向所选左/右侧偏移的距离（米）。
+  # Soft execution-effort costs; geometry and collision limits are unchanged.
+  planner_switch_cost: 0.45
+  planner_steer_cost: 0.02
+  planner_short_segment_cost: 0.15
+  # Both searches: three rearward offsets from nominal, span/3, 2*span/3, span.
+  line_entry_search_span: 0.9
+  normal_planning_timeout: 20.0
+  line_entry_timeout: 20.0
+  line_entry_steer_seconds: 30.0
+  line_search_span: 0.9
+  line_suffix_timeout: 15.0
+  tracking_turn_allowance: 0.015
   line_entry_distance: 1.5
+  # 第二段：从目标参考点在线上的投影，朝车尾方向退让的距离（米），与上一项独立。
   line_retreat_distance: 1.5
   stage_plan_position: 0.06
   stage_plan_heading_deg: 5.0

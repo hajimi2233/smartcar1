@@ -17,23 +17,27 @@ def check(path):
         data = yaml.safe_load(stream)
     if not isinstance(data, dict):
         raise ValueError('configuration must be a mapping')
+    data.setdefault('planning_collision_margin', data.get('collision_margin', .04))
+    data.setdefault('local_guard_distance', .10)
+    data.setdefault('load_saved_low_cost_lines', False)
     expected = set(('turn_radius local_turn_radius steering_rate tracking_lateral_gain '
                     'tracking_heading_gain tracking_preview_distance collision_margin '
                     'zero_cost_line_width planning_timeout scan_timeout goal_position_tolerance '
                     'goal_heading_tolerance_deg ground_truth_test test_replay_speed_scale '
                     'test_auto_arrive test_auto_arrive_delay cmd_topic joint_topic '
-                    'actuator_model_param tuning').split())
+                    'actuator_model_param tuning planning_collision_margin local_guard_distance '
+                    'load_saved_low_cost_lines').split())
     if set(data) != expected:
         raise ValueError('missing keys: %s; unknown keys: %s' %
                          (sorted(expected-set(data)), sorted(set(data)-expected)))
     p = configure(data['tuning'])
-    for key in expected - set(('tuning ground_truth_test test_auto_arrive cmd_topic joint_topic actuator_model_param').split()):
+    for key in expected - set(('tuning ground_truth_test test_auto_arrive cmd_topic joint_topic actuator_model_param load_saved_low_cost_lines').split()):
         value = data[key]
         if isinstance(value, bool) or not isinstance(value, (int, float)) or math.isnan(value) or math.isinf(value) or value < 0:
             raise ValueError(key + ' must be finite and nonnegative')
-        if key not in ('zero_cost_line_width','test_auto_arrive_delay') and value == 0:
+        if key not in ('zero_cost_line_width','test_auto_arrive_delay','local_guard_distance') and value == 0:
             raise ValueError(key + ' must be positive')
-    for key in ('ground_truth_test','test_auto_arrive'):
+    for key in ('ground_truth_test','test_auto_arrive','load_saved_low_cost_lines'):
         if type(data[key]) is not bool:
             raise ValueError(key + ' must be true or false')
     for key in ('cmd_topic','joint_topic','actuator_model_param'):
@@ -43,6 +47,8 @@ def check(path):
         raise ValueError('inconsistent turn radii')
     if data['collision_margin'] < .02 or data['scan_timeout'] < .4 or not 1 <= data['planning_timeout'] <= 60:
         raise ValueError('collision_margin >= .02; scan_timeout >= .4; planning_timeout in [1,60]')
+    if data['planning_collision_margin'] < data['collision_margin']:
+        raise ValueError('planning_collision_margin must be >= collision_margin')
     if not 0 < data['test_replay_speed_scale'] <= 4:
         raise ValueError('test_replay_speed_scale must be in (0,4]')
     print('OK: %d startup tuning settings; goal=%s, path=%s, base=%s' %

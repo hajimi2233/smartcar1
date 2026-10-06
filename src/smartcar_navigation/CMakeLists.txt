@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 2.8.3)
 project(smartcar_navigation)
 find_package(catkin REQUIRED)
 catkin_package()
+configure_file(scripts/inspection_depth.py ${CATKIN_DEVEL_PREFIX}/${CATKIN_PACKAGE_BIN_DESTINATION}/inspection_depth.py COPYONLY)
+install(FILES scripts/inspection_depth.py DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 catkin_install_python(PROGRAMS
   scripts/single_goal_nav.py
   scripts/corridor_monitor.py

@@ -1,8 +1,15 @@
 <launch>
   <arg name="config_file" /><arg name="multi" default="false" />
+  <arg name="plan_file" default="" />
+  <arg name="low_cost_lines_file" default="" />
+  <arg name="load_saved_low_cost_lines" default="" />
   <include file="$(find smartcar_navigation)/launch/single_goal.launch">
     <arg name="config_file" value="$(arg config_file)" />
+    <arg name="low_cost_lines_file" value="$(arg low_cost_lines_file)" />
+    <arg name="load_saved_low_cost_lines" value="$(arg load_saved_low_cost_lines)" />
     <arg name="ground_truth_test" value="true" /><arg name="test_auto_arrive" value="true" />
   </include>
-  <include if="$(arg multi)" file="$(find smartcar_mission)/launch/multi_goal_nav.launch" />
+  <include if="$(arg multi)" file="$(find smartcar_mission)/launch/multi_goal_nav.launch">
+    <arg name="plan_file" value="$(arg plan_file)" />
+  </include>
 </launch>

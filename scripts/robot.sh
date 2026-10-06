@@ -8,6 +8,7 @@ case "$profile" in sim) nav_config="$project_root/config/navigation.yaml" ;; rea
 nav_config="${SMARTCAR_NAV_CONFIG:-$nav_config}"
 stage="${1:-help}"
 if [ "$#" -gt 0 ]; then shift; fi
+if [ "$stage" = nav-test ]; then stage=planning-test; fi
 require_ros() { command -v roslaunch >/dev/null || { echo 'Source /opt/ros/kinetic/setup.bash and your workspace devel/setup.bash first.'; exit 2; }; }
 check_abs_file() { case "$1" in /*) ;; *) echo "Expected absolute file path: $1"; exit 2 ;; esac; test -f "$1" || { echo "Missing file: $1"; exit 2; }; }
 reject_nodes() {
@@ -57,6 +58,26 @@ case "$stage" in
       launch=planning_test.launch
     else launch="$stage.launch"; fi
     exec roslaunch smartcar_bringup "$launch" config_file:="$nav_config" "$@" ;;
+  plan-test)
+    require_ros
+    if [ "$profile" != sim ]; then echo 'plan-test requires simulation.'; exit 2; fi
+    reject_nodes /single_goal_nav /multi_goal_nav /inspection_sim_keyboard /inspection_plan_test
+    exec rosrun smartcar_mission inspection_plan_test.py "${1:-$project_root/data/tasks/points.csv}" "$nav_config" ;;
+  points-outer)
+    require_ros; reject_nodes /inspection_points
+    exec rosrun smartcar_mission inspection_points.py "${1:-$project_root/data/tasks/points.csv}" --outer-only ;;
+  points)
+    require_ros; reject_nodes /inspection_points
+    exec rosrun smartcar_mission inspection_points.py "${1:-$project_root/data/tasks/points.csv}" ;;
+  points-save|points-undo)
+    require_ros; exec rosservice call "/inspection_points/${stage#points-}" ;;
+  plan)
+    require_ros
+    if [ "$#" -lt 1 ]; then echo 'Usage: sim.sh plan A1B2...A10 [/absolute/points.csv] [--preview]'; exit 2; fi
+    layout="$1"; shift
+    points_file="$project_root/data/tasks/points.csv"
+    if [ "$#" -gt 0 ] && [ "$1" != --preview ]; then points_file="$1"; shift; fi
+    exec rosrun smartcar_mission inspection_plan.py "$layout" "$points_file" "$@" ;;
   wheel-test)
     require_ros
     if [ "$profile" != sim ]; then echo 'wheel-test is simulation-only'; exit 2; fi
@@ -105,6 +126,8 @@ case "$stage" in
     exec rosrun smartcar_drivers check_stage.py _stage:="$1" _profile:="$profile" _navigation_config:="$nav_config" ;;
   *)
     echo 'Stages: drivers-real, drivers-sim, mapping, save-map, localization, single, multi, planning-test'
+    echo 'Inspection: points [CSV], points-save, points-undo, plan LAYOUT [CSV] [--preview], multi-execute'
+    echo 'Interactive planning-only inspection test: plan-test [CSV]; standalone: nav-test'
     echo 'Wheel experiment (sim): wheel-test [scale_error:=0.05], localization MAP wall_features:=true wheel_fusion:=true, wheel-results'
     echo 'Walls: localization MAP wall_features:=true; walls inside|outside|undo|delete GROUP ID|clear GROUP|radius METRES|preview|save|load|cancel|list; wall-status'
     echo 'Corridor: corridor [region_file:=/absolute/region.json], region begin|undo|save|cancel|clear, corridor-state'
