@@ -10,5 +10,5 @@ add_library(inspection_ackermann SHARED src/ackermann_plugin.cpp)
 target_link_libraries(inspection_ackermann ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES})
 
 
-catkin_install_python(PROGRAMS scripts/laser_noise.py scripts/imu_bridge.py scripts/terminal_teleop.py scripts/reset_to_start.py DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+catkin_install_python(PROGRAMS scripts/laser_noise.py scripts/imu_bridge.py scripts/terminal_teleop.py scripts/reset_to_start.py scripts/turn90_calibration.py scripts/turn_calibration_record.py DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 install(DIRECTORY config worlds DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})

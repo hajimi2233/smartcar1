@@ -13,17 +13,18 @@ DEFAULTS = dict(
     map_frame='map', odom_frame='odom', base_frame='base_footprint',
     truth_frame='sim_world',
     wheelbase=.62, front_track=.45, wheel_radius=.09,
-    body_front=.71, body_rear=.09, body_half_width=.275,
-    collision_half_length=.40, collision_half_width=.25,
+    # 0.78 m body with a 0.62 m wheelbase: 8 cm front/rear overhang.
+    body_front=.70, body_rear=.08, body_half_width=.275,
+    collision_half_length=.39, collision_half_width=.25,
     collision_center_x=.31, boundary_half_length=.40, tire_half_width=.035,
-    region_margin=.01, physical_min_radius=1.1, global_min_radius=1.3,
+    region_margin=.01, physical_min_radius=1.2, global_min_radius=1.25,
     base_reference='custom', base_offset_x=.31, base_offset_y=0.,
     goal_reference='front_axle', goal_offset_x=0., goal_offset_y=0.,
     path_reference='rear_axle', path_offset_x=0., path_offset_y=0.,
     normal_planning_timeout=20.,
     line_entry_distance=1.5, line_retreat_distance=1.5,
     line_entry_search_span=.9, line_entry_timeout=20., line_entry_steer_seconds=30.,
-    line_search_span=.9, line_suffix_timeout=15., planner_switch_cost=.45, planner_steer_cost=.02,
+    line_search_span=.9, line_suffix_timeout=20., planner_switch_cost=.45, planner_steer_cost=.02,
     planner_short_segment_cost=.15, tracking_turn_allowance=.015,
     stage_plan_position=.06, stage_plan_heading_deg=5.,
     maneuver_plan_heading_deg=4., stage_finish_position=.12,
@@ -44,7 +45,8 @@ DEFAULTS = dict(
     tracking_recover_error=.18, scan_obstacle_range=.80, scan_stride=2,
     wall_straight_weight=.7, wall_maneuver_weight=0., wall_normal_weight=.5,
     wall_gain=.45, wall_max_angle_deg=15.,
-    planner_max_records=60000)
+    planner_max_records=60000, planner_special_search_margin=1.0,
+    line_entry_candidate_step=.5, line_entry_candidate_count=1)
 
 P = dict(DEFAULTS)
 
@@ -78,7 +80,8 @@ def configure(overrides=None):
             raise ValueError(key + ' has invalid sign')
         if key.endswith('_weight') and value > 1:
             raise ValueError(key + ' must be in [0, 1]')
-    for key in ('rollout_steps', 'scan_stride', 'max_replans', 'planner_max_records'):
+    for key in ('rollout_steps', 'scan_stride', 'max_replans', 'planner_max_records',
+                'line_entry_candidate_count'):
         if int(values[key]) != values[key]:
             raise ValueError(key + ' must be an integer')
         values[key] = int(values[key])

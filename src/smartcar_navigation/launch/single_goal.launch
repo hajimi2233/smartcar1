@@ -19,6 +19,9 @@
   <arg name="scan_timeout" default="" />
   <arg name="goal_position_tolerance" default="" />
   <arg name="goal_heading_tolerance_deg" default="" />
+  <arg name="turn90_primitive_file" default="" />
+  <arg name="turn90_pre_extension" default="" />
+  <arg name="turn90_post_extension" default="" />
   <node pkg="smartcar_navigation" type="single_goal_nav.py" name="single_goal_nav" output="screen" required="true">
     <rosparam command="load" file="$(arg config_file)" />
     <param if="$(eval arg('load_saved_low_cost_lines') != '')" name="load_saved_low_cost_lines" value="$(arg load_saved_low_cost_lines)" type="bool" />
@@ -39,5 +42,8 @@
     <param if="$(eval arg('scan_timeout') != '')" name="scan_timeout" value="$(arg scan_timeout)" />
     <param if="$(eval arg('goal_position_tolerance') != '')" name="goal_position_tolerance" value="$(arg goal_position_tolerance)" />
     <param if="$(eval arg('goal_heading_tolerance_deg') != '')" name="goal_heading_tolerance_deg" value="$(arg goal_heading_tolerance_deg)" />
+    <param if="$(eval arg('turn90_primitive_file') != '')" name="turn90_primitive_file" value="$(arg turn90_primitive_file)" />
+    <param if="$(eval arg('turn90_pre_extension') != '')" name="turn90_pre_extension" value="$(arg turn90_pre_extension)" />
+    <param if="$(eval arg('turn90_post_extension') != '')" name="turn90_post_extension" value="$(arg turn90_post_extension)" />
   </node>
 </launch>

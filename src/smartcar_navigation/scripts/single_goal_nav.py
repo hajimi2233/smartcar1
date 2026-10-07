@@ -24,7 +24,9 @@ from ground_truth_pose import alignment, rear_pose
 from low_cost_lines import LineStore, map_key
 from nav_obstacles import smooth_ranges, ConfirmedHits, Recovery, ConsecutiveFailures, obstacle_key
 from ackermann_core import plan_fewer_changes as plan
-from ackermann_core import Grid, plan_line_approach, plan_line_suffix, line_retreat_target, segments, speed_profile, rear_target, front_position, wrap, finite, StopWindow
+from ackermann_core import (Grid, plan_line_approach, plan_line_suffix, line_retreat_target,
+                             segments, speed_profile, rear_target, front_position, wrap, finite,
+                             StopWindow, load_turn90_trace, plan_turn90_trace)
 from inspection_depth import validate_regions, rules_for_goal
 import json
 
@@ -62,10 +64,10 @@ class Navigator(object):
         self.inspection_regions = []
         self.inspection_sides = {}
         self.master = rosgraph.Master(rospy.get_name())
-        self.radius = float(rospy.get_param('~turn_radius', 1.3))
+        self.radius = float(rospy.get_param('~turn_radius', 1.25))
         if not finite([self.radius]) or self.radius < P['global_min_radius']:
             raise ValueError('turn_radius must be finite and >= tuning/global_min_radius')
-        self.local_radius = float(rospy.get_param('~local_turn_radius', 1.1))
+        self.local_radius = float(rospy.get_param('~local_turn_radius', 1.2))
         self.steering_rate = float(rospy.get_param('~steering_rate', 1.0))
         self.tracking_options = dict(lateral_gain=float(rospy.get_param('~tracking_lateral_gain',6.0)),
                                      heading_gain=float(rospy.get_param('~tracking_heading_gain',4.0)),
@@ -98,13 +100,27 @@ class Navigator(object):
         self.zero_cost_width = float(rospy.get_param('~zero_cost_line_width', .01))
         self.line_store=LineStore(rospy.get_param('~low_cost_lines_file',os.path.join(
             os.environ.get('SMARTCAR_ROOT',os.path.expanduser('~/.ros/smartcar')),'data','navigation','low_cost_lines.json')))
+        self.turn90_trace = None
+        turn90_file = rospy.get_param('~turn90_primitive_file', '')
+        self.turn90_pre_extension = float(rospy.get_param('~turn90_pre_extension', .30))
+        self.turn90_post_extension = float(rospy.get_param('~turn90_post_extension', .30))
+        if (not finite([self.turn90_pre_extension, self.turn90_post_extension]) or
+                self.turn90_pre_extension < 0. or self.turn90_post_extension < 0.):
+            raise ValueError('turn90 straight extensions must be finite and nonnegative')
+        if turn90_file:
+            try:
+                self.turn90_trace = load_turn90_trace(turn90_file)
+                rospy.loginfo('TURN90_PRIMITIVE: loaded %d moving samples from %s',
+                              len(self.turn90_trace['samples']), turn90_file)
+            except Exception as exc:
+                raise ValueError('invalid turn90_primitive_file: %s' % exc)
         self.line_map_key=None
         self.load_saved_lines = rospy.get_param('~load_saved_low_cost_lines', False)
         line = [float(rospy.get_param('~zero_cost_line_x1', float('nan'))), float(rospy.get_param('~zero_cost_line_y1', float('nan'))), float(rospy.get_param('~zero_cost_line_x2', float('nan'))), float(rospy.get_param('~zero_cost_line_y2', float('nan')))]
         self.zero_cost_line = [((line[0],line[1]),(line[2],line[3]))] if finite(line) else []
         # Disk records are map-bound. Do not restore unbound ROS parameters
         # left by another map/session. Disk restore is explicitly opt-in.
-        self.timeout = float(rospy.get_param('~planning_timeout', 5.))
+        self.timeout = float(rospy.get_param('~planning_timeout', 20.))
         self.scan_timeout = float(rospy.get_param('~scan_timeout', 1.0))
         self.goal_position_tolerance = float(rospy.get_param('~goal_position_tolerance', .08))
         self.goal_heading_tolerance = math.radians(float(rospy.get_param('~goal_heading_tolerance_deg', 3.0)))
@@ -822,6 +838,7 @@ class Navigator(object):
         if relaxed:
             # Grow from this stage's budget, not the unrelated 5s base budget.
             budget = max(budget, min(20., budget * 2**getattr(self, 'planning_budget_failures', 0)))
+        budget = min(20., budget)
         sector = (min(self.maneuver_heading_tolerance, math.radians(P['maneuver_plan_heading_deg']))
                   if mode != 'NORMAL' else self.goal_heading_tolerance)
         goal = to_rear(requested_goal, 'goal')
@@ -832,6 +849,14 @@ class Navigator(object):
         grid.failed_tracking = list(getattr(self, 'failed_tracking', []))
         grid.zero_cost_width = self.zero_cost_width
         grid.zero_cost_line = list(self.zero_cost_line)
+        # Initial special maneuvers use a bounded window. Any recovery/replan
+        # deliberately switches back to full-map search.
+        grid.search_mode = (mode if self.replan_count == 0 else 'NORMAL')
+        if grid.search_mode == 'NORMAL':
+            self.status('PLANNING_WINDOW: full map')
+        else:
+            self.status('PLANNING_WINDOW: special start-goal box + %.2fm margin' %
+                        P.get('planner_special_search_margin', 0.))
         # Tracking may stop inside the additional planning clearance while
         # remaining outside the controller's mandatory safety envelope. Use
         # that same safety envelope to escape; never waive actual collisions.
@@ -858,7 +883,10 @@ class Navigator(object):
                         self.radius, budget, cancel,
                         .08 if relaxed else min(self.goal_position_tolerance, .025),
                         self.goal_heading_tolerance, mode, requested_goal,
-                        goal_region=relaxed)
+                        goal_region=relaxed, turn90_trace=getattr(self, 'turn90_trace', None),
+                        turn90_pre_extension=self.turn90_pre_extension,
+                        turn90_post_extension=self.turn90_post_extension,
+                        report=self.status)
                     # Execute the entire verified suffix. FINAL recovery can
                     # replan from the current pose without revisiting point 2.
                     stage, target = 'FINAL', requested_goal
@@ -879,19 +907,34 @@ class Navigator(object):
                                 start_reverse_only=stage == 'APPROACH_LINE' and mode == 'LATERAL')
                 else:
                     special = mode in ('LATERAL','LATERAL_TURN_180')
-                    path, selected = (plan_line_approach(
+                    primitive = None
+                    if mode in ('TURN_90_LEFT', 'TURN_90_RIGHT') and self.turn90_trace:
+                        desired = 1 if mode.endswith('LEFT') else -1
+                        primitive = plan_turn90_trace(grid, pose, goal, self.turn90_trace,
+                                                      desired,
+                                                      pre_extension=self.turn90_pre_extension,
+                                                      post_extension=self.turn90_post_extension,
+                                                      cancel=cancel)
+                    if primitive is not None:
+                        path, selected = primitive, None
+                        stage, target = None, requested_goal
+                        self.status('TURN90_PRIMITIVE: verified measured turn + normal suffix')
+                    elif mode in ('TURN_90_LEFT', 'TURN_90_RIGHT') and self.turn90_trace:
+                        self.status('TURN90_PRIMITIVE: rejected by endpoint/clearance; fallback Hybrid A*')
+                    if primitive is None:
+                        path, selected = (plan_line_approach(
                         grid,pose,goal,self.radius,budget,cancel,
                         min(self.goal_position_tolerance, .025),min(sector, self.goal_heading_tolerance),mode,requested_goal)
                         if special and grid.zero_cost_line else (None,None))
-                    if selected is None:
-                        if special and grid.zero_cost_line:
-                            raise RuntimeError('nearest low-cost line planning failed; switching lines is forbidden')
-                        path = plan(grid,pose,goal,self.radius,budget,cancel,
-                                    .08 if relaxed else self.goal_position_tolerance,sector,mode,requested_goal,
-                                    start_reverse_only=mode == 'LATERAL',goal_region=relaxed)
-                        stage, target = None, requested_goal
-                    else:
-                        stage, target = 'APPROACH_LINE', selected[1]
+                        if selected is None:
+                            if special and grid.zero_cost_line:
+                                raise RuntimeError('nearest low-cost line planning failed; switching lines is forbidden')
+                            path = plan(grid,pose,goal,self.radius,budget,cancel,
+                                        .08 if relaxed else self.goal_position_tolerance,sector,mode,requested_goal,
+                                        start_reverse_only=mode == 'LATERAL',goal_region=relaxed)
+                            stage, target = None, requested_goal
+                        else:
+                            stage, target = 'APPROACH_LINE', selected[1]
                 with self.lock:
                     if generation != self.generation: return
                     if selected is not None:
@@ -959,7 +1002,7 @@ class Navigator(object):
                 self.line_stage = 'LINE_SUFFIX'
                 # Keep the confirmed entry heading and locked line for retries.
                 self.stage_target = target
-                self.status('LINE_CONFIRMED: error %.3fm, %.1fdeg; planning entry -> retreat -> goal together' %
+                self.status('LINE_CONFIRMED: error %.3fm, %.1fdeg; planning straight -> retreat -> goal' %
                             (error,math.degrees(heading)))
                 self.start_plan(pose)
                 return

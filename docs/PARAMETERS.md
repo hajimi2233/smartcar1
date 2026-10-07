@@ -43,7 +43,8 @@
 |---|---|
 | wheelbase / front_track / wheel_radius | 轴距、前轮轮距、轮半径；同时影响关节反馈解码、转角换算与局部预测 |
 | physical_min_radius / global_min_radius | 实车最小可用半径、全局规划允许的半径下限 |
-| 顶层 turn_radius / local_turn_radius | 实际全局/局部规划半径，默认 1.3 / 1.1 m |
+| 顶层 turn_radius / local_turn_radius | 实际全局/局部规划半径，默认 1.3 / 1.2 m |
+| turn90_primitive_file | 可选的右转 90°标定 JSON；导航会自动镜像成左转，并在实测轨迹末端继续普通规划。留空则使用原有 Hybrid A* 90°规划 |
 | body_front / body_rear / body_half_width | 区域碰撞检查的车身前伸、后伸、半宽，长度都取正值 |
 | collision_center_x / collision_half_length / collision_half_width | 栅格地图和雷达碰撞矩形中心及半尺寸 |
 | boundary_half_length | 原版地图边缘代价使用的半长度 |

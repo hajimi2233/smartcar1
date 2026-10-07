@@ -10,7 +10,7 @@ from sensor_msgs.msg import LaserScan
 
 class LaserNoise(object):
     def __init__(self):
-        self.std = rospy.get_param('~stddev', 0.02)
+        self.std = rospy.get_param('~stddev', 0.002)
         if rospy.get_param('/sensors/ideal', False):
             self.std = 0.0
             rospy.loginfo('laser_noise IDEAL: /scan passthrough of /sim/scan')

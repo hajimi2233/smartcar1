@@ -1,4 +1,4 @@
 sensors:
   ideal: false
 laser_noise:
-  stddev: 0.02
+  stddev: 0.002

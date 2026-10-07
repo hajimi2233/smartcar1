@@ -1,5 +1,16 @@
 <launch>
   <arg name="config_file" />
   <arg name="low_cost_lines_file" default="" />
-  <include file="$(find smartcar_navigation)/launch/single_goal.launch"><arg name="config_file" value="$(arg config_file)" /><arg name="low_cost_lines_file" value="$(arg low_cost_lines_file)" /></include>
+  <arg name="load_saved_low_cost_lines" default="" />
+  <arg name="turn90_primitive_file" default="" />
+  <arg name="turn90_pre_extension" default="" />
+  <arg name="turn90_post_extension" default="" />
+  <include file="$(find smartcar_navigation)/launch/single_goal.launch">
+    <arg name="config_file" value="$(arg config_file)" />
+    <arg name="low_cost_lines_file" value="$(arg low_cost_lines_file)" />
+    <arg name="load_saved_low_cost_lines" value="$(arg load_saved_low_cost_lines)" />
+    <arg name="turn90_primitive_file" value="$(arg turn90_primitive_file)" />
+    <arg name="turn90_pre_extension" value="$(arg turn90_pre_extension)" />
+    <arg name="turn90_post_extension" value="$(arg turn90_post_extension)" />
+  </include>
 </launch>

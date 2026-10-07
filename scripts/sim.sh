@@ -75,8 +75,8 @@ case "$action" in
   stop) "${c[@]}" stop sim ;;
   logs) "${c[@]}" logs --tail=120 sim ;;
   shell) "${c[@]}" exec sim bash ;;
-  help) echo 'Layers: sim.sh start [normal|narrow]; sim.sh nav; sim.sh rviz; sim.sh keyboard-sim; sim.sh stop'
-    echo 'Advanced: sim.sh build|drivers|logs|shell; sim.sh <robot.sh stage/tool> [arguments]' ;;
+  help) echo 'Layers: sim.sh start [normal|narrow]; sim.sh nav; sim.sh rviz; sim.sh keyboard-sim; sim.sh calibrate-turn; sim.sh stop'
+    echo 'Advanced: sim.sh build|drivers|logs|shell; sim.sh calibrate-turn [output_dir]; sim.sh <robot.sh stage/tool> [arguments]' ;;
   *)
     display_args=()
     if [ "$action" = rviz ] || [ "$action" = rviz-multi ]; then

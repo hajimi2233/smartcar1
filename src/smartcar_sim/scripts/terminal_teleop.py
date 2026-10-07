@@ -16,10 +16,14 @@ def main():
     # Gears -4..-1 are reverse, 0 is stopped, and 1..4 are forward.
     gear_speeds = {-4: -0.35, -3: -0.26, -2: -0.18, -1: -0.10,
                    0: 0.0, 1: 0.10, 2: 0.18, 3: 0.26, 4: 0.35}
+    wheelbase = 0.62
+    min_turn_radius = 1.30
     steer_step = math.radians(20.0)
-    max_steering = math.radians(40.0)
+    # Ackermann curvature: R = wheelbase / tan(delta).
+    max_steering = math.atan(wheelbase / min_turn_radius)
     print('W: forward one gear; S: reverse one gear (four gears each direction).')
-    print('A/D: steer +/-20 degrees (limit +/-40). X center, SPACE stop, Q exit.')
+    print('A/D: steer +/-20 degrees (limit +/-{:.1f}, R >= {:.2f} m). X center, SPACE stop, Q exit.'.format(
+        math.degrees(max_steering), min_turn_radius))
     print('Focus this terminal. Speed and steering remain until changed or stopped.')
     try:
         tty.setcbreak(sys.stdin.fileno())
@@ -35,7 +39,7 @@ def main():
                 elif key == ' ': gear = 0
             msg = Twist()
             msg.linear.x = gear_speeds[gear]
-            msg.angular.z = msg.linear.x * math.tan(steering) / 0.62
+            msg.angular.z = msg.linear.x * math.tan(steering) / wheelbase
             pub.publish(msg)
     finally:
         for _ in range(3):

@@ -52,7 +52,7 @@ case "$stage" in
     done
     exec roslaunch smartcar_localization localization.launch map_file:="$map_file" params:="$project_root/config/localization.yaml" nav_config:="$nav_config" walls_file:="$(dirname "$map_file")/localization_walls.json" region_file:="$(dirname "$map_file")/external_region.json" "$@" ;;
   single|multi|planning-test)
-    require_ros; reject_nodes /single_goal_nav /multi_goal_nav /slam_gmapping
+    require_ros; reject_nodes /single_goal_nav /multi_goal_nav /slam_gmapping /smartcar_turn90_calibration
     if [ "$stage" = planning-test ]; then
       if [ "$profile" != sim ]; then echo 'planning-test requires SMARTCAR_PROFILE=sim and Gazebo.'; exit 2; fi
       launch=planning_test.launch
@@ -61,7 +61,7 @@ case "$stage" in
   plan-test)
     require_ros
     if [ "$profile" != sim ]; then echo 'plan-test requires simulation.'; exit 2; fi
-    reject_nodes /single_goal_nav /multi_goal_nav /inspection_sim_keyboard /inspection_plan_test
+    reject_nodes /single_goal_nav /multi_goal_nav /inspection_sim_keyboard /inspection_plan_test /smartcar_turn90_calibration
     exec rosrun smartcar_mission inspection_plan_test.py "${1:-$project_root/data/tasks/points.csv}" "$nav_config" ;;
   points-outer)
     require_ros; reject_nodes /inspection_points
@@ -104,10 +104,15 @@ case "$stage" in
     require_ros
     view=single; if [ "$stage" = rviz-multi ]; then view=multi; fi
     exec rosrun rviz rviz -d "$(rospack find smartcar_bringup)/rviz/$view.rviz" "$@" ;;
+  calibrate-turn)
+    require_ros
+    if [ "$profile" != sim ]; then echo 'calibrate-turn is simulation-only'; exit 2; fi
+    reject_nodes /single_goal_nav /multi_goal_nav /inspection_sim_keyboard /smartcar_turn90_calibration /inspection_plan_test
+    exec rosrun smartcar_sim turn90_calibration.py "${1:-$project_root/data/calibration}" ;;
   keyboard-sim)
     require_ros
     if [ "$profile" != sim ]; then echo 'Use the real driver vendor teleop for initial chassis commissioning.'; exit 2; fi
-    reject_nodes /single_goal_nav
+    reject_nodes /single_goal_nav /smartcar_turn90_calibration
     exec rosrun smartcar_sim terminal_teleop.py ;;
   goal)
     require_ros
@@ -131,6 +136,6 @@ case "$stage" in
     echo 'Wheel experiment (sim): wheel-test [scale_error:=0.05], localization MAP wall_features:=true wheel_fusion:=true, wheel-results'
     echo 'Walls: localization MAP wall_features:=true; walls inside|outside|undo|delete GROUP ID|clear GROUP|radius METRES|preview|save|load|cancel|list; wall-status'
     echo 'Corridor: corridor [region_file:=/absolute/region.json], region begin|undo|save|cancel|clear, corridor-state'
-    echo 'Tools: check STAGE, rviz, rviz-multi, keyboard-sim, goal X Y YAW, cancel, multi-execute/clear/undo/cancel'
+    echo 'Tools: check STAGE, rviz, rviz-multi, keyboard-sim, calibrate-turn, goal X Y YAW, cancel, multi-execute/clear/undo/cancel'
     echo 'See docs/REPRODUCE.md for the stage-by-stage workflow.' ;;
 esac
