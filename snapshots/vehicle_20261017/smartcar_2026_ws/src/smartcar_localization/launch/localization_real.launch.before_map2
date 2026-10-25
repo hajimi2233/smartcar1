@@ -1,0 +1,16 @@
+<launch>
+  <arg name="map_file" default="/home/smartcar/smartcar_2026_ws/data/maps/map_20261001_151001/map.yaml" />
+  <arg name="base_frame" default="laser" />
+  <arg name="scan_topic" default="/scan" />
+  <arg name="localization_mode" default="full_map" />
+  <arg name="params" default="$(find smartcar_localization)/config/localization.yaml" />
+  <!-- Sensor-centred pose until the measured base-to-laser transform is installed. -->
+  <param name="use_sim_time" value="false" />
+  <include file="$(find smartcar_localization)/launch/localization.launch">
+    <arg name="map_file" value="$(arg map_file)" />
+    <arg name="params" value="$(arg params)" />
+    <arg name="base_frame" value="$(arg base_frame)" />
+    <arg name="scan_topic" value="$(arg scan_topic)" />
+    <arg name="localization_mode" value="$(arg localization_mode)" />
+  </include>
+</launch>

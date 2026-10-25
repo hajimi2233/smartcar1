@@ -1,0 +1,391 @@
+{
+  "status": "DEPLOYED_PENDING_USER_START",
+  "map_yaml": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261017_uniform105_5cm/map.yaml",
+  "map_origin": [
+    -10.645607267833867,
+    -4.3695206318173385,
+    0.2879793265790644
+  ],
+  "reference": "front_axle_midpoint",
+  "front_axle_offset_m": 0.62,
+  "diagram_convention": "short protruding wall on right; start top-right; end bottom-right; display only, world coordinates unchanged",
+  "depth_records": [
+    {
+      "source": "position_depth_20261015_190850.json",
+      "front_world": [
+        -1.6346198313687974,
+        1.4188157590742971
+      ],
+      "grid_uv": [
+        10.283888940053405,
+        2.990712460752288
+      ]
+    },
+    {
+      "source": "inspection_center_2_20261015_191310.json",
+      "front_world": [
+        -2.103219088598134,
+        2.6823074207070015
+      ],
+      "grid_uv": [
+        10.193437744286484,
+        4.335262580337123
+      ]
+    }
+  ],
+  "row_depth_grid_m": {
+    "upper": 2.990712460752288,
+    "lower": 4.335262580337123
+  },
+  "points": {
+    "inspect_1": [
+      -6.341359423368207,
+      0.02461597465175558
+    ],
+    "inspect_2": [
+      -6.7232322890537946,
+      1.313797163829085
+    ],
+    "inspect_3": [
+      -5.190775741526375,
+      0.36543438829646346
+    ],
+    "inspect_4": [
+      -5.572648607211962,
+      1.654615577473793
+    ],
+    "inspect_5": [
+      -4.040192059684543,
+      0.70625280194117
+    ],
+    "inspect_6": [
+      -4.4220649253701305,
+      1.9954339911184995
+    ],
+    "inspect_7": [
+      -2.8896083778427104,
+      1.0470712155858775
+    ],
+    "inspect_8": [
+      -3.2714812435282976,
+      2.336252404763207
+    ],
+    "inspect_9": [
+      -1.7390246960008802,
+      1.3878896292305845
+    ],
+    "inspect_10": [
+      -2.1208975616864674,
+      2.677070818407914
+    ],
+    "outer_right_top": [
+      -7.8994414925290215,
+      -0.43690896049211836
+    ],
+    "outer_right_bottom": [
+      -8.281314358214608,
+      0.8522722286852111
+    ],
+    "outer_left_top": [
+      -0.18094262684006557,
+      1.849414564374459
+    ],
+    "outer_left_bottom": [
+      -0.562815492525653,
+      3.1385957535517885
+    ],
+    "start": [
+      -7.856060775921751,
+      -2.3438280664311684
+    ],
+    "end": [
+      -9.364972678609076,
+      1.6938921900908854
+    ]
+  },
+  "points_grid": {
+    "inspect_1": [
+      5.375,
+      2.990712460752288
+    ],
+    "inspect_2": [
+      5.375,
+      4.335262580337123
+    ],
+    "inspect_3": [
+      6.575000000000001,
+      2.990712460752288
+    ],
+    "inspect_4": [
+      6.575000000000001,
+      4.335262580337123
+    ],
+    "inspect_5": [
+      7.775,
+      2.990712460752288
+    ],
+    "inspect_6": [
+      7.775,
+      4.335262580337123
+    ],
+    "inspect_7": [
+      8.975000000000001,
+      2.990712460752288
+    ],
+    "inspect_8": [
+      8.975000000000001,
+      4.335262580337123
+    ],
+    "inspect_9": [
+      10.175,
+      2.990712460752288
+    ],
+    "inspect_10": [
+      10.175,
+      4.335262580337123
+    ],
+    "outer_right_top": [
+      3.75,
+      2.990712460752288
+    ],
+    "outer_right_bottom": [
+      3.75,
+      4.335262580337123
+    ],
+    "outer_left_top": [
+      11.8,
+      2.990712460752288
+    ],
+    "outer_left_bottom": [
+      11.8,
+      4.335262580337123
+    ],
+    "start": [
+      3.25,
+      1.15
+    ],
+    "end": [
+      2.95,
+      5.45
+    ]
+  },
+  "inspection_heading_rad": {
+    "inspect_1": 1.8587756533739608,
+    "inspect_2": -1.2828170002158321,
+    "inspect_3": 1.8587756533739608,
+    "inspect_4": -1.2828170002158321,
+    "inspect_5": 1.8587756533739608,
+    "inspect_6": -1.2828170002158321,
+    "inspect_7": 1.8587756533739608,
+    "inspect_8": -1.2828170002158321,
+    "inspect_9": 1.8587756533739608,
+    "inspect_10": -1.2828170002158321
+  },
+  "low_cost_lines": [
+    [
+      [
+        -8.129505929147012,
+        -2.476973656585754
+      ],
+      [
+        0.3560487244364974,
+        0.036562144043961464
+      ]
+    ],
+    [
+      [
+        -9.586504647478135,
+        2.441771583288076
+      ],
+      [
+        -1.1009499938946257,
+        4.955307383917792
+      ]
+    ]
+  ],
+  "low_cost_lines_grid": [
+    [
+      [
+        2.950000000000001,
+        1.1
+      ],
+      [
+        11.8,
+        1.0999999999999996
+      ]
+    ],
+    [
+      [
+        2.950000000000001,
+        6.2299999999999995
+      ],
+      [
+        11.800000000000002,
+        6.2299999999999995
+      ]
+    ]
+  ],
+  "wall_extents_grid_m": [
+    [
+      4.7,
+      4.8500000000000005
+    ],
+    [
+      5.9,
+      6.050000000000001
+    ],
+    [
+      7.1000000000000005,
+      7.25
+    ],
+    [
+      8.3,
+      8.450000000000001
+    ],
+    [
+      9.5,
+      9.65
+    ],
+    [
+      10.700000000000001,
+      10.850000000000001
+    ]
+  ],
+  "revision": "20261017_uniform105_down15_inward15_preserve_vehicle_lines",
+  "revision_note": "End shifts another 0.30m toward displayed right; next, offline tune same-side lateral geometry.",
+  "validation_summary": "validation_summary.json",
+  "recommended_start_end_heading_rad": {
+    "start": 0.2879793265790644,
+    "end": -2.853613327010729
+  },
+  "start_end_heading_note": "Start direction is retained. End accepts any safe heading; stored end yaw is only a legacy placeholder, ignored by the position-only end-goal patch.",
+  "pending_adjustments": [
+    {
+      "point": "outer_right_top",
+      "previous_world": [
+        -8.666497280423576,
+        -0.6641212362552564
+      ],
+      "new_world": [
+        -7.8994414925290215,
+        -0.43690896049211836
+      ],
+      "display_shift_left_m": 0.8,
+      "display_shift_up_m": 0.0
+    },
+    {
+      "point": "outer_right_bottom",
+      "previous_world": [
+        -9.048370146109162,
+        0.6250599529220731
+      ],
+      "new_world": [
+        -8.281314358214608,
+        0.8522722286852111
+      ],
+      "display_shift_left_m": 0.8,
+      "display_shift_up_m": 0.0
+    },
+    {
+      "point": "end",
+      "previous_world": [
+        -9.361342102852541,
+        2.7379165283702553
+      ],
+      "new_world": [
+        -9.364972678609076,
+        1.6938921900908854
+      ],
+      "display_shift_left_m": -0.3,
+      "display_shift_up_m": 1.0
+    }
+  ],
+  "previous_deployment": {
+    "scene_dir": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261015_grid_aligned",
+    "map_key": "db9c1f97f38ae4c4fca183bbf53ccfb385a2b1e3d174ed0f27b08e64874770ec",
+    "backup": "/home/smartcar/smartcar_2026_ws/data/backups/map15_points_20261015_202518",
+    "nodes_restarted": false,
+    "live_lines_updated": false
+  },
+  "preview_subtitle": "五条通道净宽105cm；隔墙厚15cm；右侧突起下移15cm并向场内延长15cm",
+  "preview_filename": "新地图_朝向对齐_低代价线优化.png",
+  "change_note": "保留10个巡检点；右绕行点13、14累计向示意图左移80cm；终点较原位置上移100cm、右移30cm。上低代价线沿图向上移38cm，下低代价线向下移16cm。全局搜索仅保留朝向对齐修正，其余依靠低代价线及进出偏移配置。",
+  "pending_line_adjustments": {
+    "before_grid": [
+      [
+        [
+          2.95,
+          1.4
+        ],
+        [
+          11.8,
+          1.4
+        ]
+      ],
+      [
+        [
+          2.95,
+          6.15
+        ],
+        [
+          11.8,
+          6.15
+        ]
+      ]
+    ],
+    "after_grid": [
+      [
+        [
+          2.95,
+          1.02
+        ],
+        [
+          11.8,
+          1.02
+        ]
+      ],
+      [
+        [
+          2.95,
+          6.31
+        ],
+        [
+          11.8,
+          6.31
+        ]
+      ]
+    ],
+    "medium_entry_m": 1.35,
+    "medium_retreat_m": 1.35,
+    "heading_alignment": true
+  },
+  "deployment_map_note": "Selected 15cm channel walls, nearest wall ends, upper 5cm protrusions removed; other pixels unchanged.",
+  "geometry_change": {
+    "source_map_image_sha256": "9c6fed66a91f0c6fe77f8e1335f8f4c20da32bcbf0e2fed8c654d2fd6e101944",
+    "source_scene": "C:\\Users\\a\\Documents\\ChatGPT\\智能车\\deploy_confirmed_20261016\\payload\\home\\smartcar\\smartcar_2026_ws\\data\\mission\\map_20261016_competition_5cm",
+    "wall_shift_grid_u_cm": [
+      5,
+      5,
+      0,
+      0,
+      0,
+      -5
+    ],
+    "right_protrusion": {
+      "move_down_cm": 15,
+      "extend_inward_cm": 15,
+      "before_grid_cells": [
+        34,
+        69,
+        52,
+        74
+      ],
+      "after_grid_cells": [
+        34,
+        72,
+        55,
+        77
+      ]
+    }
+  }
+}

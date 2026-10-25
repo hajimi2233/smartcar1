@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -e
+source /home/smartcar/smartcar_2026_ws/scripts/source_env.sh
+if [ "${1:-}" = show ]; then
+  exec python /home/smartcar/smartcar_2026_ws/scripts/map_tools.py show
+fi
+task_nodes=$(rosnode list) || { echo 'Start roscore and lidar first.'; exit 1; }
+if printf '%s\n' "$task_nodes" | grep -qE '/(cartographer_node|wall_localizer|amcl|slam_map_server|single_goal_nav)$'; then
+  echo 'Stop old mapping/localization/navigation before starting localization.'
+  exit 1
+fi
+# Retired fixed-wall mode must not survive a localization version rollback.
+# rosparam YAML loading merges dictionaries and does not remove absent keys.
+if rosparam get /wall_localizer/corridor_weighting/fixed_walls_only >/dev/null 2>&1; then
+  rosparam delete /wall_localizer/corridor_weighting/fixed_walls_only
+fi
+exec roslaunch smartcar_localization localization_real.launch "$@"

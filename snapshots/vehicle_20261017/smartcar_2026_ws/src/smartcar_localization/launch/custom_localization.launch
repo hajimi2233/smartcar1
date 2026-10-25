@@ -1,0 +1,22 @@
+<launch>
+  <arg name="map_file" />
+  <arg name="scan_topic" default="/scan" />
+  <arg name="scan_frame" default="laser" />
+  <!-- First validate laser pose. For base pose, supply measured extrinsics
+       and exactly one external static base-to-laser TF publisher. -->
+  <arg name="pose_frame" default="laser" />
+  <arg name="laser_x" default="0.0" />
+  <arg name="laser_y" default="0.0" />
+  <arg name="laser_yaw" default="0.0" />
+  <param name="use_sim_time" value="false" />
+  <node pkg="map_server" type="map_server" name="map_server" args="$(arg map_file)" required="true" />
+  <node pkg="smartcar_localization" type="scan_match_localizer.py" name="scan_match_localizer" output="screen" required="true">
+    <rosparam command="load" file="$(find smartcar_localization)/config/scan_match.yaml" />
+    <param name="scan_frame" value="$(arg scan_frame)" />
+    <param name="pose_frame" value="$(arg pose_frame)" />
+    <param name="laser_x" value="$(arg laser_x)" />
+    <param name="laser_y" value="$(arg laser_y)" />
+    <param name="laser_yaw" value="$(arg laser_yaw)" />
+    <remap from="/scan" to="$(arg scan_topic)" />
+  </node>
+</launch>

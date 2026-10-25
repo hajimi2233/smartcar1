@@ -1,0 +1,9 @@
+free_thresh: 0.49
+image: navigation_source.pgm
+negate: 0
+occupied_thresh: 0.51
+origin:
+- -13.958656978607177
+- -6.462781696319579
+- 0.0
+resolution: 0.009999999776482582

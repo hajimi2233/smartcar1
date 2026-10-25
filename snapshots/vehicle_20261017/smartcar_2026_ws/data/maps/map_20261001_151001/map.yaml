@@ -1,0 +1,6 @@
+image: /home/smartcar/smartcar_2026_ws/data/maps/map_20261001_151001/map.pgm
+resolution: 0.05
+origin: [-10.59918689727783, -6.326360416412355, 0]
+occupied_thresh: 0.51
+free_thresh: 0.49
+negate: 0

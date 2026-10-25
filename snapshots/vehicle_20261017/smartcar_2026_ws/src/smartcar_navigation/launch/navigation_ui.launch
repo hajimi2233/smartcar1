@@ -1,0 +1,17 @@
+<launch>
+  <arg name="enable_drive" default="true" />
+  <arg name="config_file" default="$(find smartcar_navigation)/config/real/navigation.yaml" />
+  <arg name="start_nav" default="true" />
+  <arg name="start_visual" default="true" />
+  <arg name="start_rviz" default="true" />
+  <include if="$(arg start_nav)" file="$(find smartcar_navigation)/launch/single_real.launch">
+    <arg name="enable_drive" value="$(arg enable_drive)" />
+    <arg name="config_file" value="$(arg config_file)" />
+  </include>
+  <node if="$(arg start_visual)" pkg="smartcar_navigation" type="vehicle_visual.py" name="vehicle_visual" output="screen" />
+  <node if="$(arg start_visual)" pkg="smartcar_mission" type="mission_points_visual.py" name="mission_points_visual" args="/home/smartcar/smartcar_2026_ws/data/mission/points_front.csv" output="screen" />
+  <node if="$(arg start_rviz)" pkg="rviz" type="rviz" name="rviz_navigation" args="-d /home/smartcar/smartcar_2026_ws/navigation_real.rviz" output="screen" required="true">
+    <env name="QT_ACCESSIBILITY" value="0" />
+    <env name="NO_AT_BRIDGE" value="1" />
+  </node>
+</launch>

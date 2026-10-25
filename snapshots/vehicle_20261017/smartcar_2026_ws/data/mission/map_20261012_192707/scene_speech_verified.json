@@ -1,0 +1,92 @@
+{
+  "no_audio_played": true, 
+  "success": true, 
+  "transits_and_end_silent": true, 
+  "no_motion_messages": true, 
+  "arrival_events": [
+    {
+      "channel_number": 1, 
+      "object_kind": "1", 
+      "run_id": "c2c656874a62401699aab1ca6721d3cf", 
+      "target_id": "inspect_1", 
+      "event": "ARRIVED", 
+      "condition": "A", 
+      "speech_text": "\u6b63\u5e38\u706b\u6e90"
+    }, 
+    {
+      "channel_number": 2, 
+      "object_kind": "2", 
+      "run_id": "c2c656874a62401699aab1ca6721d3cf", 
+      "target_id": "inspect_2", 
+      "event": "ARRIVED", 
+      "condition": "A", 
+      "speech_text": "\u6b63\u5e38\u6c34\u6e90"
+    }, 
+    {
+      "channel_number": 4, 
+      "object_kind": "3", 
+      "run_id": "c2c656874a62401699aab1ca6721d3cf", 
+      "target_id": "inspect_4", 
+      "event": "ARRIVED", 
+      "condition": "B", 
+      "speech_text": "\u5f02\u5e38\u884c\u4eba"
+    }, 
+    {
+      "channel_number": 6, 
+      "object_kind": "2", 
+      "run_id": "c2c656874a62401699aab1ca6721d3cf", 
+      "target_id": "inspect_6", 
+      "event": "ARRIVED", 
+      "condition": "B", 
+      "speech_text": "\u5f02\u5e38\u6c34\u6e90"
+    }, 
+    {
+      "channel_number": 8, 
+      "object_kind": "4", 
+      "run_id": "c2c656874a62401699aab1ca6721d3cf", 
+      "target_id": "inspect_8", 
+      "event": "ARRIVED", 
+      "condition": "A", 
+      "speech_text": "\u6b63\u5e38\u9053\u8def"
+    }, 
+    {
+      "channel_number": 7, 
+      "object_kind": "3", 
+      "run_id": "c2c656874a62401699aab1ca6721d3cf", 
+      "target_id": "inspect_7", 
+      "event": "ARRIVED", 
+      "condition": "A", 
+      "speech_text": "\u6b63\u5e38\u884c\u4eba"
+    }, 
+    {
+      "channel_number": 5, 
+      "object_kind": "3", 
+      "run_id": "c2c656874a62401699aab1ca6721d3cf", 
+      "target_id": "inspect_5", 
+      "event": "ARRIVED", 
+      "condition": "A", 
+      "speech_text": "\u6b63\u5e38\u884c\u4eba"
+    }, 
+    {
+      "channel_number": 3, 
+      "object_kind": "4", 
+      "run_id": "c2c656874a62401699aab1ca6721d3cf", 
+      "target_id": "inspect_3", 
+      "event": "ARRIVED", 
+      "condition": "B", 
+      "speech_text": "\u5f02\u5e38\u9053\u8def"
+    }, 
+    {
+      "channel_number": 9, 
+      "object_kind": "1", 
+      "run_id": "c2c656874a62401699aab1ca6721d3cf", 
+      "target_id": "inspect_9", 
+      "event": "ARRIVED", 
+      "condition": "B", 
+      "speech_text": "\u5f02\u5e38\u706b\u6e90"
+    }
+  ], 
+  "duplicate_status_suppressed": true, 
+  "failed_goal_silent": true, 
+  "cache_phrases": 8
+}

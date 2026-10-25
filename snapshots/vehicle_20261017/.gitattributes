@@ -1,0 +1,5 @@
+# Archive exact deployed bytes, including line endings, for SHA-256 verification.
+** -text -whitespace
+*.pgm* binary
+*.png binary
+*.jpg binary

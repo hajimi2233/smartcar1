@@ -1,0 +1,17 @@
+<launch>
+  <arg name="map_file" default="/home/smartcar/smartcar_2026_ws/data/maps/map2/map2.yaml" />
+  <arg name="base_frame" default="base_footprint" />
+  <arg name="scan_topic" default="/scan" />
+  <arg name="localization_mode" default="full_map" />
+  <arg name="params" default="$(find smartcar_localization)/config/localization.yaml" />
+  <!-- Rear axle origin, x forward. Laser is 0.49 m forward and faces backward. -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_laser" args="0.49 0 0 3.141592653589793 0 0 $(arg base_frame) laser" />
+  <param name="use_sim_time" value="false" />
+  <include file="$(find smartcar_localization)/launch/localization.launch">
+    <arg name="map_file" value="$(arg map_file)" />
+    <arg name="params" value="$(arg params)" />
+    <arg name="base_frame" value="$(arg base_frame)" />
+    <arg name="scan_topic" value="$(arg scan_topic)" />
+    <arg name="localization_mode" value="$(arg localization_mode)" />
+  </include>
+</launch>

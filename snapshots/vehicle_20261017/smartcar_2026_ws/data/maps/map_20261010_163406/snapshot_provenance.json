@@ -1,0 +1,10 @@
+{
+  "stamp": 1791621246.3308625, 
+  "source": "live OccupancyGrid snapshot", 
+  "thresholds": {
+    "free_max": 49, 
+    "occupied_min": 51
+  }, 
+  "frame": "map", 
+  "native_pb_exported": false
+}

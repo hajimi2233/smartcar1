@@ -1,0 +1,1327 @@
+{
+  "rows": [
+    {
+      "source": 1,
+      "target": 3,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.16994540000087,
+          "selected": [
+            0,
+            [
+              -7.735300665124091,
+              -2.0473200637733346,
+              0.0
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.009372599997732323
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.03321739999955753
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 9.155133597044475e-16,
+      "heading_error_deg": 0.0,
+      "changes": 6,
+      "seconds": 0.23166109999874607
+    },
+    {
+      "source": 1,
+      "target": 5,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.1730005000026722,
+          "selected": [
+            0,
+            [
+              -7.735300665124091,
+              -2.0473200637733346,
+              0.0
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.010307900000043446
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.0346443000016734
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 9.155133597044475e-16,
+      "heading_error_deg": 0.0,
+      "changes": 6,
+      "seconds": 0.24305589999858057
+    },
+    {
+      "source": 1,
+      "target": 7,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.17550839999967138,
+          "selected": [
+            0,
+            [
+              -7.735300665124091,
+              -2.0473200637733346,
+              0.0
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.009276699998736149
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.028129400001489557
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 4.440892098500626e-16,
+      "heading_error_deg": 0.0,
+      "changes": 6,
+      "seconds": 0.22827809999944293
+    },
+    {
+      "source": 1,
+      "target": 9,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.17400890000135405,
+          "selected": [
+            0,
+            [
+              -7.735300665124091,
+              -2.0473200637733346,
+              0.0
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.010777300001791446
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.027615499999228632
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 9.155133597044475e-16,
+      "heading_error_deg": 0.0,
+      "changes": 6,
+      "seconds": 0.22964309999952093
+    },
+    {
+      "source": 3,
+      "target": 1,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.025880200002575293,
+          "selected": [
+            0,
+            [
+              -3.324729884730404,
+              -0.7408494781352908,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.008796400001301663
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.03854259999934584
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 9.155133597044475e-16,
+      "heading_error_deg": 0.0,
+      "changes": 4,
+      "seconds": 0.08816490000026533
+    },
+    {
+      "source": 3,
+      "target": 5,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.11729449999984354,
+          "selected": [
+            0,
+            [
+              -6.560746489910556,
+              -1.6994012665110294,
+              0.0
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.011372199998731958
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.032947000003332505
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 9.155133597044475e-16,
+      "heading_error_deg": 0.0,
+      "changes": 6,
+      "seconds": 0.17668500000218046
+    },
+    {
+      "source": 3,
+      "target": 7,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.12719080000169924,
+          "selected": [
+            0,
+            [
+              -6.560746489910556,
+              -1.6994012665110294,
+              0.0
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.010709500002121786
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.032548200000746874
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 4.965068306494546e-16,
+      "heading_error_deg": 0.0,
+      "changes": 6,
+      "seconds": 0.1861864999991667
+    },
+    {
+      "source": 3,
+      "target": 9,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.12916210000184947,
+          "selected": [
+            0,
+            [
+              -6.560746489910556,
+              -1.6994012665110294,
+              0.0
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.010826599998836173
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.031049799999891547
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 4.965068306494546e-16,
+      "heading_error_deg": 0.0,
+      "changes": 6,
+      "seconds": 0.1870189000001119
+    },
+    {
+      "source": 5,
+      "target": 1,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.02604559999963385,
+          "selected": [
+            0,
+            [
+              -2.1501757095168665,
+              -0.3929306808729851,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.009003799998026807
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.03765749999729451
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 1.3322676295501878e-15,
+      "heading_error_deg": 5.088887490341627e-14,
+      "changes": 4,
+      "seconds": 0.08940760000041337
+    },
+    {
+      "source": 5,
+      "target": 3,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.026247300000250107,
+          "selected": [
+            0,
+            [
+              -2.1501757095168665,
+              -0.3929306808729851,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.008736499999940861
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.04089390000081039
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 9.694605782913356e-16,
+      "heading_error_deg": 0.0,
+      "changes": 4,
+      "seconds": 0.09108000000196625
+    },
+    {
+      "source": 5,
+      "target": 7,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.13284480000220356,
+          "selected": [
+            0,
+            [
+              -5.386192314697019,
+              -1.351482469248724,
+              0.0
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.009705200001917547
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.03012979999766685
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 4.965068306494546e-16,
+      "heading_error_deg": 0.0,
+      "changes": 6,
+      "seconds": 0.18605899999965914
+    },
+    {
+      "source": 5,
+      "target": 9,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.1224861000009696,
+          "selected": [
+            0,
+            [
+              -5.386192314697019,
+              -1.351482469248724,
+              0.0
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.01037240000005113
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.032265000001643784
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 4.965068306494546e-16,
+      "heading_error_deg": 0.0,
+      "changes": 6,
+      "seconds": 0.1788981000026979
+    },
+    {
+      "source": 7,
+      "target": 1,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.03175800000099116,
+          "selected": [
+            0,
+            [
+              -0.9995920276750345,
+              -0.052112267228277886,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.011873800001922064
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.042487799997616094
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 2.220446049250313e-16,
+      "heading_error_deg": 0.0,
+      "changes": 4,
+      "seconds": 0.10272489999988466
+    },
+    {
+      "source": 7,
+      "target": 3,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.0279982000029122,
+          "selected": [
+            0,
+            [
+              -0.9995920276750345,
+              -0.052112267228277886,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.008933299999625888
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.04283629999918048
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 9.485749680535094e-16,
+      "heading_error_deg": 0.0,
+      "changes": 4,
+      "seconds": 0.09646929999871645
+    },
+    {
+      "source": 7,
+      "target": 5,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.02714399999968009,
+          "selected": [
+            0,
+            [
+              -0.9995920276750345,
+              -0.052112267228277886,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.009817599999223603
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.040817699999024626
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 2.220446049250313e-16,
+      "heading_error_deg": 0.0,
+      "changes": 4,
+      "seconds": 0.09247340000001714
+    },
+    {
+      "source": 7,
+      "target": 9,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.12738480000189156,
+          "selected": [
+            0,
+            [
+              -4.235608632855186,
+              -1.0106640556040167,
+              0.0
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.009976099998311838
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.02942040000198176
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 4.965068306494546e-16,
+      "heading_error_deg": 0.0,
+      "changes": 6,
+      "seconds": 0.17996390000189422
+    },
+    {
+      "source": 9,
+      "target": 1,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.1666683000003104,
+          "selected": [
+            0,
+            [
+              -0.5441526536126453,
+              0.08279502150608473,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.009177699997962918
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.0353291999999783
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 1.2560739669470201e-15,
+      "heading_error_deg": 0.0,
+      "changes": 4,
+      "seconds": 0.22803620000195224
+    },
+    {
+      "source": 9,
+      "target": 3,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.15814460000183317,
+          "selected": [
+            0,
+            [
+              -0.5441526536126453,
+              0.08279502150608473,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.010331800000130897
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.04086069999902975
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 9.485749680535094e-16,
+      "heading_error_deg": 0.0,
+      "changes": 4,
+      "seconds": 0.22684379999918747
+    },
+    {
+      "source": 9,
+      "target": 5,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.16168540000217035,
+          "selected": [
+            0,
+            [
+              -0.5441526536126453,
+              0.08279502150608473,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.008505599998898106
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.03704640000069048
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 1.2560739669470201e-15,
+      "heading_error_deg": 0.0,
+      "changes": 4,
+      "seconds": 0.22138320000158274
+    },
+    {
+      "source": 9,
+      "target": 7,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.16562680000060936,
+          "selected": [
+            0,
+            [
+              -0.5441526536126453,
+              0.08279502150608473,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.008832100000290666
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.03919069999756175
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 6.280369834735101e-16,
+      "heading_error_deg": 0.0,
+      "changes": 4,
+      "seconds": 0.22768150000047171
+    },
+    {
+      "source": 2,
+      "target": 4,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.028359899999486515,
+          "selected": [
+            1,
+            [
+              -8.724816151892151,
+              2.613579431114554,
+              0.0
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.008943500000896165
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.03038419999938924
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 0.0,
+      "heading_error_deg": 2.5444437451708134e-14,
+      "changes": 4,
+      "seconds": 0.07900969999900553
+    },
+    {
+      "source": 2,
+      "target": 6,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.028229400002601324,
+          "selected": [
+            1,
+            [
+              -8.724816151892151,
+              2.613579431114554,
+              0.0
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.009274100000766339
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.030230299998947885
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 0.0,
+      "heading_error_deg": 2.5444437451708134e-14,
+      "changes": 2,
+      "seconds": 0.08017749999999069
+    },
+    {
+      "source": 2,
+      "target": 8,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.026997799999662675,
+          "selected": [
+            1,
+            [
+              -8.724816151892151,
+              2.613579431114554,
+              0.0
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.010637299998052185
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.030579099999158643
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 0.0,
+      "heading_error_deg": 2.5444437451708134e-14,
+      "changes": 2,
+      "seconds": 0.0812962999989395
+    },
+    {
+      "source": 2,
+      "target": 10,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.02929299999959767,
+          "selected": [
+            1,
+            [
+              -8.724816151892151,
+              2.613579431114554,
+              0.0
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.012117900001612725
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.035858200000802753
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 6.280369834735101e-16,
+      "heading_error_deg": 2.5444437451708134e-14,
+      "changes": 2,
+      "seconds": 0.09383929999967222
+    },
+    {
+      "source": 4,
+      "target": 2,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.10715569999956642,
+          "selected": [
+            1,
+            [
+              -3.954687970922892,
+              4.026555771016569,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.01064599999881466
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.028739299999870127
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 8.881784197001252e-16,
+      "heading_error_deg": 0.0,
+      "changes": 4,
+      "seconds": 0.15802759999860427
+    },
+    {
+      "source": 4,
+      "target": 6,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.027830200000607874,
+          "selected": [
+            1,
+            [
+              -7.550261976678616,
+              2.961498228376859,
+              0.0
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.00924010000017006
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.030915000003005844
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 4.440892098500626e-16,
+      "heading_error_deg": 0.0,
+      "changes": 4,
+      "seconds": 0.08028560000093421
+    },
+    {
+      "source": 4,
+      "target": 8,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.025412700000742916,
+          "selected": [
+            1,
+            [
+              -7.550261976678616,
+              2.961498228376859,
+              0.0
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.009516499998426298
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.030779999997321283
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 0.0,
+      "heading_error_deg": 2.5444437451708134e-14,
+      "changes": 2,
+      "seconds": 0.07806999999957043
+    },
+    {
+      "source": 4,
+      "target": 10,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.029905700001108926,
+          "selected": [
+            1,
+            [
+              -7.550261976678616,
+              2.961498228376859,
+              0.0
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.011702099996909965
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.03382939999937662
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 0.0,
+      "heading_error_deg": 0.0,
+      "changes": 2,
+      "seconds": 0.0897646999983408
+    },
+    {
+      "source": 6,
+      "target": 2,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.09591139999974985,
+          "selected": [
+            1,
+            [
+              -2.7801337957093546,
+              4.374474568278875,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.01017850000062026
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.02994079999916721
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 9.930136612989092e-16,
+      "heading_error_deg": 0.0,
+      "changes": 4,
+      "seconds": 0.15085019999969518
+    },
+    {
+      "source": 6,
+      "target": 4,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.10585210000135703,
+          "selected": [
+            1,
+            [
+              -2.7801337957093546,
+              4.374474568278875,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.011488399999507237
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.03097170000182814
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 1.790180836524724e-15,
+      "heading_error_deg": 5.088887490341627e-14,
+      "changes": 4,
+      "seconds": 0.16107589999955962
+    },
+    {
+      "source": 6,
+      "target": 8,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.02892009999777656,
+          "selected": [
+            1,
+            [
+              -6.375707801465079,
+              3.3094170256391644,
+              0.0
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.009440400001039961
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.029987899997649947
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 4.440892098500626e-16,
+      "heading_error_deg": 0.0,
+      "changes": 4,
+      "seconds": 0.08094720000008238
+    },
+    {
+      "source": 6,
+      "target": 10,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.03133420000085607,
+          "selected": [
+            1,
+            [
+              -6.375707801465079,
+              3.3094170256391644,
+              0.0
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.010492800000065472
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.03335769999830518
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 6.280369834735101e-16,
+      "heading_error_deg": 2.5444437451708134e-14,
+      "changes": 2,
+      "seconds": 0.08819299999959185
+    },
+    {
+      "source": 8,
+      "target": 2,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.09899990000121761,
+          "selected": [
+            1,
+            [
+              -1.6295501138675226,
+              4.715292981923581,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.009576000000379281
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.026993299998139264
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 0.0,
+      "heading_error_deg": 0.0,
+      "changes": 4,
+      "seconds": 0.14909590000024764
+    },
+    {
+      "source": 8,
+      "target": 4,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.09871890000067651,
+          "selected": [
+            1,
+            [
+              -1.6295501138675226,
+              4.715292981923581,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.010105200002726633
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.02759149999837973
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 0.0,
+      "heading_error_deg": 0.0,
+      "changes": 4,
+      "seconds": 0.14931950000027427
+    },
+    {
+      "source": 8,
+      "target": 6,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.1091575999998895,
+          "selected": [
+            1,
+            [
+              -1.6295501138675226,
+              4.715292981923581,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.010877099997742334
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.03160570000181906
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 0.0,
+      "heading_error_deg": 0.0,
+      "changes": 4,
+      "seconds": 0.1648559999994177
+    },
+    {
+      "source": 8,
+      "target": 10,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.028239299997949274,
+          "selected": [
+            1,
+            [
+              -5.2251241196232465,
+              3.650235439283872,
+              0.0
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.010283100000378909
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.03571649999867077
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 4.440892098500626e-16,
+      "heading_error_deg": 2.5444437451708134e-14,
+      "changes": 4,
+      "seconds": 0.08678069999950822
+    },
+    {
+      "source": 10,
+      "target": 2,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.0941235999998753,
+          "selected": [
+            1,
+            [
+              -0.814553339229561,
+              4.956706024921915,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.010779399999591988
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.025889000000461238
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 2.6645352591003757e-15,
+      "heading_error_deg": 5.088887490341627e-14,
+      "changes": 6,
+      "seconds": 0.14536430000225664
+    },
+    {
+      "source": 10,
+      "target": 4,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.0943096000009973,
+          "selected": [
+            1,
+            [
+              -0.814553339229561,
+              4.956706024921915,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.009960600000340492
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.025908900002832524
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 8.881784197001252e-16,
+      "heading_error_deg": 0.0,
+      "changes": 6,
+      "seconds": 0.1426897999990615
+    },
+    {
+      "source": 10,
+      "target": 6,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.09099550000246381,
+          "selected": [
+            1,
+            [
+              -0.814553339229561,
+              4.956706024921915,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.009402600000612438
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.027237500002229353
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 1.897149936107019e-15,
+      "heading_error_deg": 5.088887490341627e-14,
+      "changes": 6,
+      "seconds": 0.13885149999987334
+    },
+    {
+      "source": 10,
+      "target": 8,
+      "mode": "LATERAL",
+      "success": true,
+      "stages": [
+        {
+          "stage": "APPROACH_LINE",
+          "seconds": 0.08968470000036177,
+          "selected": [
+            1,
+            [
+              -0.814553339229561,
+              4.956706024921915,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "stage": "RETREAT_LINE",
+          "seconds": 0.008802899999864167
+        },
+        {
+          "stage": "FINAL",
+          "seconds": 0.026731800000561634
+        }
+      ],
+      "budget_per_stage": 3.0,
+      "position_error": 1.6011864169946884e-15,
+      "heading_error_deg": 5.088887490341627e-14,
+      "changes": 6,
+      "seconds": 0.13570550000076764
+    }
+  ],
+  "completed": 40,
+  "total": 40,
+  "elapsed": 8.812057200000709
+}

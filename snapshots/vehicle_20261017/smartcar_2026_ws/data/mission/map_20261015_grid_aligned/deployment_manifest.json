@@ -1,0 +1,9 @@
+{
+  "points_sha256": "a72b010d35aff86fd06a4f0aa56150c179261de7f411921878a5127c834eac77", 
+  "live_lines_updated": false, 
+  "offline_pairs": 40, 
+  "scene_dir": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261015_grid_aligned", 
+  "map_image_sha256": "9acd904433f8fe0652594dfb0ecdc4384071df9a3313cc88127739135c63e491", 
+  "map_key": "db9c1f97f38ae4c4fca183bbf53ccfb385a2b1e3d174ed0f27b08e64874770ec", 
+  "saved_lines_file": "/home/smartcar/smartcar_2026_ws/data/navigation/map_20261006_160146_lines.json"
+}

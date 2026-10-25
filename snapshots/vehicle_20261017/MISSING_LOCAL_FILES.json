@@ -1,0 +1,127 @@
+[
+  {
+    "target": "/home/smartcar/deploy_confirmed_20261016/manifest.json",
+    "expected_sha256": "0b92778cc6b0488a3d4ab37869c36e9e20d239fbc8704d3b0b1b623fec2491c1",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/CMakeLists.txt",
+    "expected_sha256": "c100ae896e616bb6249eca91fd0b2fd85bbf8bbd8f833302adc386f91b380af6",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/smartcar_bringup/CMakeLists.txt",
+    "expected_sha256": "e1b932ae303f7f8d1679b7e27cf53cc0ea4acbcd2bfec505f0344e1e96f5e493",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/smartcar_bringup/package.xml",
+    "expected_sha256": "19284a21edddb5a4e7a701e0e952c134bcba903c1764da285e9e7da393eea516",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/smartcar_description/CMakeLists.txt",
+    "expected_sha256": "c8f445ab3bea40c23ba48c25e0c543102186949d595e0012a17e446a74759e77",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/smartcar_description/package.xml",
+    "expected_sha256": "dc15092e509f4e91973c04fcaf0171cf1d9cf127e8ddef45e9980bfeba463045",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mapping/CMakeLists.txt",
+    "expected_sha256": "785d65971b4bff2f4189e3eb81c0f371ce62535609122d8cf0ee5d0bee696527",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mapping/README.md",
+    "expected_sha256": "4f301d5dcbac4a2812677a0e77c2211590c6ed74d3ee70f25aeac455076ff051",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mapping/config/laser_2d.lua",
+    "expected_sha256": "2ba506d6a19137263366e928bc779ee13b887c5767f8f0aa295d8f61473c4211",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mapping/config/laser_2d.lua.bak_before_1cm",
+    "expected_sha256": "a56bea8da6732caaa401e1dd6bd56259dea76a69c4c9f18d3e2dc0f9d20ed4ec",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mapping/config/laser_2d.lua.before_1cm_20261008_194410",
+    "expected_sha256": "261d1615cb8f8c71aa64f98e8aa7131bf7c3f78c8051a40b8d684449bbf5d679",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mapping/config/laser_2d.lua.before_3cm_20261007_203440",
+    "expected_sha256": "a56bea8da6732caaa401e1dd6bd56259dea76a69c4c9f18d3e2dc0f9d20ed4ec",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mapping/config/laser_2d.lua.before_perf_20261008_195201",
+    "expected_sha256": "9a4c1cb5b1110e4f9ccb05c63cd9bff4aa5b75b9df2ea9a17e36a717085fbf2c",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mapping/launch/lidar.launch",
+    "expected_sha256": "952d858ed5145b34eee58c3c9e3c48fd01ba8d71e1346a6553407c2b59fcca14",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mapping/launch/mapping.launch",
+    "expected_sha256": "f8f5c5304d75feb5d6a240f6c8583a9fc29d1c92a18939d7a5916aea019be007",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mapping/package.xml",
+    "expected_sha256": "b188b80ca49d8611322d7df9f400c5a0e435c9f5e0bec0dec2ea9239de13b47d",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mission/CMakeLists.txt",
+    "expected_sha256": "5a7915e53c4131829bfa47549df6f2d35c56fe5fa45ef8a6be2f389b91d47b3b",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/CMakeLists.txt",
+    "expected_sha256": "2bd36b51afdf06bfa61631041d174dbc29e184ec28ece955df04ca0407fc5093",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.save",
+    "expected_sha256": "52ee2fdd321803c8a3c9207e13d863f80ae6d63f45b4b0deef2bcded66fcad8c",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/smartcar_vehicle_bridge/CMakeLists.txt",
+    "expected_sha256": "94b8e9dd2443e2caf87a4a1a3886425486f6d1a7c769ea6b41d12c20056af97b",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/smartcar_vehicle_bridge/config/vehicle.yaml",
+    "expected_sha256": "5f3337a87edfb36577a70a9edac1163cb8ade5c36610f176d6efcc18aa9a3b51",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/smartcar_vehicle_bridge/package.xml",
+    "expected_sha256": "a097d8326ddd42c68a6466512d60ca3f6570ead17f693941b22c290fa86b4bfd",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/CMakeLists.txt",
+    "expected_sha256": "f2bec0399d0e94496594013281be98cff471d44cd9387e638983b4ced16b9810",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/launch/h30_real.launch",
+    "expected_sha256": "c794fd6c052696f3cce7f3fb1b37b9a38dddd45f0d913e797870f2c1dec3d306",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  },
+  {
+    "target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/package.xml",
+    "expected_sha256": "ec9d165dd542a97e56649a01c7d5129318f1be36968e6c7a4a98ca2c8a42c5d9",
+    "reason": "No exact local copy found; not reconstructed or replaced with an older version."
+  }
+]

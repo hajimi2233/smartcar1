@@ -1,0 +1,7 @@
+<launch>
+  <arg name="enable_drive" default="false" />
+  <node pkg="smartcar_vehicle_bridge" type="vehicle_bridge.py" name="vehicle_bridge" output="screen" required="true">
+    <rosparam command="load" file="$(find smartcar_vehicle_bridge)/config/vehicle.yaml" />
+    <param name="enable_drive" value="$(arg enable_drive)" />
+  </node>
+</launch>

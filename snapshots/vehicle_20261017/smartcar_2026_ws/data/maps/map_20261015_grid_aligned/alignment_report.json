@@ -1,0 +1,84 @@
+{
+  "source": "optimized_rightangles/map.yaml",
+  "grid_clockwise_rotation_deg": 16.5,
+  "old_origin": [
+    -12.636111583709717,
+    -3.7761200904846195,
+    0.0
+  ],
+  "new_origin": [
+    -10.645607267833867,
+    -4.3695206318173385,
+    0.2879793265790644
+  ],
+  "source_resolution": 0.009999999776482582,
+  "output_resolution": 0.05,
+  "source_shape": [
+    1681,
+    962
+  ],
+  "aligned_1cm_shape": [
+    1555,
+    908
+  ],
+  "aligned_5cm_shape": [
+    311,
+    182
+  ],
+  "max_world_vertex_transform_error_m": 1.9860273225978185e-15,
+  "vertical_wall_checks_5cm": [
+    {
+      "wall": 1,
+      "edge_positions": [
+        92,
+        96
+      ],
+      "distinct_edge_positions": 1
+    },
+    {
+      "wall": 2,
+      "edge_positions": [
+        116,
+        120
+      ],
+      "distinct_edge_positions": 1
+    },
+    {
+      "wall": 3,
+      "edge_positions": [
+        141,
+        145
+      ],
+      "distinct_edge_positions": 1
+    },
+    {
+      "wall": 4,
+      "edge_positions": [
+        165,
+        169
+      ],
+      "distinct_edge_positions": 1
+    },
+    {
+      "wall": 5,
+      "edge_positions": [
+        189,
+        193
+      ],
+      "distinct_edge_positions": 1
+    },
+    {
+      "wall": 6,
+      "edge_positions": [
+        214,
+        218
+      ],
+      "distinct_edge_positions": 1
+    }
+  ],
+  "rectangles_reprojected": true,
+  "left_short_wall_retained": true,
+  "unmodeled_obstacles_conservatively_rotated": true,
+  "source_image_not_overwritten": true,
+  "navigation_modified": false
+}

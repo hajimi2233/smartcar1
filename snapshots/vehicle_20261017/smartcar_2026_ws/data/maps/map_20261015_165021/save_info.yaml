@@ -1,0 +1,7 @@
+height: 975
+method: current /map occupancy snapshot; no trajectory finishing or optimization
+saved_at: '2026-10-15T16:50:21.892560'
+source_publishers:
+- /cartographer_node
+source_stamp: 1792054211.199975
+width: 1387

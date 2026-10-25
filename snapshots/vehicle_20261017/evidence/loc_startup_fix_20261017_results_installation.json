@@ -1,0 +1,6 @@
+{
+  "after": "4b90ee47a2a13bf50e4e729ddd72f655b5cbfb4cd260620a450e537f42955eee", 
+  "backup": "/home/smartcar/loc.before_stale_mode_fix_20261017_202145", 
+  "target": "/home/smartcar/loc", 
+  "before": "4ac8700a380e72d3ed49d20be7af0c3f13324b9ee1107024814935cae47dbc51"
+}

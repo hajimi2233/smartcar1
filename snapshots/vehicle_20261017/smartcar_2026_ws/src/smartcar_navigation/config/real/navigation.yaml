@@ -1,0 +1,284 @@
+# Arrival limits updated 2026-10-16: pose goals 0.10m/10deg;
+# other stages small 0.08m/8deg, medium/large 0.12m/15deg.
+# No extra RETREAT_LINE yaw grace. Lateral entry remains 0.20m/20deg.
+# tuning.final_finish_position stays 0.05m for position-only end
+# and the disabled-profile fallback; enabled profiles set pose-goal limits.
+turn90_primitive_file: ''
+turn90_pre_extension: 0.30
+turn90_post_extension: 0.30
+# Dynamics and body envelope are provisional.
+# Real vehicle integration template: measure geometry and supply the driver bridge before navigation.
+# Navigation startup configuration. Units: metres, seconds, radians unless *_deg.
+# Edit this file, then stop/restart nav or nav-test. No image rebuild for tuning.
+# Existing launch arguments override these values only when explicitly supplied.
+turn_radius: 1.35
+local_turn_radius: 1.15
+steering_rate: 1.32
+tracking_lateral_gain: 8.0
+tracking_heading_gain: 5.0
+tracking_preview_distance: 0.45
+collision_margin: 0.02
+planning_collision_margin: 0.05
+zero_cost_line_width: 0.01
+planning_timeout: 20.0 
+scan_timeout: 1.0
+goal_position_tolerance: 0.04
+goal_heading_tolerance_deg: 1.5
+ground_truth_test: false
+test_replay_speed_scale: 2.0
+test_auto_arrive: false
+test_auto_arrive_delay: 1.0
+cmd_topic: /vehicle/cmd_vel
+joint_topic: /vehicle/joint_states
+actuator_model_param: /vehicle/actuator_model
+
+# See docs/PARAMETERS.md for reference frames, dimensions and tuning examples.
+tracking_reverse_lateral_gain: 6.0
+
+tracking_reverse_heading_gain: 6.0
+
+tracking_reverse_preview_distance: 0.50
+
+use_speed_prediction: true
+
+wheel_collision_enabled: false
+
+tuning:
+  direction_map_max_age: 0.55
+  direction_map_min_progress: 0.02
+  direction_map_window: 1.2
+  live_scan_uncertainty: 0.01
+  direction_confirm_time: 0.6
+  curve_speed_gain: 0.3
+  recovery_resume_distance: 0.1
+  recovery_resume_speed: 0.05
+  laser_recovery_attempts: 2
+  laser_recovery_distance: 0.25
+  laser_recovery_enabled: 1
+  laser_recovery_grid_step: 0.02
+  laser_recovery_range: 2.0
+  laser_recovery_scan_age: 0.3
+  laser_recovery_speed: 0.07
+  laser_recovery_timeout: 8.0
+  safety_stop_extra: 0.01
+  line_exit_heading_grace_deg: 0.0
+  moving_steer_error: 0.035
+  moving_steer_heading_deg: 5.0
+  moving_steer_lag_deg: 30.0
+  deviation_resume_heading_deg: 5.0
+  deviation_resume_ratio: 0.7
+  steering_preview_distance: 0.06
+  steering_preview_time: 0.6
+  approach_braking: 0.15
+  approach_stop_reserve: 0.02
+  tracking_cruise_floor: 0.06
+  lateral_entry_early_heading_deg: 15.0
+  lateral_entry_early_position: 0.15
+  lateral_entry_finish_heading_deg: 20.0
+  lateral_entry_finish_position: 0.2
+  line_entry_candidate_count: 2
+  # TF frames; all orientations use vehicle heading.
+  map_frame: map
+  odom_frame: odom
+  base_frame: base_footprint
+  truth_frame: sim_world
+  # Vehicle geometry; update the actual actuator model to match.
+  wheelbase: 0.62
+  front_track: 0.445
+  wheel_radius: 0.09
+  # Region body envelope measured from rear axle; positive lengths.
+  body_front: 0.665625 
+  body_rear: 0.084375 
+  body_half_width: 0.24 
+  # Existing map/scan collision envelope, independent of region envelope.
+  collision_half_length: 0.375 
+  collision_half_width: 0.24
+  collision_center_x: 0.31
+  boundary_half_length: 0.375 
+  tire_half_width: 0.035
+  region_margin: 0.01
+  physical_min_radius: 1.15
+  global_min_radius: 1.35
+  # References: rear_axle / front_axle / custom. Offsets only apply to custom.
+  base_reference: rear_axle
+  base_offset_x: 0.0
+  base_offset_y: 0.0
+  # RViz goal point. Orientation always denotes VEHICLE heading.
+  goal_reference: front_axle
+  goal_offset_x: 0.0
+  goal_offset_y: 0.0
+  # Published global/local Path point; internal bicycle model stays rear axle.
+  path_reference: rear_axle
+  path_offset_x: 0.0
+  path_offset_y: 0.0
+  # Stage distances and arrival tolerances; preserve existing strategy.
+  line_entry_distance: 1.5
+  line_retreat_distance: 1.5
+  stage_plan_position: 0.06
+  stage_plan_heading_deg: 5.0
+  maneuver_plan_heading_deg: 4.0
+  stage_finish_position: 0.20
+  stage_finish_heading_deg: 20.0
+  final_finish_position: 0.05
+  final_finish_heading_deg: 5.0
+  normal_finish_heading_deg: 5.0
+  stage_early_position: 0.1
+  stage_early_heading_deg: 8.0
+  final_early_position: 0.035
+  final_early_heading_deg: 4.0
+  # Normal planned speed caps; nav-test scale is applied separately.
+  forward_speed: 0.15
+  reverse_speed: 0.15
+  tracking_forward_speed: 0.15
+  tracking_reverse_speed: 0.15
+  tracking_min_speed: 0.04
+  approach_speed_gain: 0.4
+  replay_forward_speed: 0.04
+  replay_reverse_speed: 0.04
+  replay_min_speed: 0.012
+  # Timing and feedback limits. Values load only at navigation startup.
+  control_period: 0.05
+  max_control_dt: 0.35
+  feedback_timeout: 0.3
+  pose_timeout: 0.4
+  truth_timeout: 0.35
+  stop_window: 1.0
+  stop_position_span: 0.02
+  stop_heading_span: 0.015
+  stop_timeout: 10.0
+  progress_timeout: 8.0
+  max_replans: 2
+  # Local prediction settings; defaults unchanged.
+  prediction_step: 0.01
+  rollout_steps: 15
+  rollout_dt: 0.15
+  steering_sample_offset: 0.035
+  tracking_max_error: 0.2
+  tracking_recover_error: 0.18
+  scan_obstacle_range: 0.8
+  scan_stride: 2
+  # Wall contribution in [0,1]; path contribution is 1 minus this.
+  wall_straight_weight: 0.25
+  wall_maneuver_weight: 0.0
+  wall_normal_weight: 0.5
+  wall_gain: 0.45
+  wall_max_angle_deg: 15.0
+  local_left_min_radius: 1.21
+  local_right_min_radius: 1.15
+  planner_three_change_after: 4.0
+  planner_unlimited_after: 7.0
+  planner_max_records: 60000
+
+  planner_special_search_margin: 2.0
+
+# Rear-axle distance to active global path triggers stop/replan.
+path_replan_distance: 0.05
+
+# Reverse steering must settle before travel; radians and seconds.
+reverse_steering_wait_start: 0.10
+reverse_steering_wait_ready: 0.05236
+reverse_steering_wait_timeout: 6.0
+planning_window_probe: 8.0
+
+# Forward steering settle uses the same stopped request interface as reverse.
+forward_steering_wait_start: 0.10
+forward_steering_wait_ready: 0.05236
+
+# One locked stationary target; same-side preload only above ~3deg steering.
+forward_steering_preload_deg: 2.0
+reverse_steering_preload_deg: 2.0
+steering_ready_hold: 0.20
+
+# Reserve for stopping drift; final acceptance tolerances are unchanged.
+final_stop_reserve: 0.01
+final_stop_heading_reserve_deg: 0.5
+
+# After stopped, require continuous in-tolerance confirmation before latching success.
+arrival_confirm_duration: 0.5
+
+# First planning attempt of each stage; subsequent retries keep existing 20s cap.
+initial_planning_timeout: 12.0
+
+# First direct/final search: strict first 5s, then 3cm original-goal region.
+initial_goal_relax_after: 5.0
+initial_goal_relax_distance: 0.03
+
+# Navigation features deployed 2026-10-11.
+# Copy these root-level settings into the active navigation YAML. Restart nav.
+# Distances classify final front-axle target to nearest finite low-cost segment.
+fast_turn90_enabled: true
+fast_turn90_budget: 3.0
+fast_turn90_max_detour_ratio: 3.0
+fast_turn90_cache_enabled: true
+fast_turn90_small_distance: 1.50
+fast_turn90_large_distance: 2.12
+# Hard default cap applies to both quick candidates and the search fallback.
+fast_turn90_max_changes: 3
+fast_turn90_many_cusps_enabled: false
+# Experimental many-cusp bank only; inactive unless explicitly enabled above.
+fast_turn90_small_max_changes: 32
+fast_turn90_entry_diagnostics_enabled: false
+# Static/unknown cells use full cell-vs-inflated-body intersection. Preserve the
+# 5cm margin and half-cell sweep allowance; live cells retain the old check.
+fast_turn90_precise_static_collision: true
+# Stationary static checks keep 5cm margin; each motion interval supplies its
+# own conservative swept-body bound. Requires precise_static_collision above.
+fast_turn90_separate_sweep: true
+# Keep final goal XY unchanged in finite candidate generation. Angular
+# tolerance and Hybrid A* endpoint discretization tolerance remain explicit.
+fast_turn90_final_position_offsets_enabled: false
+fast_turn90_stage_candidate_count: 2
+fast_turn90_large_entry_distance: 1.80
+fast_turn90_large_retreat_distance: 1.80
+fast_turn90_large_candidate_step: 0.45
+fast_turn90_medium_entry_distance: 1.35
+fast_turn90_medium_retreat_distance: 1.35
+fast_turn90_medium_candidate_step: 0.375
+fast_turn90_small_entry_distance: 0.80
+fast_turn90_small_retreat_distance: 0.80
+fast_turn90_small_candidate_step: 0.20
+
+# Measured stop/arrival limits and reserved planning limits.
+fast_turn90_tolerances_enabled: true
+fast_turn90_large_stage_position: 0.12
+fast_turn90_large_stage_heading_deg: 15.0
+fast_turn90_large_final_position: 0.1
+fast_turn90_large_final_heading_deg: 10.0
+fast_turn90_large_stage_plan_position: 0.03
+fast_turn90_large_stage_plan_heading_deg: 1.5
+fast_turn90_large_final_plan_position: 0.03
+fast_turn90_large_final_plan_heading_deg: 1.5
+fast_turn90_large_align_heading_deg: 0.3
+fast_turn90_large_align_cross_track: 0.003
+fast_turn90_medium_stage_position: 0.12
+fast_turn90_medium_stage_heading_deg: 15.0
+fast_turn90_medium_final_position: 0.1
+fast_turn90_medium_final_heading_deg: 10.0
+fast_turn90_medium_stage_plan_position: 0.03
+fast_turn90_medium_stage_plan_heading_deg: 1.5
+fast_turn90_medium_final_plan_position: 0.03
+fast_turn90_medium_final_plan_heading_deg: 1.5
+fast_turn90_medium_align_heading_deg: 0.3
+fast_turn90_medium_align_cross_track: 0.003
+fast_turn90_small_stage_position: 0.08
+fast_turn90_small_stage_heading_deg: 8.0
+fast_turn90_small_final_position: 0.1
+fast_turn90_small_final_heading_deg: 10.0
+fast_turn90_small_stage_plan_position: 0.03
+fast_turn90_small_stage_plan_heading_deg: 1.0
+fast_turn90_small_final_plan_position: 0.025
+fast_turn90_small_final_plan_heading_deg: 2.0
+fast_turn90_small_align_heading_deg: 3.0
+fast_turn90_small_align_cross_track: 0.02
+
+
+# Full-map feasibility fallback runs before physical checkpoint recovery.
+feasibility_fallback_enabled: true
+feasibility_fallback_timeout: 120.0
+feasibility_fallback_max_records: 300000
+load_saved_low_cost_lines: true
+
+# Align line-stage heading with the measured low-cost segment.
+line_heading_from_low_cost_line: true
+# Execution/recovery patch; global planner and arrival limits unchanged.
+execution_patch: {"align_depth_with_channels": true, "cusp_braking": 0.15, "cusp_delay": 0.55, "cusp_stop_distance": 0.05, "depth_escape_limit": 0.08, "depth_escape_speed": 0.04, "depth_margin": 0.01, "enabled": true, "geometry_retry_delay": 2.0, "geometry_retry_limit": 3}

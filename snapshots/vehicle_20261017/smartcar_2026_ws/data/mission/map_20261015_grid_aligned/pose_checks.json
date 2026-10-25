@@ -1,0 +1,204 @@
+{
+  "inspect_1": [
+    {
+      "heading_deg": 106.49999999999999,
+      "free": true,
+      "detail": "no collision in checked samples"
+    }
+  ],
+  "inspect_2": [
+    {
+      "heading_deg": -73.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    }
+  ],
+  "inspect_3": [
+    {
+      "heading_deg": 106.49999999999999,
+      "free": true,
+      "detail": "no collision in checked samples"
+    }
+  ],
+  "inspect_4": [
+    {
+      "heading_deg": -73.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    }
+  ],
+  "inspect_5": [
+    {
+      "heading_deg": 106.49999999999999,
+      "free": true,
+      "detail": "no collision in checked samples"
+    }
+  ],
+  "inspect_6": [
+    {
+      "heading_deg": -73.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    }
+  ],
+  "inspect_7": [
+    {
+      "heading_deg": 106.49999999999999,
+      "free": true,
+      "detail": "no collision in checked samples"
+    }
+  ],
+  "inspect_8": [
+    {
+      "heading_deg": -73.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    }
+  ],
+  "inspect_9": [
+    {
+      "heading_deg": 106.49999999999999,
+      "free": true,
+      "detail": "no collision in checked samples"
+    }
+  ],
+  "inspect_10": [
+    {
+      "heading_deg": -73.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    }
+  ],
+  "outer_right_top": [
+    {
+      "heading_deg": 16.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    },
+    {
+      "heading_deg": 196.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    },
+    {
+      "heading_deg": 106.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    },
+    {
+      "heading_deg": -73.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    }
+  ],
+  "outer_right_bottom": [
+    {
+      "heading_deg": 16.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    },
+    {
+      "heading_deg": 196.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    },
+    {
+      "heading_deg": 106.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    },
+    {
+      "heading_deg": -73.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    }
+  ],
+  "outer_left_top": [
+    {
+      "heading_deg": 16.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    },
+    {
+      "heading_deg": 196.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    },
+    {
+      "heading_deg": 106.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    },
+    {
+      "heading_deg": -73.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    }
+  ],
+  "outer_left_bottom": [
+    {
+      "heading_deg": 16.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    },
+    {
+      "heading_deg": 196.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    },
+    {
+      "heading_deg": 106.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    },
+    {
+      "heading_deg": -73.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    }
+  ],
+  "start": [
+    {
+      "heading_deg": 16.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    },
+    {
+      "heading_deg": 196.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    },
+    {
+      "heading_deg": 106.5,
+      "free": false,
+      "detail": "sources=[MAP_UNKNOWN@(-7.914,-3.117), STATIC_MAP@(-7.578,-3.018)]; travel=0.000m; rear_pose=(-7.680,-2.938,106.5deg); frame=map"
+    },
+    {
+      "heading_deg": -73.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    }
+  ],
+  "end": [
+    {
+      "heading_deg": 16.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    },
+    {
+      "heading_deg": 196.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    },
+    {
+      "heading_deg": 106.5,
+      "free": true,
+      "detail": "no collision in checked samples"
+    },
+    {
+      "heading_deg": -73.5,
+      "free": false,
+      "detail": "sources=[MAP_UNKNOWN@(-9.549,3.282), STATIC_MAP@(-9.458,3.153)]; travel=0.000m; rear_pose=(-9.537,3.332,-73.5deg); frame=map"
+    }
+  ]
+}

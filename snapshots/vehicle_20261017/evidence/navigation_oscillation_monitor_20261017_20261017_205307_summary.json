@@ -1,0 +1,703 @@
+{
+  "production_files_changed": false, 
+  "tf_lookup_synchronization_note": "Per-edge age monitoring; does not prove every historical scan-time TF lookup succeeds", 
+  "nav_event_counts": {
+    "WAIT_TRACKING": 5, 
+    "STEERING_STOP": 10, 
+    "DRIVING": 22, 
+    "NEW_GOAL": 1, 
+    "PLANNING_WINDOW": 7, 
+    "WAIT_STEERING": 47, 
+    "WAIT_STOP": 1, 
+    "RECOVERY_RETRY": 1, 
+    "PLANNING": 7, 
+    "GOAL_MODE": 1, 
+    "RECOVERY_WAIT": 5, 
+    "RECOVERY_GEOMETRY_WAIT": 1, 
+    "REPLANNING": 4, 
+    "PLAN_STAGE": 7, 
+    "PLANNING_ATTEMPT": 7
+  }, 
+  "commands_sent": false, 
+  "recovery_events": [
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241590.060381, 
+      "value": "WAIT_TRACKING: path deviation 0.051m; path limit 0.050m; stop and recheck retained path"
+    }, 
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241591.668097, 
+      "value": "REPLANNING: persistent tracking deviation; stable pose and fresh scans verified"
+    }, 
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241591.66877, 
+      "value": "PLANNING_ATTEMPT: stage APPROACH_LINE attempt 6 budget 20.0s"
+    }, 
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241601.795842, 
+      "value": "WAIT_TRACKING: path deviation 0.051m; path limit 0.050m; stop and recheck retained path"
+    }, 
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241603.39883, 
+      "value": "REPLANNING: persistent tracking deviation; stable pose and fresh scans verified"
+    }, 
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241603.399399, 
+      "value": "PLANNING_ATTEMPT: stage APPROACH_LINE attempt 7 budget 20.0s"
+    }, 
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241610.276736, 
+      "value": "WAIT_TRACKING: path deviation 0.050m; path limit 0.050m; stop and recheck retained path"
+    }, 
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241612.044486, 
+      "value": "REPLANNING: persistent tracking deviation; stable pose and fresh scans verified"
+    }, 
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241612.045356, 
+      "value": "PLANNING_ATTEMPT: stage APPROACH_LINE attempt 8 budget 20.0s"
+    }, 
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241619.129889, 
+      "value": "WAIT_TRACKING: path deviation 0.053m; path limit 0.050m; stop and recheck retained path"
+    }, 
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241621.189656, 
+      "value": "PLANNING_ATTEMPT: stage APPROACH_LINE attempt 9 budget 20.0s"
+    }, 
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241629.249377, 
+      "value": "WAIT_TRACKING: path deviation 0.052m; path limit 0.050m; stop and recheck retained path"
+    }, 
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241630.880351, 
+      "value": "REPLANNING: persistent tracking deviation; stable pose and fresh scans verified"
+    }, 
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241630.881617, 
+      "value": "PLANNING_ATTEMPT: stage APPROACH_LINE attempt 10 budget 20.0s"
+    }, 
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241633.764226, 
+      "value": "RECOVERY_WAIT: goal retained; current safety footprint blocked; sources=[LIVE_SCAN]; margin=0.030m; live_point=(-8.259,-2.538) body_point=(-0.104,0.045) body_axis_gap=0.039m uncertainty=0.010m"
+    }, 
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241633.831744, 
+      "value": "RECOVERY_WAIT: normal clearance clear; pose_stopped=False speed=-0.0171m/s scans=1/5 retry_delay=1.95s"
+    }, 
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241636.543297, 
+      "value": "RECOVERY_GEOMETRY_WAIT: geometry 1/3; original goal retained; raw scan does not certify current footprint: raw laser recovery sources=RAW_LIVE_SCAN"
+    }, 
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241638.907692, 
+      "value": "RECOVERY_WAIT: normal clearance clear; pose_stopped=False speed=0.0403m/s scans=5/5 retry_delay=0.00s"
+    }, 
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241639.994388, 
+      "value": "RECOVERY_RETRY: attempt 4; no retry limit"
+    }, 
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241639.995583, 
+      "value": "PLANNING_ATTEMPT: stage APPROACH_LINE attempt 11 budget 20.0s"
+    }, 
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241642.855666, 
+      "value": "RECOVERY_WAIT: goal retained; LOCAL_PLAN_BLOCKED: RESPONSE_COLLISION=3 (command response swept footprint blocked)"
+    }, 
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241643.962003, 
+      "value": "RECOVERY_WAIT: normal clearance clear; pose_stopped=False speed=0.0000m/s scans=5/5 retry_delay=0.91s"
+    }, 
+    {
+      "topic": "/single_nav/status", 
+      "t": 1792241645.770263, 
+      "value": "PLANNING_ATTEMPT: stage DIRECT attempt 1 budget 12.0s"
+    }
+  ], 
+  "tf_check_summary": {
+    "odom->base_footprint": {
+      "p95_age_s": 0.15386199951171875, 
+      "samples": 1194, 
+      "missing": 0, 
+      "future_over_1ms": 0, 
+      "age_over_400ms": 0, 
+      "max_age_s": 0.23336005210876465
+    }, 
+    "map->odom": {
+      "p95_age_s": 0.04923295974731445, 
+      "samples": 1194, 
+      "missing": 0, 
+      "future_over_1ms": 0, 
+      "age_over_400ms": 0, 
+      "max_age_s": 0.05437111854553223
+    }
+  }, 
+  "streams": {
+    "/vehicle/cmd_vel": {
+      "hz": 13.65467286593999, 
+      "publishers": {
+        "/single_goal_nav": 836
+      }, 
+      "motion_start_count": 10, 
+      "min_v": -0.13182803965184334, 
+      "count": 836, 
+      "max_receipt_gap_s": 0.7048640251159668, 
+      "max_v": 0.14720736724104527, 
+      "zero_count": 438, 
+      "p95_receipt_gap_s": 0.08865809440612793, 
+      "nonzero_direction_changes": 4
+    }, 
+    "/wall_localization/status": {
+      "hz": 3.4003551032824433, 
+      "publishers": {
+        "/wall_localizer": 209
+      }, 
+      "p95_receipt_gap_s": 0.3033139705657959, 
+      "count": 209, 
+      "max_receipt_gap_s": 0.3145718574523926
+    }, 
+    "/vehicle/joint_states": {
+      "hz": 19.9022623820029, 
+      "publishers": {
+        "/vehicle_bridge": 1220
+      }, 
+      "backward_stamps": 0, 
+      "max_stamp_gap_s": 0.37432336807250977, 
+      "age_p95_s": 0.15408682823181152, 
+      "age_p50_s": 0.1203165054321289, 
+      "count": 1220, 
+      "max_receipt_gap_s": 0.3496859073638916, 
+      "duplicate_stamps": 394, 
+      "p95_receipt_gap_s": 0.05150794982910156, 
+      "max_age_s": 0.22636628150939941, 
+      "future_stamp_count": 0
+    }, 
+    "tf:map->odom": {
+      "hz": 20.000241263049666, 
+      "publishers": {
+        "/wall_localizer": 1226
+      }, 
+      "backward_stamps": 0, 
+      "max_stamp_gap_s": 0.05660676956176758, 
+      "age_p95_s": 0.0034329891204833984, 
+      "age_p50_s": 0.0010449886322021484, 
+      "count": 1226, 
+      "max_receipt_gap_s": 0.0672910213470459, 
+      "duplicate_stamps": 0, 
+      "p95_receipt_gap_s": 0.05244708061218262, 
+      "max_age_s": 0.017843961715698242, 
+      "future_stamp_count": 0
+    }, 
+    "/single_nav/status": {
+      "hz": 3.6609324794328875, 
+      "publishers": {
+        "/single_goal_nav": 216
+      }, 
+      "p95_receipt_gap_s": 1.7405509948730469, 
+      "count": 216, 
+      "max_receipt_gap_s": 5.777302980422974
+    }, 
+    "tf:odom->base_footprint": {
+      "hz": 13.531489841200225, 
+      "publishers": {
+        "/laser_scan_matcher_node": 830
+      }, 
+      "backward_stamps": 0, 
+      "max_stamp_gap_s": 0.15379118919372559, 
+      "age_p95_s": 0.08868741989135742, 
+      "age_p50_s": 0.08307051658630371, 
+      "count": 830, 
+      "max_receipt_gap_s": 0.14848613739013672, 
+      "duplicate_stamps": 0, 
+      "p95_receipt_gap_s": 0.07869982719421387, 
+      "max_age_s": 0.16143298149108887, 
+      "future_stamp_count": 0
+    }, 
+    "static:base_footprint->laser": {
+      "hz": null, 
+      "publishers": {
+        "/base_to_laser": 1
+      }, 
+      "backward_stamps": 0, 
+      "max_stamp_gap_s": null, 
+      "age_p95_s": 111.8748664855957, 
+      "age_p50_s": 111.8748664855957, 
+      "count": 1, 
+      "max_receipt_gap_s": null, 
+      "duplicate_stamps": 0, 
+      "p95_receipt_gap_s": null, 
+      "max_age_s": 111.8748664855957, 
+      "future_stamp_count": 0
+    }, 
+    "/scan": {
+      "hz": 13.529122315412234, 
+      "publishers": {
+        "/rplidarNode": 830
+      }, 
+      "backward_stamps": 0, 
+      "max_stamp_gap_s": 0.15379118919372559, 
+      "age_p95_s": 0.07856035232543945, 
+      "age_p50_s": 0.07538318634033203, 
+      "count": 830, 
+      "max_receipt_gap_s": 0.14604806900024414, 
+      "duplicate_stamps": 0, 
+      "p95_receipt_gap_s": 0.07670092582702637, 
+      "max_age_s": 0.15545892715454102, 
+      "future_stamp_count": 0
+    }, 
+    "/vehicle/steering_request": {
+      "hz": 2.681697548762919, 
+      "publishers": {
+        "/single_goal_nav": 147
+      }, 
+      "p95_receipt_gap_s": 2.4922261238098145, 
+      "count": 147, 
+      "max_receipt_gap_s": 8.220973014831543
+    }, 
+    "/vehicle/motion_estimate": {
+      "hz": 19.999995718197862, 
+      "publishers": {
+        "/vehicle_bridge": 1226
+      }, 
+      "p95_receipt_gap_s": 0.05248904228210449, 
+      "count": 1226, 
+      "max_receipt_gap_s": 0.06677508354187012
+    }, 
+    "/cmd_vel": {
+      "hz": 20.000452204313614, 
+      "publishers": {
+        "/vehicle_bridge": 1227
+      }, 
+      "motion_start_count": 10, 
+      "min_v": -0.06591401982592167, 
+      "count": 1227, 
+      "max_receipt_gap_s": 0.06563401222229004, 
+      "max_v": 0.07360368362052264, 
+      "zero_count": 618, 
+      "p95_receipt_gap_s": 0.05225396156311035, 
+      "nonzero_direction_changes": 4
+    }, 
+    "/vehicle/bridge_status": {
+      "hz": 20.015467092484855, 
+      "publishers": {
+        "/vehicle_bridge": 1227
+      }, 
+      "p95_receipt_gap_s": 0.05259299278259277, 
+      "count": 1227, 
+      "max_receipt_gap_s": 0.06747698783874512
+    }
+  }, 
+  "duration_s": 60.919968128204346, 
+  "inventories": [
+    {
+      "publishers": {
+        "/vehicle/cmd_vel": [
+          "/single_goal_nav"
+        ], 
+        "/single_nav/path": [
+          "/single_goal_nav"
+        ], 
+        "/wall_localization/status": [
+          "/wall_localizer"
+        ], 
+        "/vehicle/joint_states": [
+          "/vehicle_bridge"
+        ], 
+        "/single_nav/status": [
+          "/single_goal_nav"
+        ], 
+        "/tf": [
+          "/laser_scan_matcher_node", 
+          "/wall_localizer"
+        ], 
+        "/vehicle/motion_estimate": [
+          "/vehicle_bridge"
+        ], 
+        "/tf_static": [
+          "/base_to_laser"
+        ], 
+        "/scan": [
+          "/rplidarNode"
+        ], 
+        "/vehicle/steering_request": [
+          "/single_goal_nav"
+        ], 
+        "/single_nav/local_path": [
+          "/single_goal_nav"
+        ], 
+        "/wall_localization/pose": [
+          "/wall_localizer"
+        ], 
+        "/cmd_vel": [
+          "/vehicle_bridge"
+        ], 
+        "/vehicle/bridge_status": [
+          "/vehicle_bridge"
+        ]
+      }, 
+      "t": 1792241587.838483, 
+      "subscribers": {
+        "/vehicle/cmd_vel": [
+          "/vehicle_bridge", 
+          "/oscillation_readonly_monitor_5074_1792241587239"
+        ], 
+        "/cmd_vel": [
+          "/simple_controller", 
+          "/oscillation_readonly_monitor_5074_1792241587239"
+        ], 
+        "/map": [
+          "/wall_localizer", 
+          "/single_goal_nav", 
+          "/rviz_navigation"
+        ]
+      }
+    }, 
+    {
+      "publishers": {
+        "/vehicle/cmd_vel": [
+          "/single_goal_nav"
+        ], 
+        "/single_nav/path": [
+          "/single_goal_nav"
+        ], 
+        "/wall_localization/status": [
+          "/wall_localizer"
+        ], 
+        "/vehicle/joint_states": [
+          "/vehicle_bridge"
+        ], 
+        "/single_nav/status": [
+          "/single_goal_nav"
+        ], 
+        "/tf": [
+          "/laser_scan_matcher_node", 
+          "/wall_localizer"
+        ], 
+        "/vehicle/motion_estimate": [
+          "/vehicle_bridge"
+        ], 
+        "/tf_static": [
+          "/base_to_laser"
+        ], 
+        "/scan": [
+          "/rplidarNode"
+        ], 
+        "/vehicle/steering_request": [
+          "/single_goal_nav"
+        ], 
+        "/single_nav/local_path": [
+          "/single_goal_nav"
+        ], 
+        "/wall_localization/pose": [
+          "/wall_localizer"
+        ], 
+        "/cmd_vel": [
+          "/vehicle_bridge"
+        ], 
+        "/vehicle/bridge_status": [
+          "/vehicle_bridge"
+        ]
+      }, 
+      "t": 1792241597.856055, 
+      "subscribers": {
+        "/vehicle/cmd_vel": [
+          "/vehicle_bridge", 
+          "/oscillation_readonly_monitor_5074_1792241587239", 
+          "/record_1792241588399498855"
+        ], 
+        "/cmd_vel": [
+          "/simple_controller", 
+          "/oscillation_readonly_monitor_5074_1792241587239", 
+          "/record_1792241588399498855"
+        ], 
+        "/map": [
+          "/wall_localizer", 
+          "/single_goal_nav", 
+          "/rviz_navigation"
+        ]
+      }
+    }, 
+    {
+      "publishers": {
+        "/vehicle/cmd_vel": [
+          "/single_goal_nav"
+        ], 
+        "/single_nav/path": [
+          "/single_goal_nav"
+        ], 
+        "/wall_localization/status": [
+          "/wall_localizer"
+        ], 
+        "/vehicle/joint_states": [
+          "/vehicle_bridge"
+        ], 
+        "/single_nav/status": [
+          "/single_goal_nav"
+        ], 
+        "/tf": [
+          "/laser_scan_matcher_node", 
+          "/wall_localizer"
+        ], 
+        "/vehicle/motion_estimate": [
+          "/vehicle_bridge"
+        ], 
+        "/tf_static": [
+          "/base_to_laser"
+        ], 
+        "/scan": [
+          "/rplidarNode"
+        ], 
+        "/vehicle/steering_request": [
+          "/single_goal_nav"
+        ], 
+        "/single_nav/local_path": [
+          "/single_goal_nav"
+        ], 
+        "/wall_localization/pose": [
+          "/wall_localizer"
+        ], 
+        "/cmd_vel": [
+          "/vehicle_bridge"
+        ], 
+        "/vehicle/bridge_status": [
+          "/vehicle_bridge"
+        ]
+      }, 
+      "t": 1792241607.856945, 
+      "subscribers": {
+        "/vehicle/cmd_vel": [
+          "/vehicle_bridge", 
+          "/oscillation_readonly_monitor_5074_1792241587239", 
+          "/record_1792241588399498855"
+        ], 
+        "/cmd_vel": [
+          "/simple_controller", 
+          "/oscillation_readonly_monitor_5074_1792241587239", 
+          "/record_1792241588399498855"
+        ], 
+        "/map": [
+          "/wall_localizer", 
+          "/single_goal_nav", 
+          "/rviz_navigation"
+        ]
+      }
+    }, 
+    {
+      "publishers": {
+        "/vehicle/cmd_vel": [
+          "/single_goal_nav"
+        ], 
+        "/single_nav/path": [
+          "/single_goal_nav"
+        ], 
+        "/wall_localization/status": [
+          "/wall_localizer"
+        ], 
+        "/vehicle/joint_states": [
+          "/vehicle_bridge"
+        ], 
+        "/single_nav/status": [
+          "/single_goal_nav"
+        ], 
+        "/tf": [
+          "/laser_scan_matcher_node", 
+          "/wall_localizer"
+        ], 
+        "/vehicle/motion_estimate": [
+          "/vehicle_bridge"
+        ], 
+        "/tf_static": [
+          "/base_to_laser"
+        ], 
+        "/scan": [
+          "/rplidarNode"
+        ], 
+        "/vehicle/steering_request": [
+          "/single_goal_nav"
+        ], 
+        "/single_nav/local_path": [
+          "/single_goal_nav"
+        ], 
+        "/wall_localization/pose": [
+          "/wall_localizer"
+        ], 
+        "/cmd_vel": [
+          "/vehicle_bridge"
+        ], 
+        "/vehicle/bridge_status": [
+          "/vehicle_bridge"
+        ]
+      }, 
+      "t": 1792241617.861798, 
+      "subscribers": {
+        "/vehicle/cmd_vel": [
+          "/vehicle_bridge", 
+          "/oscillation_readonly_monitor_5074_1792241587239", 
+          "/record_1792241588399498855"
+        ], 
+        "/cmd_vel": [
+          "/simple_controller", 
+          "/oscillation_readonly_monitor_5074_1792241587239", 
+          "/record_1792241588399498855"
+        ], 
+        "/map": [
+          "/wall_localizer", 
+          "/single_goal_nav", 
+          "/rviz_navigation"
+        ]
+      }
+    }, 
+    {
+      "publishers": {
+        "/vehicle/cmd_vel": [
+          "/single_goal_nav"
+        ], 
+        "/single_nav/path": [
+          "/single_goal_nav"
+        ], 
+        "/wall_localization/status": [
+          "/wall_localizer"
+        ], 
+        "/vehicle/joint_states": [
+          "/vehicle_bridge"
+        ], 
+        "/single_nav/status": [
+          "/single_goal_nav"
+        ], 
+        "/tf": [
+          "/laser_scan_matcher_node", 
+          "/wall_localizer"
+        ], 
+        "/vehicle/motion_estimate": [
+          "/vehicle_bridge"
+        ], 
+        "/tf_static": [
+          "/base_to_laser"
+        ], 
+        "/scan": [
+          "/rplidarNode"
+        ], 
+        "/vehicle/steering_request": [
+          "/single_goal_nav"
+        ], 
+        "/single_nav/local_path": [
+          "/single_goal_nav"
+        ], 
+        "/wall_localization/pose": [
+          "/wall_localizer"
+        ], 
+        "/cmd_vel": [
+          "/vehicle_bridge"
+        ], 
+        "/vehicle/bridge_status": [
+          "/vehicle_bridge"
+        ]
+      }, 
+      "t": 1792241627.910892, 
+      "subscribers": {
+        "/vehicle/cmd_vel": [
+          "/vehicle_bridge", 
+          "/oscillation_readonly_monitor_5074_1792241587239", 
+          "/record_1792241588399498855"
+        ], 
+        "/cmd_vel": [
+          "/simple_controller", 
+          "/oscillation_readonly_monitor_5074_1792241587239", 
+          "/record_1792241588399498855"
+        ], 
+        "/map": [
+          "/wall_localizer", 
+          "/single_goal_nav", 
+          "/rviz_navigation"
+        ]
+      }
+    }, 
+    {
+      "publishers": {
+        "/vehicle/cmd_vel": [
+          "/single_goal_nav"
+        ], 
+        "/single_nav/path": [
+          "/single_goal_nav"
+        ], 
+        "/wall_localization/status": [
+          "/wall_localizer"
+        ], 
+        "/vehicle/joint_states": [
+          "/vehicle_bridge"
+        ], 
+        "/single_nav/status": [
+          "/single_goal_nav"
+        ], 
+        "/tf": [
+          "/laser_scan_matcher_node", 
+          "/wall_localizer"
+        ], 
+        "/vehicle/motion_estimate": [
+          "/vehicle_bridge"
+        ], 
+        "/tf_static": [
+          "/base_to_laser"
+        ], 
+        "/scan": [
+          "/rplidarNode"
+        ], 
+        "/vehicle/steering_request": [
+          "/single_goal_nav"
+        ], 
+        "/single_nav/local_path": [
+          "/single_goal_nav"
+        ], 
+        "/wall_localization/pose": [
+          "/wall_localizer"
+        ], 
+        "/cmd_vel": [
+          "/vehicle_bridge"
+        ], 
+        "/vehicle/bridge_status": [
+          "/vehicle_bridge"
+        ]
+      }, 
+      "t": 1792241637.911587, 
+      "subscribers": {
+        "/vehicle/cmd_vel": [
+          "/vehicle_bridge", 
+          "/oscillation_readonly_monitor_5074_1792241587239", 
+          "/record_1792241588399498855"
+        ], 
+        "/cmd_vel": [
+          "/simple_controller", 
+          "/oscillation_readonly_monitor_5074_1792241587239", 
+          "/record_1792241588399498855"
+        ], 
+        "/map": [
+          "/wall_localizer", 
+          "/single_goal_nav", 
+          "/rviz_navigation"
+        ]
+      }
+    }
+  ]
+}

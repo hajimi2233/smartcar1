@@ -1,0 +1,19 @@
+{
+  "origin": [
+    -12.636111583709717, 
+    -3.7761200904846195, 
+    0.0
+  ], 
+  "source": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_contour_filled/map.yaml", 
+  "output_size": [
+    337, 
+    193
+  ], 
+  "resolution": 0.05, 
+  "method": "occupied-first, unknown-second conservative area pooling", 
+  "source_size": [
+    1681, 
+    962
+  ], 
+  "source_hash": "bd760126dad9bc4882f447f3c9eef1c11f9b53c27c8f598f47cc9963c21d57d8"
+}

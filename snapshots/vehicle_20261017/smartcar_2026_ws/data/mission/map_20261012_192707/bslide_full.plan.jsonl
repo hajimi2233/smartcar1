@@ -1,0 +1,13 @@
+{"task_id": 1, "target_id": "inspect_1", "frame_id": "map", "target_reference": "front_axle_midpoint", "x": -0.17431968659162678, "y": -2.05, "yaw_rad": 1.5707963267948966, "inspection_type": "B", "inspect": true}
+{"task_id": 2, "target_id": "inspect_3", "frame_id": "map", "target_reference": "front_axle_midpoint", "x": 1.0256803312897667, "y": -2.05, "yaw_rad": 1.5707963267948966, "inspection_type": "B", "inspect": true}
+{"task_id": 3, "target_id": "inspect_5", "frame_id": "map", "target_reference": "front_axle_midpoint", "x": 2.200680348798631, "y": -2.05, "yaw_rad": 1.5707963267948966, "inspection_type": "B", "inspect": true}
+{"task_id": 4, "target_id": "inspect_7", "frame_id": "map", "target_reference": "front_axle_midpoint", "x": 3.363180366121231, "y": -2.05, "yaw_rad": 1.5707963267948966, "inspection_type": "B", "inspect": true}
+{"task_id": 5, "target_id": "inspect_9", "frame_id": "map", "target_reference": "front_axle_midpoint", "x": 4.588180384375153, "y": -2.05, "yaw_rad": 1.5707963267948966, "inspection_type": "B", "inspect": true}
+{"task_id": 6, "target_id": "outer_left_top", "frame_id": "map", "target_reference": "front_axle_midpoint", "x": 6.05, "y": -2.05, "yaw_rad": 1.5707963267948966, "inspection_type": "-", "inspect": false}
+{"task_id": 7, "target_id": "outer_left_bottom", "frame_id": "map", "target_reference": "front_axle_midpoint", "x": 6.05, "y": -1.42, "yaw_rad": 1.5707963267948966, "inspection_type": "-", "inspect": false}
+{"task_id": 8, "target_id": "inspect_10", "frame_id": "map", "target_reference": "front_axle_midpoint", "x": 4.588180384375153, "y": -1.42, "yaw_rad": -1.5707963267948968, "inspection_type": "A", "inspect": true}
+{"task_id": 9, "target_id": "inspect_8", "frame_id": "map", "target_reference": "front_axle_midpoint", "x": 3.363180366121231, "y": -1.42, "yaw_rad": -1.5707963267948968, "inspection_type": "A", "inspect": true}
+{"task_id": 10, "target_id": "inspect_6", "frame_id": "map", "target_reference": "front_axle_midpoint", "x": 2.200680348798631, "y": -1.42, "yaw_rad": -1.5707963267948968, "inspection_type": "A", "inspect": true}
+{"task_id": 11, "target_id": "inspect_4", "frame_id": "map", "target_reference": "front_axle_midpoint", "x": 1.0256803312897667, "y": -1.42, "yaw_rad": -1.5707963267948968, "inspection_type": "A", "inspect": true}
+{"task_id": 12, "target_id": "inspect_2", "frame_id": "map", "target_reference": "front_axle_midpoint", "x": -0.17431968659162678, "y": -1.42, "yaw_rad": -1.5707963267948968, "inspection_type": "A", "inspect": true}
+{"task_id": 13, "target_id": "end", "frame_id": "map", "target_reference": "front_axle_midpoint", "x": -1.65, "y": 0.08, "yaw_rad": 2.348021856517078, "inspection_type": "-", "inspect": false}

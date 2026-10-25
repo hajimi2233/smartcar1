@@ -1,0 +1,13 @@
+{
+  "free_cells_unchanged": true, 
+  "navigation_key": "4af6465ae8967c9266e30b493fb825bbd03452c93d8a532cc1c0939d11bd745f", 
+  "success": true, 
+  "commands_sent": false, 
+  "corridor_policy_ready": true, 
+  "localization_fingerprint": "3cec4ec4e9b97798d85d55f49f581bcb761488d088e8da00c659d29dbf2a07f8", 
+  "localization_samples": 1418, 
+  "isolated_master_port": 11329, 
+  "unknown_cells_added": 315, 
+  "actual_map_server_test": true, 
+  "localization_targets_identical": true
+}

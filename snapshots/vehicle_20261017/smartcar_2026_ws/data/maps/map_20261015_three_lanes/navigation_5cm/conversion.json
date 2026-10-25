@@ -1,0 +1,19 @@
+{
+  "origin": [
+    -9.219165229797364, 
+    -2.343069343566894, 
+    0.0
+  ], 
+  "source": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_three_lanes/map.yaml", 
+  "output_size": [
+    278, 
+    195
+  ], 
+  "resolution": 0.05, 
+  "method": "occupied-first, unknown-second conservative area pooling", 
+  "source_size": [
+    1387, 
+    975
+  ], 
+  "source_hash": "13c12dd2aeb4eb7824470fa52f52a8c6354b266aa3b5c23eb87ac7822788cde0"
+}

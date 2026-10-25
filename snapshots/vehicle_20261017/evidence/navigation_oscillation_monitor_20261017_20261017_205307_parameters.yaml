@@ -1,0 +1,333 @@
+amcl: {base_frame_id: base_footprint, first_map_only: true, global_frame_id: map,
+  gui_publish_rate: 10.0, initial_cov_aa: 0.5, initial_cov_xx: 0.25, initial_cov_yy: 0.25,
+  kld_err: 0.02, laser_likelihood_max_dist: 2.0, laser_max_beams: 360, laser_max_range: 12.0,
+  laser_model_type: likelihood_field, laser_sigma_hit: 0.05, laser_z_hit: 0.85, laser_z_max: 0.05,
+  laser_z_rand: 0.05, laser_z_short: 0.05, max_particles: 1500, min_particles: 300,
+  odom_alpha1: 0.6, odom_alpha2: 0.4, odom_alpha3: 0.4, odom_alpha4: 0.6, odom_frame_id: odom,
+  odom_model_type: diff, recovery_alpha_fast: 0.1, recovery_alpha_slow: 0.001, resample_interval: 1,
+  tf_broadcast: true, transform_tolerance: 0.3, update_min_a: 0.05, update_min_d: 0.03,
+  use_map_topic: true}
+laser_scan_matcher_node: {base_frame: base_footprint, fixed_frame: odom, max_iterations: 10,
+  publish_tf: true, use_imu: false, use_odom: false}
+rosdistro: 'kinetic
+
+  '
+roslaunch:
+  uris: {host_smartcar__34055: 'http://smartcar:34055/', host_smartcar__37169: 'http://smartcar:37169/',
+    host_smartcar__38581: 'http://smartcar:38581/', host_smartcar__39351: 'http://smartcar:39351/',
+    host_smartcar__45321: 'http://smartcar:45321/'}
+rosversion: '1.12.17
+
+  '
+rplidarNode: {angle_compensate: true, frame_id: laser, inverted: false, serial_baudrate: 256000,
+  serial_port: /dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0002-if00-port0}
+run_id: 523597ae-ca29-11f1-a36e-241c04778a9c
+simple_controller: {ttyusb_port: /dev/serial/by-id/usb-1a86_USB2.0-Serial-if00-port0}
+single_goal_nav:
+  actuator_model_param: /vehicle/actuator_model
+  arrival_confirm_duration: 0.5
+  arrival_locked: false
+  cmd_topic: /vehicle/cmd_vel
+  collision_margin: 0.02
+  effective_execution_patch: {align_depth_with_channels: true, cusp_braking: 0.15,
+    cusp_delay: 0.55, cusp_stop_distance: 0.05, depth_escape_limit: 0.08, depth_escape_speed: 0.04,
+    depth_margin: 0.01, enabled: true, geometry_retry_delay: 2.0, geometry_retry_limit: 3}
+  effective_tracking:
+    forward: {heading_gain: 5.0, lateral_gain: 8.0, preview_distance: 0.45}
+    reverse: {heading_gain: 6.0, lateral_gain: 6.0, preview_distance: 0.5}
+  effective_tuning: {approach_braking: 0.15, approach_speed_gain: 0.4, approach_stop_reserve: 0.02,
+    base_frame: base_footprint, base_offset_x: 0.0, base_offset_y: 0.0, base_reference: rear_axle,
+    body_front: 0.665625, body_half_width: 0.24, body_rear: 0.084375, boundary_half_length: 0.375,
+    collision_center_x: 0.31, collision_half_length: 0.375, collision_half_width: 0.24,
+    control_period: 0.05, curve_speed_gain: 0.3, deviation_resume_heading_deg: 5.0,
+    deviation_resume_ratio: 0.7, direction_confirm_time: 0.6, direction_map_max_age: 0.55,
+    direction_map_min_progress: 0.02, direction_map_window: 1.2, direction_speed_deadband: 0.01,
+    feedback_timeout: 0.3, final_early_heading_deg: 4.0, final_early_position: 0.035,
+    final_finish_heading_deg: 5.0, final_finish_position: 0.05, forward_speed: 0.15,
+    front_track: 0.445, global_min_radius: 1.35, goal_offset_x: 0.0, goal_offset_y: 0.0,
+    goal_reference: front_axle, laser_recovery_attempts: 2, laser_recovery_distance: 0.25,
+    laser_recovery_enabled: 1, laser_recovery_grid_step: 0.02, laser_recovery_range: 2.0,
+    laser_recovery_scan_age: 0.3, laser_recovery_speed: 0.07, laser_recovery_timeout: 8.0,
+    lateral_entry_early_heading_deg: 15.0, lateral_entry_early_position: 0.15, lateral_entry_finish_heading_deg: 20.0,
+    lateral_entry_finish_position: 0.2, line_entry_candidate_count: 2, line_entry_candidate_step: 0.5,
+    line_entry_distance: 1.5, line_entry_search_span: 0.9, line_entry_steer_seconds: 30.0,
+    line_entry_timeout: 20.0, line_exit_heading_grace_deg: 0.0, line_retreat_distance: 1.5,
+    line_search_span: 0.9, line_suffix_timeout: 20.0, live_scan_uncertainty: 0.01,
+    local_left_min_radius: 1.21, local_right_min_radius: 1.15, maneuver_plan_heading_deg: 4.0,
+    map_frame: map, max_control_dt: 0.35, max_replans: 2, moving_steer_error: 0.035,
+    moving_steer_heading_deg: 5.0, moving_steer_lag_deg: 30.0, normal_finish_heading_deg: 5.0,
+    normal_planning_timeout: 20.0, odom_frame: odom, path_offset_x: 0.0, path_offset_y: 0.0,
+    path_reference: rear_axle, physical_min_radius: 1.15, planner_max_records: 60000,
+    planner_short_segment_cost: 0.15, planner_special_search_margin: 2.0, planner_steer_cost: 0.02,
+    planner_switch_cost: 0.45, planner_three_change_after: 4.0, planner_unlimited_after: 7.0,
+    pose_timeout: 0.4, prediction_step: 0.01, progress_timeout: 8.0, recovery_resume_distance: 0.1,
+    recovery_resume_speed: 0.05, region_margin: 0.01, replay_forward_speed: 0.04,
+    replay_min_speed: 0.012, replay_reverse_speed: 0.04, reverse_speed: 0.15, rollout_dt: 0.15,
+    rollout_steps: 15, safety_stop_extra: 0.01, scan_obstacle_range: 0.8, scan_stride: 2,
+    stage_early_heading_deg: 8.0, stage_early_position: 0.1, stage_finish_heading_deg: 20.0,
+    stage_finish_position: 0.2, stage_plan_heading_deg: 5.0, stage_plan_position: 0.06,
+    steering_preview_distance: 0.06, steering_preview_time: 0.6, steering_ready_hysteresis_deg: 0.5,
+    steering_sample_offset: 0.035, stop_heading_span: 0.015, stop_position_span: 0.02,
+    stop_timeout: 10.0, stop_window: 1.0, terminal_alignment_span: 0.4, terminal_heading_gain_scale: 1.0,
+    tire_half_width: 0.035, tracking_cruise_floor: 0.06, tracking_forward_speed: 0.15,
+    tracking_max_error: 0.2, tracking_min_speed: 0.04, tracking_recover_error: 0.18,
+    tracking_reverse_speed: 0.15, tracking_turn_allowance: 0.015, tracking_turn_speed_cap: 0.3,
+    truth_frame: sim_world, truth_timeout: 0.35, wall_gain: 0.45, wall_maneuver_weight: 0.0,
+    wall_max_angle_deg: 15.0, wall_normal_weight: 0.5, wall_straight_weight: 0.25,
+    wheel_radius: 0.09, wheelbase: 0.62}
+  execution_patch: {align_depth_with_channels: true, cusp_braking: 0.15, cusp_delay: 0.55,
+    cusp_stop_distance: 0.05, depth_escape_limit: 0.08, depth_escape_speed: 0.04,
+    depth_margin: 0.01, enabled: true, geometry_retry_delay: 2.0, geometry_retry_limit: 3}
+  fast_turn90_budget: 3.0
+  fast_turn90_cache_enabled: true
+  fast_turn90_enabled: true
+  fast_turn90_entry_diagnostics_enabled: false
+  fast_turn90_final_position_offsets_enabled: false
+  fast_turn90_large_align_cross_track: 0.003
+  fast_turn90_large_align_heading_deg: 0.3
+  fast_turn90_large_candidate_step: 0.45
+  fast_turn90_large_distance: 2.12
+  fast_turn90_large_entry_distance: 1.8
+  fast_turn90_large_final_heading_deg: 10.0
+  fast_turn90_large_final_plan_heading_deg: 1.5
+  fast_turn90_large_final_plan_position: 0.03
+  fast_turn90_large_final_position: 0.1
+  fast_turn90_large_retreat_distance: 1.8
+  fast_turn90_large_stage_heading_deg: 15.0
+  fast_turn90_large_stage_plan_heading_deg: 1.5
+  fast_turn90_large_stage_plan_position: 0.03
+  fast_turn90_large_stage_position: 0.12
+  fast_turn90_many_cusps_enabled: false
+  fast_turn90_max_changes: 3
+  fast_turn90_max_detour_ratio: 3.0
+  fast_turn90_medium_align_cross_track: 0.003
+  fast_turn90_medium_align_heading_deg: 0.3
+  fast_turn90_medium_candidate_step: 0.375
+  fast_turn90_medium_entry_distance: 1.35
+  fast_turn90_medium_final_heading_deg: 10.0
+  fast_turn90_medium_final_plan_heading_deg: 1.5
+  fast_turn90_medium_final_plan_position: 0.03
+  fast_turn90_medium_final_position: 0.1
+  fast_turn90_medium_retreat_distance: 1.35
+  fast_turn90_medium_stage_heading_deg: 15.0
+  fast_turn90_medium_stage_plan_heading_deg: 1.5
+  fast_turn90_medium_stage_plan_position: 0.03
+  fast_turn90_medium_stage_position: 0.12
+  fast_turn90_precise_static_collision: true
+  fast_turn90_separate_sweep: true
+  fast_turn90_small_align_cross_track: 0.02
+  fast_turn90_small_align_heading_deg: 3.0
+  fast_turn90_small_candidate_step: 0.2
+  fast_turn90_small_distance: 1.5
+  fast_turn90_small_entry_distance: 0.8
+  fast_turn90_small_final_heading_deg: 10.0
+  fast_turn90_small_final_plan_heading_deg: 2.0
+  fast_turn90_small_final_plan_position: 0.025
+  fast_turn90_small_final_position: 0.1
+  fast_turn90_small_max_changes: 32
+  fast_turn90_small_retreat_distance: 0.8
+  fast_turn90_small_stage_heading_deg: 8.0
+  fast_turn90_small_stage_plan_heading_deg: 1.0
+  fast_turn90_small_stage_plan_position: 0.03
+  fast_turn90_small_stage_position: 0.08
+  fast_turn90_stage_candidate_count: 2
+  fast_turn90_tolerances_enabled: true
+  feasibility_fallback_enabled: true
+  feasibility_fallback_max_records: 300000
+  feasibility_fallback_timeout: 120.0
+  final_stop_heading_reserve_deg: 0.5
+  final_stop_reserve: 0.01
+  forward_steering_preload_deg: 2.0
+  forward_steering_wait_ready: 0.05236
+  forward_steering_wait_start: 0.1
+  goal_heading_tolerance_deg: 1.5
+  goal_position_tolerance: 0.04
+  ground_truth_test: false
+  initial_goal_relax_after: 5.0
+  initial_goal_relax_distance: 0.03
+  initial_planning_timeout: 12.0
+  joint_topic: /vehicle/joint_states
+  line_heading_from_low_cost_line: true
+  load_saved_low_cost_lines: true
+  local_turn_radius: 1.15
+  low_cost_lines_file: /home/smartcar/smartcar_2026_ws/data/navigation/map_20261006_160146_lines.json
+  path_replan_distance: 0.05
+  planning_collision_margin: 0.05
+  planning_timeout: 20.0
+  planning_window_probe: 8.0
+  reverse_steering_preload_deg: 2.0
+  reverse_steering_wait_ready: 0.05236
+  reverse_steering_wait_start: 0.1
+  reverse_steering_wait_timeout: 6.0
+  scan_timeout: 1.0
+  steering_rate: 1.32
+  steering_ready_hold: 0.2
+  test_auto_arrive: false
+  test_auto_arrive_delay: 1.0
+  test_replay_speed_scale: 2.0
+  tracking_heading_gain: 5.0
+  tracking_lateral_gain: 8.0
+  tracking_preview_distance: 0.45
+  tracking_reverse_heading_gain: 6.0
+  tracking_reverse_lateral_gain: 6.0
+  tracking_reverse_preview_distance: 0.5
+  tuning: {approach_braking: 0.15, approach_speed_gain: 0.4, approach_stop_reserve: 0.02,
+    base_frame: base_footprint, base_offset_x: 0.0, base_offset_y: 0.0, base_reference: rear_axle,
+    body_front: 0.665625, body_half_width: 0.24, body_rear: 0.084375, boundary_half_length: 0.375,
+    collision_center_x: 0.31, collision_half_length: 0.375, collision_half_width: 0.24,
+    control_period: 0.05, curve_speed_gain: 0.3, deviation_resume_heading_deg: 5.0,
+    deviation_resume_ratio: 0.7, direction_confirm_time: 0.6, direction_map_max_age: 0.55,
+    direction_map_min_progress: 0.02, direction_map_window: 1.2, feedback_timeout: 0.3,
+    final_early_heading_deg: 4.0, final_early_position: 0.035, final_finish_heading_deg: 5.0,
+    final_finish_position: 0.05, forward_speed: 0.15, front_track: 0.445, global_min_radius: 1.35,
+    goal_offset_x: 0.0, goal_offset_y: 0.0, goal_reference: front_axle, laser_recovery_attempts: 2,
+    laser_recovery_distance: 0.25, laser_recovery_enabled: 1, laser_recovery_grid_step: 0.02,
+    laser_recovery_range: 2.0, laser_recovery_scan_age: 0.3, laser_recovery_speed: 0.07,
+    laser_recovery_timeout: 8.0, lateral_entry_early_heading_deg: 15.0, lateral_entry_early_position: 0.15,
+    lateral_entry_finish_heading_deg: 20.0, lateral_entry_finish_position: 0.2, line_entry_candidate_count: 2,
+    line_entry_distance: 1.5, line_exit_heading_grace_deg: 0.0, line_retreat_distance: 1.5,
+    live_scan_uncertainty: 0.01, local_left_min_radius: 1.21, local_right_min_radius: 1.15,
+    maneuver_plan_heading_deg: 4.0, map_frame: map, max_control_dt: 0.35, max_replans: 2,
+    moving_steer_error: 0.035, moving_steer_heading_deg: 5.0, moving_steer_lag_deg: 30.0,
+    normal_finish_heading_deg: 5.0, odom_frame: odom, path_offset_x: 0.0, path_offset_y: 0.0,
+    path_reference: rear_axle, physical_min_radius: 1.15, planner_max_records: 60000,
+    planner_special_search_margin: 2.0, planner_three_change_after: 4.0, planner_unlimited_after: 7.0,
+    pose_timeout: 0.4, prediction_step: 0.01, progress_timeout: 8.0, recovery_resume_distance: 0.1,
+    recovery_resume_speed: 0.05, region_margin: 0.01, replay_forward_speed: 0.04,
+    replay_min_speed: 0.012, replay_reverse_speed: 0.04, reverse_speed: 0.15, rollout_dt: 0.15,
+    rollout_steps: 15, safety_stop_extra: 0.01, scan_obstacle_range: 0.8, scan_stride: 2,
+    stage_early_heading_deg: 8.0, stage_early_position: 0.1, stage_finish_heading_deg: 20.0,
+    stage_finish_position: 0.2, stage_plan_heading_deg: 5.0, stage_plan_position: 0.06,
+    steering_preview_distance: 0.06, steering_preview_time: 0.6, steering_sample_offset: 0.035,
+    stop_heading_span: 0.015, stop_position_span: 0.02, stop_timeout: 10.0, stop_window: 1.0,
+    tire_half_width: 0.035, tracking_cruise_floor: 0.06, tracking_forward_speed: 0.15,
+    tracking_max_error: 0.2, tracking_min_speed: 0.04, tracking_recover_error: 0.18,
+    tracking_reverse_speed: 0.15, truth_frame: sim_world, truth_timeout: 0.35, wall_gain: 0.45,
+    wall_maneuver_weight: 0.0, wall_max_angle_deg: 15.0, wall_normal_weight: 0.5,
+    wall_straight_weight: 0.25, wheel_radius: 0.09, wheelbase: 0.62}
+  turn90_post_extension: 0.3
+  turn90_pre_extension: 0.3
+  turn90_primitive_file: ''
+  turn_radius: 1.35
+  use_speed_prediction: true
+  wheel_collision_enabled: false
+  zero_cost_line_width: 0.01
+  zero_cost_line_x1: nan
+  zero_cost_line_x2: nan
+  zero_cost_line_y1: nan
+  zero_cost_line_y2: nan
+single_nav:
+  zero_cost_lines:
+  - - [-8.129505929147012, -2.476973656585754]
+    - [0.3560487244364974, 0.036562144043961464]
+  - - [-9.586504647478135, 2.441771583288076]
+    - [-1.1009499938946257, 4.955307383917792]
+slam_map_server: {frame_id: map}
+use_sim_time: false
+vehicle:
+  actuator_model:
+    acceleration: 0.15
+    braking: 0.3
+    front_track: 0.445
+    steer_rate: 1.32
+    steering_response: {large_amplitude_deg: 20.0, left_delay: 0.36, left_large_rate: 1.32,
+      left_small_delay: 0.2, left_small_rate: 0.51, right_delay: 0.25, right_large_rate: 1.2,
+      right_small_delay: 0.3, right_small_rate: 0.77, small_amplitude_deg: 15.0, version: 1}
+    steering_response_reverse: {large_amplitude_deg: 20.0, left_delay: 0.36, left_large_rate: 1.05,
+      left_small_delay: 0.2, left_small_rate: 0.37, right_delay: 0.25, right_large_rate: 1.16,
+      right_small_delay: 0.3, right_small_rate: 0.65, small_amplitude_deg: 12.0, version: 1}
+    version: 1
+    wheel_radius: 0.09
+    wheelbase: 0.62
+  calibration_info: {dynamics_calibrated: false, feedback: 'estimated individual joints:
+      centre steering and lidar rear-axle velocity', reverse_calibrated: true, reverse_calibration_scope: piecewise
+      curvature; low-speed samples except maximum left; approximate user-confirmed
+      zero, reverse_steering_samples: 5, reverse_straight_raw: 2044.0, steering: piecewise
+      measured steering samples, steering_samples: 7, velocity_source: lidar_odometry,
+    wheel_velocity_estimated: true}
+vehicle_bridge:
+  acceleration: 0.15
+  allow_reverse: true
+  braking: 0.3
+  command_timeout: 0.4
+  dynamics_calibrated: false
+  enable_drive: true
+  enable_speed_prediction: true
+  feedback_timeout: 0.3
+  front_track: 0.445
+  hold_steering_on_fault: true
+  legacy_middle: 2110.0
+  legacy_scale: 652.0
+  lidar_velocity_timeout: 0.4
+  max_feedback_speed: 0.5
+  moving_velocity_window: 0.25
+  prediction_correction_gain: 0.4
+  prediction_mode: command_reference
+  pulse_max_update_gap: 4.0
+  rear_track: 0.445
+  reverse_steering_table:
+  - [1457.0, -0.8939167987670126]
+  - [1785.0, -0.5327543865420206]
+  - [2044.0, 0.0]
+  - [2437.0, 0.5757285936704353]
+  - [2763.0, 0.8310705936167951]
+  speed_table:
+  - [0.0, 0.0]
+  - [0.04, 0.02]
+  - [0.075, 0.04]
+  - [0.12, 0.06]
+  - [0.16, 0.08]
+  - [0.19, 0.1]
+  - [0.3, 0.15]
+  speed_table_extension: {estimated_legacy_throttle: 0.15, estimated_max_mps: 0.3,
+    measured: false, measured_max_mps: 0.19, method: user_approximate_2x_test_relation}
+  steer_rate: 1.32
+  steering_response: {large_amplitude_deg: 20.0, left_delay: 0.36, left_large_rate: 1.32,
+    left_small_delay: 0.2, left_small_rate: 0.51, right_delay: 0.25, right_large_rate: 1.2,
+    right_small_delay: 0.3, right_small_rate: 0.77, small_amplitude_deg: 15.0, version: 1}
+  steering_response_reverse: {large_amplitude_deg: 20.0, left_delay: 0.36, left_large_rate: 1.05,
+    left_small_delay: 0.2, left_small_rate: 0.37, right_delay: 0.25, right_large_rate: 1.16,
+    right_small_delay: 0.3, right_small_rate: 0.65, small_amplitude_deg: 12.0, version: 1}
+  steering_table:
+  - [1457, -0.8879199224]
+  - [1784.5, -0.5071946123]
+  - [1979, -0.0894358595]
+  - [2063, 0]
+  - [2241, 0.3392100619]
+  - [2437, 0.6419045832]
+  - [2763, 0.8370926754]
+  ticks_per_meter: 93313.0
+  velocity_base_frame: base_footprint
+  velocity_odom_frame: odom
+  velocity_window: 0.5
+  wheel_radius: 0.09
+  wheelbase: 0.62
+wall_editor: {selection_radius: 0.3}
+wall_localizer:
+  association_distance: 0.3
+  base_frame: base_footprint
+  coast_timeout: 2.0
+  corridor_weighting: {anchor_max_rms: 0.06, anchor_min_points: 8, anchor_weight: 0.55,
+    confirm_time: 0.3, definition_file: /home/smartcar/smartcar_2026_ws/data/localization/corridor_definition_20261016.json,
+    enabled: true, enter_inset: 0.04, exit_margin: 0.12, group_max_rms: 0.08, normal_angle_deg: 25.0,
+    other_weight: 0.1, side_weight: 0.35}
+  eigen_ratio: 0.005
+  endpoint_margin: 0.05
+  iterations: 4
+  map_frame: map
+  max_rms: 0.06
+  max_rotation: 0.2
+  max_translation: 0.25
+  min_points: 8
+  min_span: 0.2
+  normal_angle_deg: 25.0
+  odom_frame: odom
+  rear_offset: 0.31
+  scan_timeout: 0.5
+  state_confirm_time: 0.3
+  surface_gap: 0.06
+  target_mode: full_map
+  ticks_per_meter: 10000.0
+  wheel_fusion: false
+  wheel_relative_sigma: 0.05
+  wheel_sigma_floor: 0.005

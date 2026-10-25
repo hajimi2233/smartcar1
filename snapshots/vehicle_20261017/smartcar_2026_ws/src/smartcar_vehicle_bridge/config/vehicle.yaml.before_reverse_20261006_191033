@@ -1,0 +1,21 @@
+# Measured forward map; user authorizes linear steering between measured extremes.
+speed_table: [[0.0, 0.0], [0.04, 0.02], [0.075, 0.04], [0.12, 0.06], [0.16, 0.08], [0.19, 0.10]]
+# Columns: measured steering_raw, rear-axle curvature (1/m).
+steering_table: [[1457.0, -0.8879199224], [2763.0, 0.8370926754]]
+legacy_middle: 2110.0
+legacy_scale: 652.0
+ticks_per_meter: 93313.0
+wheelbase: 0.62
+front_track: 0.445
+rear_track: 0.445
+wheel_radius: 0.09
+command_timeout: 0.4
+feedback_timeout: 0.3
+velocity_window: 0.25
+max_feedback_speed: 0.5
+allow_reverse: false  # Reverse speed map is not measured.
+# Provisional prediction settings, NOT measurement results.
+acceleration: 0.15
+braking: 0.30
+steer_rate: 0.60
+dynamics_calibrated: false

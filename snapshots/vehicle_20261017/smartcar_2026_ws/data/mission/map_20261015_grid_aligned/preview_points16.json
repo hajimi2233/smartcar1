@@ -1,0 +1,269 @@
+{
+  "status": "DEPLOYED_POINTS_AND_SAVED_LINES_PENDING_NAV_RESTART",
+  "map_yaml": "map_contour_20261015\\grid_aligned\\navigation_5cm\\map.yaml",
+  "map_origin": [
+    -10.645607267833867,
+    -4.3695206318173385,
+    0.2879793265790644
+  ],
+  "reference": "front_axle_midpoint",
+  "front_axle_offset_m": 0.62,
+  "diagram_convention": "short protruding wall on right; start top-right; end bottom-right; display only, world coordinates unchanged",
+  "depth_records": [
+    {
+      "source": "position_depth_20261015_190850.json",
+      "front_world": [
+        -1.6346198313687974,
+        1.4188157590742971
+      ],
+      "grid_uv": [
+        10.283888940053405,
+        2.990712460752288
+      ]
+    },
+    {
+      "source": "inspection_center_2_20261015_191310.json",
+      "front_world": [
+        -2.103219088598134,
+        2.6823074207070015
+      ],
+      "grid_uv": [
+        10.193437744286484,
+        4.335262580337123
+      ]
+    }
+  ],
+  "row_depth_grid_m": {
+    "upper": 2.990712460752288,
+    "lower": 4.335262580337123
+  },
+  "points": {
+    "inspect_1": [
+      -6.389300410111616,
+      0.01041520741655999
+    ],
+    "inspect_2": [
+      -6.771173275797203,
+      1.2995963965938895
+    ],
+    "inspect_3": [
+      -5.2147462348980795,
+      0.358334004678865
+    ],
+    "inspect_4": [
+      -5.596619100583667,
+      1.6475151938561945
+    ],
+    "inspect_5": [
+      -4.040192059684543,
+      0.70625280194117
+    ],
+    "inspect_6": [
+      -4.4220649253701305,
+      1.9954339911184995
+    ],
+    "inspect_7": [
+      -2.8896083778427104,
+      1.0470712155858775
+    ],
+    "inspect_8": [
+      -3.2714812435282976,
+      2.336252404763207
+    ],
+    "inspect_9": [
+      -1.7150542026291755,
+      1.394990012848183
+    ],
+    "inspect_10": [
+      -2.0969270683147627,
+      2.6841712020255124
+    ],
+    "outer_right_top": [
+      -8.666497280423576,
+      -0.6641212362552564
+    ],
+    "outer_right_bottom": [
+      -9.048370146109162,
+      0.6250599529220731
+    ],
+    "outer_left_top": [
+      -0.18094262684006557,
+      1.849414564374459
+    ],
+    "outer_left_bottom": [
+      -0.562815492525653,
+      3.1385957535517885
+    ],
+    "start": [
+      -7.856060775921751,
+      -2.3438280664311684
+    ],
+    "end": [
+      -9.361342102852541,
+      2.7379165283702553
+    ]
+  },
+  "points_grid": {
+    "inspect_1": [
+      5.325000000000001,
+      2.990712460752288
+    ],
+    "inspect_2": [
+      5.325000000000001,
+      4.335262580337123
+    ],
+    "inspect_3": [
+      6.550000000000001,
+      2.990712460752288
+    ],
+    "inspect_4": [
+      6.550000000000001,
+      4.335262580337123
+    ],
+    "inspect_5": [
+      7.775,
+      2.990712460752288
+    ],
+    "inspect_6": [
+      7.775,
+      4.335262580337123
+    ],
+    "inspect_7": [
+      8.975000000000001,
+      2.990712460752288
+    ],
+    "inspect_8": [
+      8.975000000000001,
+      4.335262580337123
+    ],
+    "inspect_9": [
+      10.200000000000001,
+      2.990712460752288
+    ],
+    "inspect_10": [
+      10.200000000000001,
+      4.335262580337123
+    ],
+    "outer_right_top": [
+      2.95,
+      2.990712460752288
+    ],
+    "outer_right_bottom": [
+      2.95,
+      4.335262580337123
+    ],
+    "outer_left_top": [
+      11.8,
+      2.990712460752288
+    ],
+    "outer_left_bottom": [
+      11.8,
+      4.335262580337123
+    ],
+    "start": [
+      3.25,
+      1.15
+    ],
+    "end": [
+      3.25,
+      6.45
+    ]
+  },
+  "inspection_heading_rad": {
+    "inspect_1": 1.8587756533739608,
+    "inspect_2": -1.2828170002158321,
+    "inspect_3": 1.8587756533739608,
+    "inspect_4": -1.2828170002158321,
+    "inspect_5": 1.8587756533739608,
+    "inspect_6": -1.2828170002158321,
+    "inspect_7": 1.8587756533739608,
+    "inspect_8": -1.2828170002158321,
+    "inspect_9": 1.8587756533739608,
+    "inspect_10": -1.2828170002158321
+  },
+  "low_cost_lines": [
+    [
+      [
+        -8.21471053255819,
+        -2.1893277361252963
+      ],
+      [
+        0.2708441210253206,
+        0.3242080645044192
+      ]
+    ],
+    [
+      [
+        -9.56378341990182,
+        2.3650660044986216
+      ],
+      [
+        -1.078228766318312,
+        4.878601805128337
+      ]
+    ]
+  ],
+  "low_cost_lines_grid": [
+    [
+      [
+        2.95,
+        1.4
+      ],
+      [
+        11.8,
+        1.4
+      ]
+    ],
+    [
+      [
+        2.95,
+        6.15
+      ],
+      [
+        11.8,
+        6.15
+      ]
+    ]
+  ],
+  "wall_extents_grid_m": [
+    [
+      4.6000000000000005,
+      4.8500000000000005
+    ],
+    [
+      5.800000000000001,
+      6.050000000000001
+    ],
+    [
+      7.050000000000001,
+      7.300000000000001
+    ],
+    [
+      8.25,
+      8.5
+    ],
+    [
+      9.450000000000001,
+      9.700000000000001
+    ],
+    [
+      10.700000000000001,
+      10.950000000000001
+    ]
+  ],
+  "revision": 2,
+  "revision_note": "Right bypass points moved 0.30m toward outer wall; upper/lower lines shifted 0.25m/0.30m away from outer boundary walls; inspection/start/end points unchanged.",
+  "validation_summary": "validation_summary.json",
+  "recommended_start_end_heading_rad": {
+    "start": 0.2879793265790644,
+    "end": -2.853613327010729
+  },
+  "start_end_heading_note": "Use headings parallel to low-cost lines. At the unchanged point positions, heading into the arena perpendicular to the nearby outer boundary can put the rear body inside the wall.",
+  "deployment": {
+    "scene_dir": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261015_grid_aligned",
+    "map_key": "db9c1f97f38ae4c4fca183bbf53ccfb385a2b1e3d174ed0f27b08e64874770ec",
+    "backup": "/home/smartcar/smartcar_2026_ws/data/backups/map15_points_20261015_202518",
+    "nodes_restarted": false,
+    "live_lines_updated": false
+  }
+}

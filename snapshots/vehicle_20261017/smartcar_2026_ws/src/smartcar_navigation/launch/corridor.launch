@@ -1,0 +1,10 @@
+<launch>
+  <arg name="config_file" />
+  <arg name="region_file" />
+  <node pkg="smartcar_navigation" type="region_editor.py" name="region_editor" output="screen" required="true">
+    <param name="file" value="$(arg region_file)" />
+  </node>
+  <node pkg="smartcar_navigation" type="corridor_monitor.py" name="corridor_monitor" output="screen" required="true">
+    <rosparam command="load" file="$(arg config_file)" />
+  </node>
+</launch>

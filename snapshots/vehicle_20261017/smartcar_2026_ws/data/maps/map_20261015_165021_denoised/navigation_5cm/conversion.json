@@ -1,0 +1,19 @@
+{
+  "origin": [
+    -9.219165229797364, 
+    -2.343069343566894, 
+    0.0
+  ], 
+  "source": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_165021_denoised/map.yaml", 
+  "output_size": [
+    278, 
+    195
+  ], 
+  "resolution": 0.05, 
+  "method": "occupied-first, unknown-second conservative area pooling", 
+  "source_size": [
+    1387, 
+    975
+  ], 
+  "source_hash": "9884400802b5ea1d2df1cd789bd6b5a0e2c55b46d879c623a8a7dcc2fdf88794"
+}

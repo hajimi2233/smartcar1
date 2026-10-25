@@ -1,0 +1,903 @@
+{
+  "frame_id": "map",
+  "target_reference": "front_axle_midpoint",
+  "description": "A1A2B4B3A3B2A3A4B1",
+  "description_semantics": "ordered_channel_conditions_and_categories",
+  "layout": "A1A2B3B4A5B6A7A8B9",
+  "reports": {
+    "inspect_1": {
+      "channel_number": 1,
+      "condition": "A",
+      "object_kind": "1",
+      "speech_text": "\u6b63\u5e38\u706b\u6e90"
+    },
+    "inspect_2": {
+      "channel_number": 2,
+      "condition": "A",
+      "object_kind": "2",
+      "speech_text": "\u6b63\u5e38\u6c34\u6e90"
+    },
+    "inspect_3": {
+      "channel_number": 3,
+      "condition": "B",
+      "object_kind": "4",
+      "speech_text": "\u5f02\u5e38\u9053\u8def"
+    },
+    "inspect_4": {
+      "channel_number": 4,
+      "condition": "B",
+      "object_kind": "3",
+      "speech_text": "\u5f02\u5e38\u884c\u4eba"
+    },
+    "inspect_5": {
+      "channel_number": 5,
+      "condition": "A",
+      "object_kind": "3",
+      "speech_text": "\u6b63\u5e38\u884c\u4eba"
+    },
+    "inspect_6": {
+      "channel_number": 6,
+      "condition": "B",
+      "object_kind": "2",
+      "speech_text": "\u5f02\u5e38\u6c34\u6e90"
+    },
+    "inspect_7": {
+      "channel_number": 7,
+      "condition": "A",
+      "object_kind": "3",
+      "speech_text": "\u6b63\u5e38\u884c\u4eba"
+    },
+    "inspect_8": {
+      "channel_number": 8,
+      "condition": "A",
+      "object_kind": "4",
+      "speech_text": "\u6b63\u5e38\u9053\u8def"
+    },
+    "inspect_9": {
+      "channel_number": 9,
+      "condition": "B",
+      "object_kind": "1",
+      "speech_text": "\u5f02\u5e38\u706b\u6e90"
+    }
+  },
+  "excluded": [
+    "inspect_10"
+  ],
+  "steps": [
+    {
+      "label": "inspect_1",
+      "target_id": "inspect_1",
+      "x": -0.17431968659162678,
+      "y": -2.05,
+      "yaw": 1.5707963267948966,
+      "regions": [
+        {
+          "id": "inspect_1",
+          "type": "A",
+          "x": -0.17431968659162678,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_2",
+          "type": "A",
+          "x": -0.17431968659162678,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_3",
+          "type": "B",
+          "x": 1.0256803312897667,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_4",
+          "type": "B",
+          "x": 1.0256803312897667,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_5",
+          "type": "A",
+          "x": 2.200680348798631,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_6",
+          "type": "B",
+          "x": 2.200680348798631,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_7",
+          "type": "A",
+          "x": 3.363180366121231,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_8",
+          "type": "A",
+          "x": 3.363180366121231,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_9",
+          "type": "B",
+          "x": 4.588180384375153,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_10",
+          "type": "A",
+          "x": 4.588180384375153,
+          "y": -1.42
+        }
+      ],
+      "inspection_type": "A",
+      "visit": 1,
+      "report": {
+        "channel_number": 1,
+        "condition": "A",
+        "object_kind": "1",
+        "speech_text": "\u6b63\u5e38\u706b\u6e90"
+      }
+    },
+    {
+      "label": "inspect_2",
+      "target_id": "inspect_2",
+      "x": -0.17431968659162678,
+      "y": -1.42,
+      "yaw": 1.5707963267948966,
+      "regions": [
+        {
+          "id": "inspect_1",
+          "type": "A",
+          "x": -0.17431968659162678,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_2",
+          "type": "A",
+          "x": -0.17431968659162678,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_3",
+          "type": "B",
+          "x": 1.0256803312897667,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_4",
+          "type": "B",
+          "x": 1.0256803312897667,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_5",
+          "type": "A",
+          "x": 2.200680348798631,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_6",
+          "type": "B",
+          "x": 2.200680348798631,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_7",
+          "type": "A",
+          "x": 3.363180366121231,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_8",
+          "type": "A",
+          "x": 3.363180366121231,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_9",
+          "type": "B",
+          "x": 4.588180384375153,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_10",
+          "type": "A",
+          "x": 4.588180384375153,
+          "y": -1.42
+        }
+      ],
+      "inspection_type": "A",
+      "visit": 2,
+      "report": {
+        "channel_number": 2,
+        "condition": "A",
+        "object_kind": "2",
+        "speech_text": "\u6b63\u5e38\u6c34\u6e90"
+      }
+    },
+    {
+      "label": "inspect_4",
+      "target_id": "inspect_4",
+      "x": 1.0256803312897667,
+      "y": -1.42,
+      "yaw": -1.5707963267948968,
+      "regions": [
+        {
+          "id": "inspect_1",
+          "type": "A",
+          "x": -0.17431968659162678,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_2",
+          "type": "A",
+          "x": -0.17431968659162678,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_3",
+          "type": "B",
+          "x": 1.0256803312897667,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_4",
+          "type": "B",
+          "x": 1.0256803312897667,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_5",
+          "type": "A",
+          "x": 2.200680348798631,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_6",
+          "type": "B",
+          "x": 2.200680348798631,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_7",
+          "type": "A",
+          "x": 3.363180366121231,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_8",
+          "type": "A",
+          "x": 3.363180366121231,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_9",
+          "type": "B",
+          "x": 4.588180384375153,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_10",
+          "type": "A",
+          "x": 4.588180384375153,
+          "y": -1.42
+        }
+      ],
+      "inspection_type": "B",
+      "visit": 3,
+      "report": {
+        "channel_number": 4,
+        "condition": "B",
+        "object_kind": "3",
+        "speech_text": "\u5f02\u5e38\u884c\u4eba"
+      }
+    },
+    {
+      "label": "inspect_6",
+      "target_id": "inspect_6",
+      "x": 2.200680348798631,
+      "y": -1.42,
+      "yaw": -1.5707963267948968,
+      "regions": [
+        {
+          "id": "inspect_1",
+          "type": "A",
+          "x": -0.17431968659162678,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_2",
+          "type": "A",
+          "x": -0.17431968659162678,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_3",
+          "type": "B",
+          "x": 1.0256803312897667,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_4",
+          "type": "B",
+          "x": 1.0256803312897667,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_5",
+          "type": "A",
+          "x": 2.200680348798631,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_6",
+          "type": "B",
+          "x": 2.200680348798631,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_7",
+          "type": "A",
+          "x": 3.363180366121231,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_8",
+          "type": "A",
+          "x": 3.363180366121231,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_9",
+          "type": "B",
+          "x": 4.588180384375153,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_10",
+          "type": "A",
+          "x": 4.588180384375153,
+          "y": -1.42
+        }
+      ],
+      "inspection_type": "B",
+      "visit": 4,
+      "report": {
+        "channel_number": 6,
+        "condition": "B",
+        "object_kind": "2",
+        "speech_text": "\u5f02\u5e38\u6c34\u6e90"
+      }
+    },
+    {
+      "label": "inspect_8",
+      "target_id": "inspect_8",
+      "x": 3.363180366121231,
+      "y": -1.42,
+      "yaw": -1.5707963267948968,
+      "regions": [
+        {
+          "id": "inspect_1",
+          "type": "A",
+          "x": -0.17431968659162678,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_2",
+          "type": "A",
+          "x": -0.17431968659162678,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_3",
+          "type": "B",
+          "x": 1.0256803312897667,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_4",
+          "type": "B",
+          "x": 1.0256803312897667,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_5",
+          "type": "A",
+          "x": 2.200680348798631,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_6",
+          "type": "B",
+          "x": 2.200680348798631,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_7",
+          "type": "A",
+          "x": 3.363180366121231,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_8",
+          "type": "A",
+          "x": 3.363180366121231,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_9",
+          "type": "B",
+          "x": 4.588180384375153,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_10",
+          "type": "A",
+          "x": 4.588180384375153,
+          "y": -1.42
+        }
+      ],
+      "inspection_type": "A",
+      "visit": 5,
+      "report": {
+        "channel_number": 8,
+        "condition": "A",
+        "object_kind": "4",
+        "speech_text": "\u6b63\u5e38\u9053\u8def"
+      }
+    },
+    {
+      "label": "inspect_7",
+      "target_id": "inspect_7",
+      "x": 3.363180366121231,
+      "y": -2.05,
+      "yaw": -1.5707963267948968,
+      "regions": [
+        {
+          "id": "inspect_1",
+          "type": "A",
+          "x": -0.17431968659162678,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_2",
+          "type": "A",
+          "x": -0.17431968659162678,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_3",
+          "type": "B",
+          "x": 1.0256803312897667,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_4",
+          "type": "B",
+          "x": 1.0256803312897667,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_5",
+          "type": "A",
+          "x": 2.200680348798631,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_6",
+          "type": "B",
+          "x": 2.200680348798631,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_7",
+          "type": "A",
+          "x": 3.363180366121231,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_8",
+          "type": "A",
+          "x": 3.363180366121231,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_9",
+          "type": "B",
+          "x": 4.588180384375153,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_10",
+          "type": "A",
+          "x": 4.588180384375153,
+          "y": -1.42
+        }
+      ],
+      "inspection_type": "A",
+      "visit": 6,
+      "report": {
+        "channel_number": 7,
+        "condition": "A",
+        "object_kind": "3",
+        "speech_text": "\u6b63\u5e38\u884c\u4eba"
+      }
+    },
+    {
+      "label": "inspect_5",
+      "target_id": "inspect_5",
+      "x": 2.200680348798631,
+      "y": -2.05,
+      "yaw": 1.5707963267948966,
+      "regions": [
+        {
+          "id": "inspect_1",
+          "type": "A",
+          "x": -0.17431968659162678,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_2",
+          "type": "A",
+          "x": -0.17431968659162678,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_3",
+          "type": "B",
+          "x": 1.0256803312897667,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_4",
+          "type": "B",
+          "x": 1.0256803312897667,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_5",
+          "type": "A",
+          "x": 2.200680348798631,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_6",
+          "type": "B",
+          "x": 2.200680348798631,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_7",
+          "type": "A",
+          "x": 3.363180366121231,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_8",
+          "type": "A",
+          "x": 3.363180366121231,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_9",
+          "type": "B",
+          "x": 4.588180384375153,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_10",
+          "type": "A",
+          "x": 4.588180384375153,
+          "y": -1.42
+        }
+      ],
+      "inspection_type": "A",
+      "visit": 7,
+      "report": {
+        "channel_number": 5,
+        "condition": "A",
+        "object_kind": "3",
+        "speech_text": "\u6b63\u5e38\u884c\u4eba"
+      }
+    },
+    {
+      "label": "inspect_3",
+      "target_id": "inspect_3",
+      "x": 1.0256803312897667,
+      "y": -2.05,
+      "yaw": 1.5707963267948966,
+      "regions": [
+        {
+          "id": "inspect_1",
+          "type": "A",
+          "x": -0.17431968659162678,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_2",
+          "type": "A",
+          "x": -0.17431968659162678,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_3",
+          "type": "B",
+          "x": 1.0256803312897667,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_4",
+          "type": "B",
+          "x": 1.0256803312897667,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_5",
+          "type": "A",
+          "x": 2.200680348798631,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_6",
+          "type": "B",
+          "x": 2.200680348798631,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_7",
+          "type": "A",
+          "x": 3.363180366121231,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_8",
+          "type": "A",
+          "x": 3.363180366121231,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_9",
+          "type": "B",
+          "x": 4.588180384375153,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_10",
+          "type": "A",
+          "x": 4.588180384375153,
+          "y": -1.42
+        }
+      ],
+      "inspection_type": "B",
+      "visit": 8,
+      "report": {
+        "channel_number": 3,
+        "condition": "B",
+        "object_kind": "4",
+        "speech_text": "\u5f02\u5e38\u9053\u8def"
+      }
+    },
+    {
+      "label": "inspect_9",
+      "target_id": "inspect_9",
+      "x": 4.588180384375153,
+      "y": -2.05,
+      "yaw": 1.5707963267948966,
+      "regions": [
+        {
+          "id": "inspect_1",
+          "type": "A",
+          "x": -0.17431968659162678,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_2",
+          "type": "A",
+          "x": -0.17431968659162678,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_3",
+          "type": "B",
+          "x": 1.0256803312897667,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_4",
+          "type": "B",
+          "x": 1.0256803312897667,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_5",
+          "type": "A",
+          "x": 2.200680348798631,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_6",
+          "type": "B",
+          "x": 2.200680348798631,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_7",
+          "type": "A",
+          "x": 3.363180366121231,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_8",
+          "type": "A",
+          "x": 3.363180366121231,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_9",
+          "type": "B",
+          "x": 4.588180384375153,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_10",
+          "type": "A",
+          "x": 4.588180384375153,
+          "y": -1.42
+        }
+      ],
+      "inspection_type": "B",
+      "visit": 9,
+      "report": {
+        "channel_number": 9,
+        "condition": "B",
+        "object_kind": "1",
+        "speech_text": "\u5f02\u5e38\u706b\u6e90"
+      }
+    },
+    {
+      "label": "TRANSIT_outer_right_top",
+      "target_id": null,
+      "x": -1.65,
+      "y": -2.05,
+      "yaw": 1.5707963267948966,
+      "regions": [
+        {
+          "id": "inspect_1",
+          "type": "A",
+          "x": -0.17431968659162678,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_2",
+          "type": "A",
+          "x": -0.17431968659162678,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_3",
+          "type": "B",
+          "x": 1.0256803312897667,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_4",
+          "type": "B",
+          "x": 1.0256803312897667,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_5",
+          "type": "A",
+          "x": 2.200680348798631,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_6",
+          "type": "B",
+          "x": 2.200680348798631,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_7",
+          "type": "A",
+          "x": 3.363180366121231,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_8",
+          "type": "A",
+          "x": 3.363180366121231,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_9",
+          "type": "B",
+          "x": 4.588180384375153,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_10",
+          "type": "A",
+          "x": 4.588180384375153,
+          "y": -1.42
+        }
+      ],
+      "inspection_type": null,
+      "visit": null
+    },
+    {
+      "label": "END",
+      "target_id": null,
+      "x": -1.65,
+      "y": 0.08,
+      "yaw": 1.5707963267948966,
+      "regions": [
+        {
+          "id": "inspect_1",
+          "type": "A",
+          "x": -0.17431968659162678,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_2",
+          "type": "A",
+          "x": -0.17431968659162678,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_3",
+          "type": "B",
+          "x": 1.0256803312897667,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_4",
+          "type": "B",
+          "x": 1.0256803312897667,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_5",
+          "type": "A",
+          "x": 2.200680348798631,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_6",
+          "type": "B",
+          "x": 2.200680348798631,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_7",
+          "type": "A",
+          "x": 3.363180366121231,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_8",
+          "type": "A",
+          "x": 3.363180366121231,
+          "y": -1.42
+        },
+        {
+          "id": "inspect_9",
+          "type": "B",
+          "x": 4.588180384375153,
+          "y": -2.05
+        },
+        {
+          "id": "inspect_10",
+          "type": "A",
+          "x": 4.588180384375153,
+          "y": -1.42
+        }
+      ],
+      "inspection_type": null,
+      "visit": null
+    }
+  ]
+}

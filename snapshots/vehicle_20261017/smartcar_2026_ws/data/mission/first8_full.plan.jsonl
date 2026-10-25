@@ -1,0 +1,11 @@
+{"task_id":1,"target_id":"inspect_1","frame_id":"map","target_reference":"front_axle_midpoint","x":-0.21999999999999997,"y":-1.2,"yaw_rad":-1.6207547225168395,"inspection_type":"A","inspect":true}
+{"task_id":2,"target_id":"inspect_2","frame_id":"map","target_reference":"front_axle_midpoint","x":-0.26500000000000001,"y":-2.1000000000000001,"yaw_rad":-1.6207547225168395,"inspection_type":"A","inspect":true}
+{"task_id":3,"target_id":"inspect_4","frame_id":"map","target_reference":"front_axle_midpoint","x":-1.415,"y":-2.1000000000000001,"yaw_rad":1.5208379310729538,"inspection_type":"A","inspect":true}
+{"task_id":4,"target_id":"inspect_3","frame_id":"map","target_reference":"front_axle_midpoint","x":-1.3700000000000001,"y":-1.2,"yaw_rad":1.5208379310729538,"inspection_type":"A","inspect":true}
+{"task_id":5,"target_id":"inspect_5","frame_id":"map","target_reference":"front_axle_midpoint","x":-2.5699999999999998,"y":-1.2,"yaw_rad":-1.6207547225168393,"inspection_type":"A","inspect":true}
+{"task_id":6,"target_id":"inspect_6","frame_id":"map","target_reference":"front_axle_midpoint","x":-2.6149999999999998,"y":-2.1000000000000001,"yaw_rad":-1.6207547225168393,"inspection_type":"A","inspect":true}
+{"task_id":7,"target_id":"inspect_8","frame_id":"map","target_reference":"front_axle_midpoint","x":-3.8149999999999999,"y":-2.1000000000000001,"yaw_rad":1.5208379310729538,"inspection_type":"A","inspect":true}
+{"task_id":8,"target_id":"inspect_7","frame_id":"map","target_reference":"front_axle_midpoint","x":-3.77,"y":-1.2,"yaw_rad":1.5208379310729538,"inspection_type":"A","inspect":true}
+{"task_id":9,"target_id":"inspect_9","frame_id":"map","target_reference":"front_axle_midpoint","x":-4.9700000000000006,"y":-1.2,"yaw_rad":-1.6207547225168393,"inspection_type":"A","inspect":true}
+{"task_id":10,"target_id":"inspect_10","frame_id":"map","target_reference":"front_axle_midpoint","x":-5.0150000000000006,"y":-2.1000000000000001,"yaw_rad":-1.6207547225168393,"inspection_type":"A","inspect":true}
+{"task_id":11,"target_id":"end","frame_id":"map","target_reference":"front_axle_midpoint","x":0.75,"y":-3.3999999999999999,"yaw_rad":-0.2217890605540023,"inspection_type":"-","inspect":false}

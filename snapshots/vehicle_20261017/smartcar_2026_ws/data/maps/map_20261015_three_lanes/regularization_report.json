@@ -1,0 +1,90 @@
+{
+  "source": "map_20261015_165021/map.yaml",
+  "source_sha256": "310d8e9e50472f276acf18f3d63fda448f0ccfd2395f18fb57d6560feefdd3e2",
+  "method": "deterministic user-specified geometry regularization, not image synthesis",
+  "user_confirmed": {
+    "lanes_from_left": [
+      3,
+      4,
+      5
+    ],
+    "clear_lane_interiors": true,
+    "wall_width_m": 0.3,
+    "vertical_walls": true
+  },
+  "resolution": 0.009999999776482582,
+  "shape": [
+    1387,
+    975
+  ],
+  "roi_pixels": [
+    556,
+    380,
+    956,
+    673
+  ],
+  "walls": [
+    {
+      "number": 3,
+      "left": 556,
+      "right_exclusive": 586,
+      "top": 397,
+      "bottom_exclusive": 673,
+      "measured_slope_px_per_row": 0.030977817628942132,
+      "width_m": 0.29999999329447746,
+      "position_method": "single observed right face; add thickness towards unobserved left"
+    },
+    {
+      "number": 4,
+      "left": 684,
+      "right_exclusive": 714,
+      "top": 391,
+      "bottom_exclusive": 665,
+      "measured_slope_px_per_row": 0.041863922699124,
+      "width_m": 0.29999999329447746,
+      "position_method": "median midpoint between observed faces"
+    },
+    {
+      "number": 5,
+      "left": 804,
+      "right_exclusive": 834,
+      "top": 385,
+      "bottom_exclusive": 660,
+      "measured_slope_px_per_row": 0.035018752633796967,
+      "width_m": 0.29999999329447746,
+      "position_method": "median midpoint between observed faces"
+    },
+    {
+      "number": 6,
+      "left": 926,
+      "right_exclusive": 956,
+      "top": 380,
+      "bottom_exclusive": 655,
+      "measured_slope_px_per_row": 0.03990318162663235,
+      "width_m": 0.29999999329447746,
+      "position_method": "median midpoint between observed faces"
+    }
+  ],
+  "lane_widths": [
+    {
+      "lane": 3,
+      "clear_width_m": 0.979999978095293
+    },
+    {
+      "lane": 4,
+      "clear_width_m": 0.8999999798834324
+    },
+    {
+      "lane": 5,
+      "clear_width_m": 0.9199999794363976
+    }
+  ],
+  "changed_pixels": 27925,
+  "occupied_to_free": 327,
+  "free_to_occupied": 18549,
+  "unknown_to_free": 4,
+  "unknown_to_occupied": 9045,
+  "outside_roi_changed": 0,
+  "source_origin_resolution_preserved": true,
+  "default_map_changed": false
+}

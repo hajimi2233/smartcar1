@@ -1,0 +1,39 @@
+# Active AMCL parameters. Local scan odometry is in frontend.launch.
+amcl:
+  odom_frame_id: odom
+  base_frame_id: base_footprint
+  global_frame_id: map
+  tf_broadcast: true
+  odom_model_type: diff
+  use_map_topic: true
+  first_map_only: true
+  update_min_d: 0.03          # 0=停下也用雷达更新
+  update_min_a: 0.05
+  resample_interval: 1
+  transform_tolerance: 0.3
+  gui_publish_rate: 10.0
+  kld_err: 0.02
+  # 里程计噪声：越大越不信轮子，雷达越好拉回来（太大容易跳列）
+  odom_alpha1: 0.6
+  odom_alpha2: 0.4
+  odom_alpha3: 0.4
+  odom_alpha4: 0.6
+  # 激光模型：z_hit 越大越信「打在墙上」；sigma_hit 越小匹配越锐
+  laser_model_type: likelihood_field
+  laser_z_hit: 0.85
+  laser_z_short: 0.05
+  laser_z_max: 0.05
+  laser_z_rand: 0.05
+  laser_sigma_hit: 0.05      # 米
+  laser_likelihood_max_dist: 2.0
+  laser_max_range: 12.0
+  laser_max_beams: 360
+  min_particles: 300
+  max_particles: 1500
+  # 粒子重撒：0=不跳；fast>0 雷达对不上时会跳
+  recovery_alpha_slow: 0.001
+  recovery_alpha_fast: 0.1
+  initial_cov_xx: 0.25
+  initial_cov_yy: 0.25
+  initial_cov_aa: 0.5
+

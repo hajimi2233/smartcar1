@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -e
+mode=demo
+case "${1:-}" in
+  real) mode=real; shift ;;
+  demo) shift ;;
+  -h|--help)
+    echo '~/camera [demo|real] [--source 0] [--width 320] [--height 240] [--fps 5] [--headless]'
+    echo 'Default: SIMULATED patrol labels over real camera picture boxes.'
+    echo 'real: original visual classification, no synthetic labels.'
+    exit 0 ;;
+esac
+headless=false
+for argument in "$@"; do [ "$argument" != --headless ] || headless=true; done
+if [ "$headless" = false ] && [ -z "${DISPLAY:-}" ]; then
+  echo 'Open ~/camera in a vehicle desktop terminal, or use ~/camera --headless over SSH.' >&2
+  exit 2
+fi
+camera_environment() { source /home/smartcar/smartcar_2026_ws/scripts/source_env.sh; }
+camera_environment
+if [ "$mode" = demo ]; then
+  if ! rosnode list >/dev/null 2>&1; then
+    echo 'Start the existing ROS/lidar/localization session first.' >&2; exit 1
+  fi
+  entry=/home/smartcar/vision_v5/run_patrol_demo.sh
+else
+  entry=/home/smartcar/vision_v5/overhead_pic_detector_v5.py
+fi
+mkdir -p "$HOME/.cache"
+exec 9>"$HOME/.cache/smartcar-camera.lock"
+if ! flock -n 9; then echo 'A ~/camera viewer is already open. Close it first.' >&2; exit 1; fi
+if [ "$mode" = real ]; then
+  exec "${VISION_PYTHON:-/usr/bin/python2}" -u "$entry" --source 0 --width 320 --height 240 --fps 5 "$@"
+fi
+exec bash "$entry" --source 0 --width 320 --height 240 --fps 5 "$@"

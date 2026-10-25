@@ -1,0 +1,11 @@
+{
+  "map_folder": "map_20261012_192707",
+  "map_key": "ada592261e86cd880c1b2ab52d1ad42d21afd0e6f1cc199c074bd3883f73c290",
+  "map_image_sha256": "5c9ea623280cc8dc55e7038e9f976974c7efdea795f889cb294745fe54d9b265",
+  "points_before_sha256": "14404954876ef4387d76f9a89969eb5d24ad00835b2246d27694d6ed32387fe5",
+  "points_after_sha256": "74479de4862d65c87ae814fd581d47b9df87cb3a451dbdd5a2732188afa6fd42",
+  "excluded": [
+    "inspect_10"
+  ],
+  "diagram_rotation_deg": 180
+}

@@ -1,0 +1,6 @@
+image: /home/smartcar/smartcar_2026_ws/data/maps/map_2026年 10月 15日 星期四 13:01:19 CST/map.pgm
+resolution: 0.01
+origin: [-15.42199491500855, -4.731737785339355, 0]
+occupied_thresh: 0.51
+free_thresh: 0.49
+negate: 0

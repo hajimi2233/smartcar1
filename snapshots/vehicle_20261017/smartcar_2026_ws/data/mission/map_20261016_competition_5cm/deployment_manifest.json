@@ -1,0 +1,12 @@
+{
+  "status": "DEPLOYED_PENDING_USER_START",
+  "start_adjustment_deployed": false,
+  "points_sha256": "6f2ca9619f2638a3e6fb551703986cb24b7f9bf94ce8e7fcde7adcf9262a2c1f",
+  "map_key": "4af6465ae8967c9266e30b493fb825bbd03452c93d8a532cc1c0939d11bd745f",
+  "scene_dir": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261016_competition_5cm",
+  "map_image_sha256": "a2525ec600fafb2120adfb17fea64d47c11f5eb0360bc56d5950b22426204f0e",
+  "vision_deployed": false,
+  "map_yaml": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261017_uniform105_5cm/map.yaml",
+  "saved_lines_file": "/home/smartcar/smartcar_2026_ws/data/navigation/map_20261006_160146_lines.json",
+  "revision": "20261017_internal_wall_hollow_unknown_preserve_outline"
+}

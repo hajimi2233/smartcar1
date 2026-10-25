@@ -1,0 +1,16 @@
+<launch>
+  <arg name="scale_error" default="0.05" />
+  <arg name="ticks_per_meter" default="10000.0" />
+  <arg name="rear_offset" default="0.31" />
+  <arg name="output" />
+  <arg name="truth_to_map" default="[0.0, 0.0, 0.0]" />
+  <node pkg="smartcar_localization" type="sim_wheel_pulses.py" name="sim_wheel_pulses" output="screen" required="true">
+    <param name="scale_error" value="$(arg scale_error)" />
+    <param name="ticks_per_meter" value="$(arg ticks_per_meter)" />
+    <param name="rear_offset" value="$(arg rear_offset)" />
+  </node>
+  <node pkg="smartcar_localization" type="localization_evaluator.py" name="localization_evaluator" output="screen" required="true">
+    <param name="output" value="$(arg output)" />
+    <rosparam param="truth_to_map" subst_value="true">$(arg truth_to_map)</rosparam>
+  </node>
+</launch>

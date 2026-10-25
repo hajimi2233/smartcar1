@@ -1,0 +1,77 @@
+# Active AMCL parameters. Local scan odometry is in frontend.launch.
+amcl:
+  odom_frame_id: odom
+  base_frame_id: base_footprint
+  global_frame_id: map
+  tf_broadcast: true
+  odom_model_type: diff
+  use_map_topic: true
+  first_map_only: true
+  update_min_d: 0.03          # 0=停下也用雷达更新
+  update_min_a: 0.05
+  resample_interval: 1
+  transform_tolerance: 0.3
+  gui_publish_rate: 10.0
+  kld_err: 0.02
+  # 里程计噪声：越大越不信轮子，雷达越好拉回来（太大容易跳列）
+  odom_alpha1: 0.6
+  odom_alpha2: 0.4
+  odom_alpha3: 0.4
+  odom_alpha4: 0.6
+  # 激光模型：z_hit 越大越信「打在墙上」；sigma_hit 越小匹配越锐
+  laser_model_type: likelihood_field
+  laser_z_hit: 0.85
+  laser_z_short: 0.05
+  laser_z_max: 0.05
+  laser_z_rand: 0.05
+  laser_sigma_hit: 0.05      # 米
+  laser_likelihood_max_dist: 2.0
+  laser_max_range: 12.0
+  laser_max_beams: 360
+  min_particles: 300
+  max_particles: 1500
+  # 粒子重撒：0=不跳；fast>0 雷达对不上时会跳
+  recovery_alpha_slow: 0.001
+  recovery_alpha_fast: 0.1
+  initial_cov_xx: 0.25
+  initial_cov_yy: 0.25
+  initial_cov_aa: 0.5
+
+
+# Used only with localization wall_features:=true. AMCL is not launched in this mode.
+wall_localizer:
+  # Map-bound grouping; outside corridors the original full-map match is used.
+  corridor_weighting:
+    enabled: true
+    definition_file: /home/smartcar/smartcar_2026_ws/data/localization/corridor_definition_20261016.json
+    enter_inset: 0.04
+    exit_margin: 0.12
+    confirm_time: 0.3
+    normal_angle_deg: 25.0
+    side_weight: 0.35
+    anchor_weight: 0.55
+    other_weight: 0.10
+    anchor_min_points: 8
+    anchor_max_rms: 0.06
+    group_max_rms: 0.08
+  association_distance: 0.30  # initial pose must be close enough to associate the selected wall
+  endpoint_margin: 0.05
+  normal_angle_deg: 25.0
+  surface_gap: 0.06          # split distinct return surfaces; never choose by point count
+  min_points: 8
+  min_span: 0.20
+  max_rms: 0.06
+  max_translation: 0.25      # reject ambiguous large per-scan corrections
+  max_rotation: 0.20         # radians
+  iterations: 4
+  eigen_ratio: 0.005         # leave weakly constrained directions to odometry
+  coast_timeout: 2.0         # stop publishing map->odom after prolonged feature loss
+  scan_timeout: 0.5
+  state_confirm_time: 0.3
+  ticks_per_meter: 10000.0  # synthetic default; replace with measured real calibration
+  rear_offset: 0.31        # base point ahead of rear axle
+  wheel_sigma_floor: 0.005
+  wheel_relative_sigma: 0.05
+
+wall_editor:
+  selection_radius: 0.30  # capsule dilation radius around each drawn selection, metres

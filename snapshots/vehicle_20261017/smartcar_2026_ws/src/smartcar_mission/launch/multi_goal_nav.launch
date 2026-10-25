@@ -1,0 +1,16 @@
+<launch>
+  <arg name="speech_enabled" default="true"/>
+  <arg name="inspection_limit" default="0"/>
+  <arg name="b_lateral_test" default="false"/>
+  <arg name="frame_id" default="map" />
+  <arg name="base_frame" default="base_footprint" />
+  <arg name="plan_file" default="" />
+  <node pkg="smartcar_mission" type="multi_goal_nav.py" name="multi_goal_nav" output="screen" required="true">
+    <param name="speech_enabled" value="$(arg speech_enabled)"/>
+    <param name="frame_id" value="$(arg frame_id)" />
+    <param name="base_frame" value="$(arg base_frame)" />
+    <param name="plan_file" value="$(arg plan_file)" />
+    <param name="inspection_limit" value="$(arg inspection_limit)"/>
+    <param name="b_lateral_test" value="$(arg b_lateral_test)"/>
+  </node>
+</launch>

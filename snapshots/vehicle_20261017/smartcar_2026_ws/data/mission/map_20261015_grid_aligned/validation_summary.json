@@ -1,0 +1,23 @@
+{
+  "count": 40,
+  "success": 40,
+  "timing_median": 0.14723010000125214,
+  "timing_p95": 0.22974399999948217,
+  "timing_max": 0.24305589999858057,
+  "position_error_max": 2.6645352591003757e-15,
+  "heading_error_max_deg": 5.088887490341627e-14,
+  "margin": 0.05,
+  "turn_radius": 1.35,
+  "gear_changes_min": 2,
+  "gear_changes_max": 6,
+  "static_only": true,
+  "deployed": false,
+  "independent_process_per_pair": true,
+  "planner_hashes": {
+    "ackermann_core.py": "9413472f2e6d672bf613a6ecf02945c48827fec05188e9ae28dde10294718ff3",
+    "fast_turn90.py": "350812352f08358dc856c3470180d39fb9457c0a2de96ae01e4f672a65631e2e",
+    "inspection_depth.py": "b8a8d95c98ebb6abe49eba0ab096472c5c450363e4dd34f603c0fc773bb4529b",
+    "nav_config.py": "e1b34b8b75f846411c80ea9874ccaa43f590b93581421413fb5d2c5e5f90d734",
+    "region_geometry.py": "af591f3ae2f6181cebf031f95e95cc0dfdef480092d82985a24336accea4e28c"
+  }
+}

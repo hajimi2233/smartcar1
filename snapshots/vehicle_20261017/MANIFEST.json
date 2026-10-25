@@ -1,0 +1,1736 @@
+[
+  {
+    "path": "loc",
+    "sha256": "4b90ee47a2a13bf50e4e729ddd72f655b5cbfb4cd260620a450e537f42955eee",
+    "local_source": "loc_startup_fix_20261017/loc",
+    "vehicle_target": "/home/smartcar/loc"
+  },
+  {
+    "path": "smartcar_2026_ws/data/localization/corridor_definition_20261016.json",
+    "sha256": "a88dbeaaa7aaeded68af6e431dfb4cae5afc89a131b7cf3647ca6f25051a3b07",
+    "local_source": "hollow_map_20261017/candidate/corridor_definition_20261016.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/localization/corridor_definition_20261016.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/before_3cm_20261007_203440/map.pgm",
+    "sha256": "808d316e9e100470b37695ff50c599d49d0afcda4f503f17ee79e54bb1cd68b5",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/before_3cm_20261007_203440/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/before_3cm_20261007_203440/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/before_3cm_20261007_203440/map.yaml",
+    "sha256": "157d149b64d961c6937a01bda6b175900ce773b68c6477e710879cf69605c1dd",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/before_3cm_20261007_203440/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/before_3cm_20261007_203440/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/checkpoint_20261007_195456/map.pgm",
+    "sha256": "8cd2e75b3b34ab4245a3e32d2788adf0636a1f73e567a165af5853023d5c07de",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/checkpoint_20261007_195456/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/checkpoint_20261007_195456/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/checkpoint_20261007_195456/map.yaml",
+    "sha256": "f495bb957a034cabaf1dccfe4d342b0748bb6f290d66606ce88088a6b6f16760",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/checkpoint_20261007_195456/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/checkpoint_20261007_195456/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/checkpoint_20261007_195456/map_usable.yaml",
+    "sha256": "71fc3384e469360e4293cf2113ec66fadc25a4d8d8b5fbbe74aac94f6997208b",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/checkpoint_20261007_195456/map_usable.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/checkpoint_20261007_195456/map_usable.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/current.yaml",
+    "sha256": "c91cba103bba82258b985bcf81fc6ce06008cb122c3c713e6569044ea25ea0bd",
+    "local_source": "deployment_20261017/payload/smartcar_2026_ws/data/maps/map_20261017_uniform105_5cm/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/current.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map111/map.pb",
+    "sha256": "ca9bbd8d217a837c863dae2a49763538f0a75782bfe29f8154d2cbddf74cf55d",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map111/map.pb",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map111/map.pb"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map111/map.pgm",
+    "sha256": "f8378b91e8c19aa974403a5c5aceed633b5e9b3561b27c944e15912dcab55c9d",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map111/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map111/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map111/map.yaml",
+    "sha256": "ad8125eec2897d8e905763832be650930a653ea262d4a350ee3c1bc8a7ab5775",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map111/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map111/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map2/map2.pb",
+    "sha256": "80b8ee1ea5235cf8751a0b106102520aaf0241e54e806dc25a427ce1c3617376",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map2/map2.pb",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map2/map2.pb"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map2/map2.pgm",
+    "sha256": "55b485132fe463c4de43af942618e0ef52684a9f93a799076143aaeadca4f82f",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map2/map2.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map2/map2.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map2/map2.yaml",
+    "sha256": "862672b2b270b11e004ccfb5831ed69c41930fccb74b76e764773dc6d41159b5",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map2/map2.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map2/map2.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20260916_191023/map.pb",
+    "sha256": "996b4de711df6de3a277e1ea813d8ece4ad7e9722389940cf6c3cc95df4b7fae",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20260916_191023/map.pb",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20260916_191023/map.pb"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20260916_191023/map.pgm",
+    "sha256": "d895e2c7e2af8300a43980b2c7bf6f41c1f714eade17cc4717c2c9a4644c0eab",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20260916_191023/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20260916_191023/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20260916_191023/map.yaml",
+    "sha256": "74883f611649d9ba948fb799525f0af96ee533052e72849274db1b9fab9685f3",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20260916_191023/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20260916_191023/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20260928_164936/map.pb",
+    "sha256": "a16435d7555223eefaa60364f9273b3b54d54edad332253cdba82f3b1d94266d",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20260928_164936/map.pb",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20260928_164936/map.pb"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20260928_164936/map.pgm",
+    "sha256": "8ff9a02571dd569fffc8970702655094865bd33ace8dac88c0572e1bafbe2342",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20260928_164936/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20260928_164936/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20260928_164936/map.yaml",
+    "sha256": "d4e753f1a24d69b97cfd7a0c5280a478e1df3792047e3d020aeb033d9d0e9aad",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20260928_164936/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20260928_164936/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20260928_164936/map.yaml.before_localization_20260929",
+    "sha256": "4bb84e02c11fa9f2e6328b3fe4750d451f669b0aab58aae6211f0be07c478c74",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20260928_164936/map.yaml.before_localization_20260929",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20260928_164936/map.yaml.before_localization_20260929"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261001_151001/map.pb",
+    "sha256": "9513f4a9362ae28b2359a3c1f1ab50ea99c904ef259aa8af6f78624d945cd940",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261001_151001/map.pb",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261001_151001/map.pb"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261001_151001/map.pgm",
+    "sha256": "8ea3c9a36635b457c3e43b9d8392c19faed465f7220cf11226c4b0bf5600a7b7",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261001_151001/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261001_151001/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261001_151001/map.yaml",
+    "sha256": "9775af5d4186668528111a5ac731b5c9de5bc2ced9f3a35e9e9ad26f8f904df7",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261001_151001/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261001_151001/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261006_160146/map.pb",
+    "sha256": "6f9cf54c65f55db90d2e40e7fcac686b6ce0c75aa61cc9085572487605b104b8",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261006_160146/map.pb",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261006_160146/map.pb"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261006_160146/map.pgm",
+    "sha256": "46a2bed4b38e2845a06ff904e00ac97bc9891aa762b6062adb86d307bd37b103",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261006_160146/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261006_160146/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261006_160146/map.yaml",
+    "sha256": "713a41668764e8513c6eeb4cbb025c89708f82f9a7135cb0ffd029ea2a304fd1",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261006_160146/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261006_160146/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261007_204823/map.pb",
+    "sha256": "7caefb970676a67adb0a3cdad096353940342aebc1953b77cf5d19ce70d0b6ad",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261007_204823/map.pb",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261007_204823/map.pb"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261007_204823/map.pgm",
+    "sha256": "b93f0889620a5d12ac15ed046eefd465bbc4ae2b64b20c7b9750e0ab7ccd141c",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261007_204823/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261007_204823/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261007_204823/map.yaml",
+    "sha256": "ea71794cf69226beb33151225d53a01b94cb02f45bbb72d5a9366ea3b4363cb2",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261007_204823/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261007_204823/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261007_204823/map.yaml.before_relative_image",
+    "sha256": "2b168f73e6a7132628a35010421a447f8d6f5b8e1deef2a2777a839791e15264",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261007_204823/map.yaml.before_relative_image",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261007_204823/map.yaml.before_relative_image"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261007_204823/pre_finish.pgm",
+    "sha256": "7d69d22e4e2f0e76b47824f4a16eaf8cc20fee0b809944701dfa6d349057e01f",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261007_204823/pre_finish.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261007_204823/pre_finish.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261007_204823/pre_finish.yaml",
+    "sha256": "083be4a0a09544fd3bb2284b9a1fffa72d14da1ac6db4fa0edf1e9577c52ee14",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261007_204823/pre_finish.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261007_204823/pre_finish.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261008_200204/map.pb",
+    "sha256": "b28ec9f2300deb6abd3f52fc6f0434f435d35050b49af782be4bbdd026b1308e",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261008_200204/map.pb",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261008_200204/map.pb"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261008_200204/map.pgm",
+    "sha256": "0665b35c6b8a21ac7a0b181985e9cb2e5dda3f9adb4bb16a5e15df6f6ba9cac9",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261008_200204/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261008_200204/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261008_200204/map.yaml",
+    "sha256": "82a882cc4a28adcffedd01757cb3254c2f63ee7aa85565b50edcb5df02a8ca1e",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261008_200204/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261008_200204/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261008_200204/navigation_5cm/conversion.json",
+    "sha256": "6f562e3222f11efec008297ee5e696830d38c9684fb1e201aa0acb71be444382",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261008_200204/navigation_5cm/conversion.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261008_200204/navigation_5cm/conversion.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261008_200204/navigation_5cm/map.pgm",
+    "sha256": "3aae4eb59ebafdcfb5e00704fb8892db7e1d0812217ceb06bb53041032106f36",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261008_200204/navigation_5cm/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261008_200204/navigation_5cm/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261008_200204/navigation_5cm/map.yaml",
+    "sha256": "c70dbea262baabee85731cf238b54fa52bf7deef377c52945908d74bfd60c848",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261008_200204/navigation_5cm/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261008_200204/navigation_5cm/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261010_163406/live_snapshot.pgm",
+    "sha256": "0346be39bfb852940cd04a3f82a3ad2bc8d7f7e104abb43bfd6b1dc9f73579be",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261010_163406/live_snapshot.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261010_163406/live_snapshot.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261010_163406/live_snapshot.yaml",
+    "sha256": "e8c611685cefe4dece63d1f7315a74a7b5cab22a3fbca3f8272b5ba8c8e37e81",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261010_163406/live_snapshot.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261010_163406/live_snapshot.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261010_163406/navigation_5cm/conversion.json",
+    "sha256": "949a7b3369c60a9ae79f9b7facd32d5531525218e508b1c905d84cf132642d04",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261010_163406/navigation_5cm/conversion.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261010_163406/navigation_5cm/conversion.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261010_163406/navigation_5cm/map.pgm",
+    "sha256": "5d26a148db68f9b4a8a313d1a0cf14d886d65e3ee612de5dddf1c5e79393130b",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261010_163406/navigation_5cm/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261010_163406/navigation_5cm/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261010_163406/navigation_5cm/map.yaml",
+    "sha256": "a7628a2d7f2c1c9b759c4c0eb43e5d7060b156bbcbfe4aba45e8659c539d703f",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261010_163406/navigation_5cm/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261010_163406/navigation_5cm/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261010_163406/navigation_source.pgm",
+    "sha256": "385dc374329fafbf93dbb60c2becd229a9beb41d2080eb1f19d8c81857779730",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261010_163406/navigation_source.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261010_163406/navigation_source.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261010_163406/navigation_source.yaml",
+    "sha256": "e0f7d4ed3678f5fb3ba38ae91f3f74de8401dce62be4fcd5f89fd7a121c4b570",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261010_163406/navigation_source.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261010_163406/navigation_source.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261010_163406/snapshot_provenance.json",
+    "sha256": "ebe0ea28270556efab8726fc97d0440da11f96d5f0b644fd394b7a618e513e80",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261010_163406/snapshot_provenance.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261010_163406/snapshot_provenance.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261012_192707/map.pb",
+    "sha256": "99c743ad302bfcd58a222488083b892a9dc9ca1d97e66f361ef064951155d31c",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261012_192707/map.pb",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261012_192707/map.pb"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261012_192707/map.pgm",
+    "sha256": "01a9d6ab5bc04e5fcbc5cfffad8a602b574c1df44936806eb742fa0b81f7e5bd",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261012_192707/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261012_192707/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261012_192707/map.yaml",
+    "sha256": "50a98c4ac07d0738a47d007d5e477433f65b766aa8bca7c192b6e5b4810f8cf8",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261012_192707/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261012_192707/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261012_192707/navigation_5cm/conversion.json",
+    "sha256": "87071064166a9bebc99c7b86d77f2cb8b100d49f58b0d8fd6426678b03cb2e44",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261012_192707/navigation_5cm/conversion.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261012_192707/navigation_5cm/conversion.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261012_192707/navigation_5cm/map.pgm",
+    "sha256": "5c9ea623280cc8dc55e7038e9f976974c7efdea795f889cb294745fe54d9b265",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261012_192707/navigation_5cm/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261012_192707/navigation_5cm/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261012_192707/navigation_5cm/map.yaml",
+    "sha256": "c2dbee5af533cf8bf3a58ac6859859a290ce5799cd8e981691b012018042c25c",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261012_192707/navigation_5cm/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261012_192707/navigation_5cm/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_134418.pb",
+    "sha256": "823fbee210b96f301168f3e8d0c35f4baed86737d08668edc333085dc5dbf16f",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_134418.pb",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_134418.pb"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_134418.pgm",
+    "sha256": "090ecc370fdf3cbaddd7551185a8df53a6768c76e2657ebf906c303acce0763e",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_134418.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_134418.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_134418.yaml",
+    "sha256": "97d894f42a4c691fcc908c270490bcfbca75a8abf7e583309c95cd279d1fb32c",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_134418.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_134418.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_140624/map.pb",
+    "sha256": "61f4cf1aa847de424976663ccb7ff2c0101d1432f2c75eca018209da7d026450",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_140624/map.pb",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_140624/map.pb"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_140624/map.pgm",
+    "sha256": "62e59fd70d114fdb0433b95ff2fcb71de4d4b472a9f81466b575bbb855732b88",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_140624/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_140624/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_140624/map.yaml",
+    "sha256": "e680b75ac6b319dd5d6150ba483195b05449fb9edd6dae06da24f101ec64ec13",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_140624/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_140624/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_140624/navigation_3cm/conversion.json",
+    "sha256": "efef3cf32e1efedc1c0afa32ba9a059cfb2ac579539e89869e64404050730678",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_140624/navigation_3cm/conversion.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_140624/navigation_3cm/conversion.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_140624/navigation_3cm/map.pgm",
+    "sha256": "9bcbe38d3276b9830456a87022b425880b963f746c4292a4b25ff050d6a3d94e",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_140624/navigation_3cm/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_140624/navigation_3cm/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_140624/navigation_3cm/map.yaml",
+    "sha256": "14d5ff48d942e21be06828f226db014b10441c0141710b78fb7850db5bb4907e",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_140624/navigation_3cm/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_140624/navigation_3cm/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_140624/navigation_5cm/conversion.json",
+    "sha256": "85f8d0a9bdabedf9fb3f40b1cd5a09593d73297165b4b0b296eca958ee181c0f",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_140624/navigation_5cm/conversion.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_140624/navigation_5cm/conversion.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_140624/navigation_5cm/map.pgm",
+    "sha256": "e913bf138b0ca7fb6762c8ac57a581112b9dc6c03163cd806e707c15e24d1ff0",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_140624/navigation_5cm/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_140624/navigation_5cm/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_140624/navigation_5cm/map.yaml",
+    "sha256": "238cd75a5a23f901605101e2a1891848aca60ad6c16d22254e7b1d225ccd6aaf",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_140624/navigation_5cm/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_140624/navigation_5cm/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_165021/map.pgm",
+    "sha256": "310d8e9e50472f276acf18f3d63fda448f0ccfd2395f18fb57d6560feefdd3e2",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_165021/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_165021/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_165021/map.yaml",
+    "sha256": "fbb66fc7187ad0c0733dee53d9ae836197f715d9113c74a5ccbf7309d2aa19f5",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_165021/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_165021/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_165021/navigation_3cm/conversion.json",
+    "sha256": "111ec7046584eca644b751d03944e857f3f5825573f97eab7ca511ea2994c91e",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_165021/navigation_3cm/conversion.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_165021/navigation_3cm/conversion.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_165021/navigation_3cm/map.pgm",
+    "sha256": "61c4d6f3c9fd93a4ab0958c601a16ab5921026a535e649e76dcf199b74fcd7c0",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_165021/navigation_3cm/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_165021/navigation_3cm/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_165021/navigation_3cm/map.yaml",
+    "sha256": "b03e13df808c2253a03868573fc8026e483d603ca1022de7327e59645ff98cdf",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_165021/navigation_3cm/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_165021/navigation_3cm/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_165021/navigation_5cm/conversion.json",
+    "sha256": "65e38dace454856ca8642f0439209d0cba32e2402c5b09631af0e6c0eef314cf",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_165021/navigation_5cm/conversion.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_165021/navigation_5cm/conversion.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_165021/navigation_5cm/map.pgm",
+    "sha256": "e8b7b43951c71bb428926624ef185821519a09930f277e6960be648bf6967650",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_165021/navigation_5cm/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_165021/navigation_5cm/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_165021/navigation_5cm/map.yaml",
+    "sha256": "3c63b9698949f02edfa32360a6255b739391989c4e09793215f896eeadb7ade8",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_165021/navigation_5cm/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_165021/navigation_5cm/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_165021/save_info.yaml",
+    "sha256": "f4b6ebea218a67f94363c02ca19b320f30834f8ba2f94d806343b6ed73717af6",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_165021/save_info.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_165021/save_info.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_165021_denoised/cleanup_report.json",
+    "sha256": "28059c594bcf70191710e97831a949dcce29a1695e2a04ae8dc437375f3a8844",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_165021_denoised/cleanup_report.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_165021_denoised/cleanup_report.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_165021_denoised/map.pgm",
+    "sha256": "0819fd83e784229e67b8064d1b52a8672fd00946109b7ae4992701bb417db85c",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_165021_denoised/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_165021_denoised/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_165021_denoised/map.yaml",
+    "sha256": "fbb66fc7187ad0c0733dee53d9ae836197f715d9113c74a5ccbf7309d2aa19f5",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_165021/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_165021_denoised/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_165021_denoised/navigation_5cm/conversion.json",
+    "sha256": "d589818b11910b0ca5535872a639943ef8d5b2088cda9a02dd2c532003d1cb55",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_165021_denoised/navigation_5cm/conversion.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_165021_denoised/navigation_5cm/conversion.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_165021_denoised/navigation_5cm/map.pgm",
+    "sha256": "8a9821f46821e14c3133d078e00c0fcd044dc4ff86701a510220e2a58ace777a",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_165021_denoised/navigation_5cm/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_165021_denoised/navigation_5cm/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_165021_denoised/navigation_5cm/map.yaml",
+    "sha256": "3c63b9698949f02edfa32360a6255b739391989c4e09793215f896eeadb7ade8",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_165021/navigation_5cm/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_165021_denoised/navigation_5cm/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_165021_denoised/地图去噪说明.md",
+    "sha256": "81ffe00eeb0f5bd00253b10f35191e5823ffd2f166a3040ca30ee7c90afd347a",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_165021_denoised/地图去噪说明.md",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_165021_denoised/地图去噪说明.md"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_contour_filled/manifest.json",
+    "sha256": "22470944df627f5b14b255da9077a2ef38f98b37256c41e6607753ef11693825",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_contour_filled/manifest.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_contour_filled/manifest.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_contour_filled/map.pgm",
+    "sha256": "61b2b11ca0f60c8f3b6a06907dc3cb1e5520fc2bc8f397eae3fb0fca8d2491c8",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_contour_filled/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_contour_filled/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_contour_filled/map.yaml",
+    "sha256": "8527c0b01646e7e85fdb7fb00bb87688012a275b97e2fd291024708ae24e6419",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_contour_filled/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_contour_filled/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_contour_filled/navigation_5cm/conversion.json",
+    "sha256": "14a9205100a46acc6ef2a2563566c5a6651d3991c15823fa77a998d148f65df6",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_contour_filled/navigation_5cm/conversion.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_contour_filled/navigation_5cm/conversion.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_contour_filled/navigation_5cm/map.pgm",
+    "sha256": "c4a8858f0c6f3cfd782c7deb5c94af2d82abcbbbc4727142935f304b1697a98e",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_contour_filled/navigation_5cm/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_contour_filled/navigation_5cm/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_contour_filled/navigation_5cm/map.yaml",
+    "sha256": "b1a6caed168fe69aca6df1c4881e52a5ad4151c8034678df5bb0f0f8bb6d3f0a",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_contour_filled/navigation_5cm/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_contour_filled/navigation_5cm/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_contour_filled/processing_report.json",
+    "sha256": "fdee17bf13bbefb6fcc2070cca78ee4fa8c3d5730f696251fc39c1ba4c8b3fb7",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_contour_filled/processing_report.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_contour_filled/processing_report.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_contour_filled/优化说明.md",
+    "sha256": "f6f0dfa4fe011b79ff848ec5770c32bfc53d8ff4b96962c01b8cc1ec886946a6",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_contour_filled/优化说明.md",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_contour_filled/优化说明.md"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_grid_aligned/alignment_report.json",
+    "sha256": "50e202ef596c92a7a784fec9607d693d2647e17b5512de852259842b8321b532",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_grid_aligned/alignment_report.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_grid_aligned/alignment_report.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_grid_aligned/map.pgm",
+    "sha256": "7ebf377f7a0f7b9b33728d4bc6507e68823c44626c89839e5580abc6f44704c3",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_grid_aligned/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_grid_aligned/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_grid_aligned/map.yaml",
+    "sha256": "93210eb8820cf25967e308787420ecc85b7873ff8c4006fb68ea79c08ae0c2a6",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_grid_aligned/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_grid_aligned/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_grid_aligned/navigation_5cm/map.pgm",
+    "sha256": "9acd904433f8fe0652594dfb0ecdc4384071df9a3313cc88127739135c63e491",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_grid_aligned/navigation_5cm/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_grid_aligned/navigation_5cm/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_grid_aligned/navigation_5cm/map.yaml",
+    "sha256": "c91cba103bba82258b985bcf81fc6ce06008cb122c3c713e6569044ea25ea0bd",
+    "local_source": "deployment_20261017/payload/smartcar_2026_ws/data/maps/map_20261017_uniform105_5cm/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_grid_aligned/navigation_5cm/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_grid_aligned/使用说明.md",
+    "sha256": "d44735df232fd17ddf98793ed627f9561fce2aa36ac95a40985d1799f8956963",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_grid_aligned/使用说明.md",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_grid_aligned/使用说明.md"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_three_lanes/map.pgm",
+    "sha256": "95439390e86065775a05c13ab148c5cd108ab64fc3c4747d982ddefab168564f",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_three_lanes/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_three_lanes/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_three_lanes/map.yaml",
+    "sha256": "fbb66fc7187ad0c0733dee53d9ae836197f715d9113c74a5ccbf7309d2aa19f5",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_165021/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_three_lanes/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_three_lanes/navigation_5cm/conversion.json",
+    "sha256": "57e9343fdded7ce13354128d2ccb477e761958f1e46c7b399c3a1a2221f02a5d",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_three_lanes/navigation_5cm/conversion.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_three_lanes/navigation_5cm/conversion.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_three_lanes/navigation_5cm/map.pgm",
+    "sha256": "edc4de40909211787fef8b84c39e939efe48d04b34f9631bdcf06fbc9a86200b",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_three_lanes/navigation_5cm/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_three_lanes/navigation_5cm/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_three_lanes/navigation_5cm/map.yaml",
+    "sha256": "3c63b9698949f02edfa32360a6255b739391989c4e09793215f896eeadb7ade8",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_165021/navigation_5cm/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_three_lanes/navigation_5cm/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_three_lanes/regularization_report.json",
+    "sha256": "e016809ae8b6062844d9f38abfd8db508588f69cc0d975cf5c9e0aaff5e2fff5",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_three_lanes/regularization_report.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_three_lanes/regularization_report.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261015_three_lanes/使用说明.md",
+    "sha256": "7702e14502c11420c8033bc40d1a6e4b21eff60d8d04394af246e4511d9f4e3b",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261015_three_lanes/使用说明.md",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261015_three_lanes/使用说明.md"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261016_competition_5cm/map.pgm",
+    "sha256": "9c6fed66a91f0c6fe77f8e1335f8f4c20da32bcbf0e2fed8c654d2fd6e101944",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261016_competition_5cm/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261016_competition_5cm/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261016_competition_5cm/map.yaml",
+    "sha256": "c91cba103bba82258b985bcf81fc6ce06008cb122c3c713e6569044ea25ea0bd",
+    "local_source": "deployment_20261017/payload/smartcar_2026_ws/data/maps/map_20261017_uniform105_5cm/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261016_competition_5cm/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261016_right_wall_shift_5cm/map.pgm",
+    "sha256": "f563ee835a85f29adeccfa71a99daf21878f29f3a1b3308e7bba9ff08a3e74fd",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/map_20261016_right_wall_shift_5cm/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261016_right_wall_shift_5cm/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261016_right_wall_shift_5cm/map.yaml",
+    "sha256": "c91cba103bba82258b985bcf81fc6ce06008cb122c3c713e6569044ea25ea0bd",
+    "local_source": "deployment_20261017/payload/smartcar_2026_ws/data/maps/map_20261017_uniform105_5cm/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261016_right_wall_shift_5cm/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261017_uniform105_5cm/map.pgm",
+    "sha256": "a2525ec600fafb2120adfb17fea64d47c11f5eb0360bc56d5950b22426204f0e",
+    "local_source": "hollow_map_20261017/candidate/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261017_uniform105_5cm/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/map_20261017_uniform105_5cm/map.yaml",
+    "sha256": "c91cba103bba82258b985bcf81fc6ce06008cb122c3c713e6569044ea25ea0bd",
+    "local_source": "deployment_20261017/payload/smartcar_2026_ws/data/maps/map_20261017_uniform105_5cm/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/map_20261017_uniform105_5cm/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/static_check_20260916/cartographer.pb",
+    "sha256": "1b36ec23b8ba999a0073d56f8053c126b72805c450919d8fe9fb872c62d9f8ec",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/static_check_20260916/cartographer.pb",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/static_check_20260916/cartographer.pb"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/static_check_20260916/cartographer.pgm",
+    "sha256": "e335178f8dc3a85eaf4e60c421f4121afd1669b15a6516f9e4b3aca485c262fb",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/static_check_20260916/cartographer.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/static_check_20260916/cartographer.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/static_check_20260916/cartographer.yaml",
+    "sha256": "df4be74c28989fbde779cd13a5e291a68760c0488b54c3f2ec850c363c19e7f1",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/static_check_20260916/cartographer.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/static_check_20260916/cartographer.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/static_check_20260916/map.pgm",
+    "sha256": "62f07d32ad320d4df9a14e302b9daeda7afb79cad68de466cceb3fd8a794b9ca",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/static_check_20260916/map.pgm",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/static_check_20260916/map.pgm"
+  },
+  {
+    "path": "smartcar_2026_ws/data/maps/static_check_20260916/map.yaml",
+    "sha256": "155badeae65aff768329be540ae4ae25060a3d1a0dbd08075dca727507838772",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/maps/static_check_20260916/map.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/maps/static_check_20260916/map.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/b_lateral_full.plan.jsonl",
+    "sha256": "1062717bb71da69e58872bc377d873613637d42c5b34d79fa2206c853aab28d6",
+    "local_source": "bslide_20261011/b_lateral_full.plan.jsonl",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/b_lateral_full.plan.jsonl"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/first8_full.plan.jsonl",
+    "sha256": "836d6c4f0b76470aa9c7a7f68ea02ce37ed447a3f09ecc4276344c64196eba34",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/first8_full.plan.jsonl",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/first8_full.plan.jsonl"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261012_192707/allA_full.plan.jsonl",
+    "sha256": "3848e6a4db83fbeb0c73d5d4b1df577d7cb440a8a7717ad8b186498e4f2883ac",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261012_192707/allA_full.plan.jsonl",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261012_192707/allA_full.plan.jsonl"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261012_192707/bslide_full.plan.jsonl",
+    "sha256": "470b98c0255ed1ebe8cbfcf30b2904283f361fa2da1890785aaf653225793897",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261012_192707/bslide_full.plan.jsonl",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261012_192707/bslide_full.plan.jsonl"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261012_192707/custom_patrol.py",
+    "sha256": "7a4fe8bf69fd8eda0a58f1202c829cd4fdece9a11c52a12bc6ecfd174f42e4b3",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261012_192707/custom_patrol.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261012_192707/custom_patrol.py"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261012_192707/low_cost_lines.json",
+    "sha256": "368dce1dc24416f9ebcbc7cc2ce1ad205a7e0f7ff8a787ee514413049231982f",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261012_192707/low_cost_lines.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261012_192707/low_cost_lines.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261012_192707/points_front.csv",
+    "sha256": "74479de4862d65c87ae814fd581d47b9df87cb3a451dbdd5a2732188afa6fd42",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261012_192707/points_front.csv",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261012_192707/points_front.csv"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261012_192707/preview_queue.py",
+    "sha256": "405bcbf7f49a02093776974ee91561709ebfaa8a31c2c3886ce7363f7c0b5d43",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261012_192707/preview_queue.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261012_192707/preview_queue.py"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261012_192707/requested_route.json",
+    "sha256": "fe4e73192b5a7c7178379bc97adb244402e471d7fba34ccb1c9b86ac47bfc3c8",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261012_192707/requested_route.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261012_192707/requested_route.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261012_192707/requested_route_replay.json",
+    "sha256": "5054e893302802f6813cf50a161fab21cf938917d80e8342b3b6f859e6ed1359",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261012_192707/requested_route_replay.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261012_192707/requested_route_replay.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261012_192707/scene_speech_verified.json",
+    "sha256": "43f0d1c329a9a7424c81e6ba1639f2735fb0ee05eb706f4f4a1ec692cb413bf0",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261012_192707/scene_speech_verified.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261012_192707/scene_speech_verified.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261012_192707/setup_manifest.json",
+    "sha256": "1691e6a362f82aa8930815f4e6143181d278a94bc2d491c57bc583bb1d76a376",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261012_192707/setup_manifest.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261012_192707/setup_manifest.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261012_192707/summary.json",
+    "sha256": "692545a3e388bd28ed420acb937175d810fc408fbe0de1f0c5fbe43c26ac0568",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261012_192707/summary.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261012_192707/summary.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261012_192707/新地图16点与代价线说明.md",
+    "sha256": "4c79f1af9663a487c2effa2e9579d895cf144354ef8799a00f349a0c9a733421",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261012_192707/新地图16点与代价线说明.md",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261012_192707/新地图16点与代价线说明.md"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261015_grid_aligned/bslide_full.plan.jsonl",
+    "sha256": "088a588aec259a2164fa5597710a2e4a40ab65134ee5b5a21c0721b3cb8fb12c",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/bslide_full.plan.jsonl",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/bslide_full.plan.jsonl"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261015_grid_aligned/deployment_manifest.json",
+    "sha256": "53d158a25b95617464c4dfbd1e92bcd340f221a2ea35a8a07877f1a88e54326a",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/deployment_manifest.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/deployment_manifest.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261015_grid_aligned/low_cost_lines.json",
+    "sha256": "2044169dbfcad8c2111d9254224948f847a20c3944c065c208f5a20d3f06dfa5",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/low_cost_lines.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/low_cost_lines.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261015_grid_aligned/pair_results.json",
+    "sha256": "5d58a58d3b3d2fdbfb995d0f230909e5f85bb999ae4fe5987c95da70ad55b828",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/pair_results.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/pair_results.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261015_grid_aligned/points16_preview_v2.png",
+    "sha256": "49903a786f602276de1c681e96f810dbdb98f7ce3e6cae310ea0842b802d9654",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/points16_preview_v2.png",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/points16_preview_v2.png"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261015_grid_aligned/points_front.csv",
+    "sha256": "a72b010d35aff86fd06a4f0aa56150c179261de7f411921878a5127c834eac77",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/points_front.csv",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/points_front.csv"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261015_grid_aligned/pose_checks.json",
+    "sha256": "8e61bd8af014136141062ffe33998f258189159c05904b184f8cb923b10c23ea",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/pose_checks.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/pose_checks.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261015_grid_aligned/preview_points16.json",
+    "sha256": "940944e16eb3de9836d851bb9b03f893d58d50cbda568ba4540bf70494092ea5",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/preview_points16.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/preview_points16.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261015_grid_aligned/scene_command.py",
+    "sha256": "cd1afe45a359b9b8a3ac3f8c8292deecd51a570c0b507703bdd1cd1544cefa67",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/scene_command.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/scene_command.py"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261015_grid_aligned/validation_summary.json",
+    "sha256": "ae8a87cdf36b3f1b5a844c7435ea0e556b5d278ba805d9cc3eb2ae9cafac07cf",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/validation_summary.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/validation_summary.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261015_grid_aligned/同侧40组离线验证报告.md",
+    "sha256": "dd02cc3f15b9e00f41dcbd54bf8a8659d7583243e24129af5693d440f626c116",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/同侧40组离线验证报告.md",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/同侧40组离线验证报告.md"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261015_grid_aligned/车端部署使用说明.md",
+    "sha256": "8656647713f5d3213d013f04bc56dc6de9c977471f886d208942c9e2f77ad924",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/车端部署使用说明.md",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261015_grid_aligned/车端部署使用说明.md"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261016_competition_5cm/bslide_full.plan.jsonl",
+    "sha256": "f74cff73adcc597e7084fa6f88b47d259dae3f0fb939f1019edbfdcf3c000063",
+    "local_source": "deployment_20261017/payload/smartcar_2026_ws/data/mission/map_20261016_competition_5cm/bslide_full.plan.jsonl",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261016_competition_5cm/bslide_full.plan.jsonl"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261016_competition_5cm/deployment_manifest.json",
+    "sha256": "60772ea0b19d68bac38c4ea811b456c1d229b022981c0d14ab61f4ac47dd04c8",
+    "local_source": "hollow_map_20261017/candidate/deployment_manifest.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261016_competition_5cm/deployment_manifest.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261016_competition_5cm/low_cost_lines.json",
+    "sha256": "e02257aa4ceed32ce7d675e15915f1eedf7ce7a1b3bc0eb56c4c64fa819dc44b",
+    "local_source": "hollow_map_20261017/candidate/low_cost_lines.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261016_competition_5cm/low_cost_lines.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261016_competition_5cm/points_front.csv",
+    "sha256": "6f2ca9619f2638a3e6fb551703986cb24b7f9bf94ce8e7fcde7adcf9262a2c1f",
+    "local_source": "deployment_20261017/payload/smartcar_2026_ws/data/mission/points_front.csv",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261016_competition_5cm/points_front.csv"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261016_competition_5cm/preview_points16.json",
+    "sha256": "0314d72b5dcd2f1e36294f24f5527c7caeeb6ec3fac81286c85be104231b2e2b",
+    "local_source": "deployment_20261017/payload/smartcar_2026_ws/data/mission/map_20261016_competition_5cm/preview_points16.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261016_competition_5cm/preview_points16.json"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/map_20261016_competition_5cm/scene_command.py",
+    "sha256": "6bd782013373f042c53b2c2904c5cd2a05e895d784aebf24e1d2740adc28d197",
+    "local_source": "deployment_20261017/smartcar_2026_ws/data/mission/map_20261016_competition_5cm/scene_command.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/map_20261016_competition_5cm/scene_command.py"
+  },
+  {
+    "path": "smartcar_2026_ws/data/mission/points_front.csv",
+    "sha256": "6f2ca9619f2638a3e6fb551703986cb24b7f9bf94ce8e7fcde7adcf9262a2c1f",
+    "local_source": "deployment_20261017/payload/smartcar_2026_ws/data/mission/points_front.csv",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/mission/points_front.csv"
+  },
+  {
+    "path": "smartcar_2026_ws/data/navigation/map_20261006_160146_lines.json",
+    "sha256": "29b19e4d6f4d86e5bad4a2129ca3d6e62a5d252a2779972dfb0fb1119e7c94a3",
+    "local_source": "hollow_map_20261017/candidate/map_20261006_160146_lines.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/data/navigation/map_20261006_160146_lines.json"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/CMakeLists.txt",
+    "sha256": "d21404f3517094c512f46c2c9bcfdd0d87976737a1dcf47bbd4d229542e5244c",
+    "local_source": "corridor_localization_20261016/candidate/CMakeLists.txt",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/CMakeLists.txt"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/README_CUSTOM.md",
+    "sha256": "7950568872cfcecf5a07ccae91c712b5d268de905aea54482d3e99f4e5110ab3",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/README_CUSTOM.md",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/README_CUSTOM.md"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/README_REAL.md",
+    "sha256": "79941b8b426aea23f624fa9f3354a341d0d34ccc6e7fb310499402b31a426332",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/README_REAL.md",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/README_REAL.md"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/config/amcl.yaml",
+    "sha256": "cdd495779d7b0d46adf4a8d90b24f8eaa85db820b2cd3f9e2b7d16853816e866",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/config/amcl.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/config/amcl.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/config/localization.yaml",
+    "sha256": "e08901ca1808a49f8587e52590135998d29819f8271eeb647c9ee13cc9b164e1",
+    "local_source": "corridor_localization_20261016/candidate/localization.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/config/localization.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/config/localization.yaml.before_iteration_tune",
+    "sha256": "e93e91db1ca4ec4ec8b79b90e6cdc4735aa681633d46bab823413686112a0480",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/config/localization.yaml.before_iteration_tune",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/config/localization.yaml.before_iteration_tune"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/config/scan_match.yaml",
+    "sha256": "f911ddaf4978378e6809ab1bcd42f12c55beafc9a1b06b5e8ea7a2dfadbecac2",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/config/scan_match.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/config/scan_match.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/launch/custom_localization.launch",
+    "sha256": "17229347dd8887c402175d4485bde1b9d1a8605a05886c9d262b086b4fde6188",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/launch/custom_localization.launch",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/launch/custom_localization.launch"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/launch/frontend.launch",
+    "sha256": "81939b3a350739a9abc16bf935cee4f06045fc4e4f757e750191d75b75943158",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/launch/frontend.launch",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/launch/frontend.launch"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/launch/localization.launch",
+    "sha256": "ce67a0d5167f03ff0bc765c1d34ea01585fc875f971b4329906470e794fb1f8e",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/launch/localization.launch",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/launch/localization.launch"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/launch/localization_real.launch",
+    "sha256": "60937c6e42e4739c72b823113dd9215f30e49eb82c9f2102e90e7fb41cf75205",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/launch/localization_real.launch",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/launch/localization_real.launch"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/launch/localization_real.launch.before_amcl_20261008_180813",
+    "sha256": "70b0feaedaec2d822e5b43f3c267b2d0dddbb7368d9fce0f35bbfa012946c3c3",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/launch/localization_real.launch.before_amcl_20261008_180813",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/launch/localization_real.launch.before_amcl_20261008_180813"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/launch/localization_real.launch.before_body_frame_20261004_213551",
+    "sha256": "06040bc536e25d60d13e6991ae9309ec3440cf9806e35e35c393a73c53fc48f5",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/launch/localization_real.launch.before_body_frame_20261004_213551",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/launch/localization_real.launch.before_body_frame_20261004_213551"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/launch/localization_real.launch.before_full_map_20261008_185623",
+    "sha256": "d4ccb5de3645b6530402b545950c56049bc278db91936db327c907362924d716",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/launch/localization_real.launch.before_full_map_20261008_185623",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/launch/localization_real.launch.before_full_map_20261008_185623"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/launch/localization_real.launch.before_map2",
+    "sha256": "6f0935465d3de3aa5de23e21cd6d0eacf1e0f3e6efefed6ac55b46cdab1955d3",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/launch/localization_real.launch.before_map2",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/launch/localization_real.launch.before_map2"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/launch/localization_real.launch.before_new_map_20261010_164819",
+    "sha256": "03ccb1bd9c6e198b0e134666f06b4c061ada6ae6ea8b95df56e767610b2e26fa",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/launch/localization_real.launch.before_new_map_20261010_164819",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/launch/localization_real.launch.before_new_map_20261010_164819"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/launch/wheel_experiment.launch",
+    "sha256": "a2ea5676515c8f0282b7d99510acf7c43dfb4a1fcfaa6636259529ae57a01f08",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/launch/wheel_experiment.launch",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/launch/wheel_experiment.launch"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/package.xml",
+    "sha256": "4c12bcf4270cac26f1243861b9a2cda158a62ea7179c963ceb6c7256401fd923",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/package.xml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/package.xml"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/scripts/corridor_weighting.py",
+    "sha256": "f0e1d31168410ce60cae7402e9edfc42c826f6d831b99717bb141f0ef3593d4c",
+    "local_source": "fixed_wall_localization_20261017/before/corridor_weighting.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/scripts/corridor_weighting.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/scripts/fast_association.py",
+    "sha256": "0cb4ee9887ae97d3e9d74a319c5addb9b5f6dd41a25f98612e2b255d2cf5086c",
+    "local_source": "corridor_localization_20261016/before/fast_association.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/scripts/fast_association.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/scripts/localization_evaluator.py",
+    "sha256": "a890838d57895387307b2ce2891c62e1d6ea1e629bdfc8f0cb4719ad324e0e3b",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/scripts/localization_evaluator.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/scripts/localization_evaluator.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/scripts/map_server_5cm.py",
+    "sha256": "2cbd98a525fd6fffbb348f60318f5cdf8ad3e50c56b95401aaea34d8a465c47b",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/scripts/map_server_5cm.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/scripts/map_server_5cm.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/scripts/map_wall_extraction.py",
+    "sha256": "b44db63eff1c8b5c16f18926bde5e407412b266a97b9534fb06e3fe2ca5e44a6",
+    "local_source": "corridor_localization_20261016/before/map_wall_extraction.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/scripts/map_wall_extraction.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/scripts/scan_match_localizer.py",
+    "sha256": "54f5890b715f37f01676ddcec28b69f210a17beadedbc04b9c65e714c003daf1",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/scripts/scan_match_localizer.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/scripts/scan_match_localizer.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/scripts/scan_match_localizer.py.before_preview",
+    "sha256": "40e3219b346a1d23892b574e0916185515f17592152ca69e20eb31a5ad295288",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/scripts/scan_match_localizer.py.before_preview",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/scripts/scan_match_localizer.py.before_preview"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/scripts/sim_wheel_pulses.py",
+    "sha256": "afe0376d2ff3291b1cae53941c50d92efa5199d08c02c029cedbfc6c3333c3d7",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/scripts/sim_wheel_pulses.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/scripts/sim_wheel_pulses.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/scripts/wall_command.py",
+    "sha256": "8f5838366907707741b61fc26959a6207b33da550c36f74a30d5dbd3c9d702f8",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/scripts/wall_command.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/scripts/wall_command.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/scripts/wall_editor.py",
+    "sha256": "894ed1014b9b7523c12f56d0e0fbae9b3da7b117b9f54f7b9f69108c0050ed90",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/scripts/wall_editor.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/scripts/wall_editor.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/scripts/wall_features.py",
+    "sha256": "61f0434669894ee2076048c6c25538d1f0a3d57e239ca8cea48b280f651c154a",
+    "local_source": "corridor_localization_20261016/candidate/wall_features.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/scripts/wall_features.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/scripts/wall_localizer.py",
+    "sha256": "2c8cffb8930c0f8ed04a1b6c32028c1343bd7e36da05fcb395a559e042693ea2",
+    "local_source": "corridor_localization_20261016/candidate/wall_localizer.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/scripts/wall_localizer.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/scripts/wall_localizer.py.before_tf_refresh",
+    "sha256": "9e15ea78c099f3262b78c8d9bb115abbe625c3427e523c1a616d6a175700e841",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_localization/scripts/wall_localizer.py.before_tf_refresh",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/scripts/wall_localizer.py.before_tf_refresh"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_localization/scripts/wheel_distance.py",
+    "sha256": "eafb9de0373446c9b8196bd7473be59a14baf8a67a0d3996c8d5b0987275e62f",
+    "local_source": "corridor_localization_20261016/before/wheel_distance.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_localization/scripts/wheel_distance.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_mission/core/plan14.c",
+    "sha256": "7111c909380caff4483f428c1fa3a290df6f37d561de1b3a5e70c81e9e679228",
+    "local_source": "end_heading_line_20261017/candidate/plan14.c",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mission/core/plan14.c"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_mission/core/planner.c",
+    "sha256": "2ff69aa5e2084111e70e2d144f18a21d9d2311627a108e29f48136a8c1b5ea59",
+    "local_source": "bslide_20261011/smartcar_mission/core/planner.c",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mission/core/planner.c"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_mission/core/planner.h",
+    "sha256": "599256f674e36a45fe9ee300d2f32150d9c2fc931295adb606c830be058dbbf9",
+    "local_source": "bslide_20261011/smartcar_mission/core/planner.h",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mission/core/planner.h"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_mission/launch/multi_goal_nav.launch",
+    "sha256": "cc6124176a7d8c308ca6ee877f4df2868df3d51e5c1621ca1e0c0cb323103a64",
+    "local_source": "arrival_speech_20261012/payload/launch/multi_goal_nav.launch",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mission/launch/multi_goal_nav.launch"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_mission/package.xml",
+    "sha256": "322c366365ea166f5ba3d1862b698e6fd315af5907e46d6d024f81713b6e5854",
+    "local_source": "bslide_20261011/smartcar_mission/package.xml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mission/package.xml"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_mission/scripts/inspection_plan.py",
+    "sha256": "085585493ccb56786e202d05c5ccc98c611461c640ee5e51277dc7815b60fd20",
+    "local_source": "arrival_speech_20261012/payload/scripts/inspection_plan.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mission/scripts/inspection_plan.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_mission/scripts/inspection_plan_test.py",
+    "sha256": "e85c1ecebe81599ce7e494d29ddee514a31724bc21648fbc5a3cb21b31357477",
+    "local_source": "bslide_20261011/smartcar_mission/scripts/inspection_plan_test.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mission/scripts/inspection_plan_test.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_mission/scripts/inspection_points.py",
+    "sha256": "9a49086ed090ba428bfaa9abdbca50db456841a4d98d66c58cb90837e96a98a1",
+    "local_source": "deployment_20261017/patch/navigation/runtime/inspection_points.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mission/scripts/inspection_points.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_mission/scripts/inspection_reporting.py",
+    "sha256": "190864d1aa07cd27aaf2afbce02c3d1e36c84d5e3d4796571dec848c82f27a37",
+    "local_source": "arrival_speech_20261012/payload/scripts/inspection_reporting.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mission/scripts/inspection_reporting.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_mission/scripts/mission_goal_policy.py",
+    "sha256": "421e4a9eb05062fa4abba8d68b785b97baad416e102e400d72e9d089d855d4f0",
+    "local_source": "deployment_20261017/patch/navigation/runtime/mission_goal_policy.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mission/scripts/mission_goal_policy.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_mission/scripts/mission_points_visual.py",
+    "sha256": "620e229f42180e510859a1de508954d6cfd76771fa32d04cba3d87249326e46d",
+    "local_source": "bslide_20261011/smartcar_mission/scripts/mission_points_visual.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mission/scripts/mission_points_visual.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_mission/scripts/multi_goal_nav.py",
+    "sha256": "7aa7ce9a9b0bc8fa6e758c87673a4f3665522e72c839623035ae0cefd0107bcd",
+    "local_source": "end_heading_line_20261017/candidate/multi_goal_nav.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mission/scripts/multi_goal_nav.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_mission/scripts/patrol_preview.py",
+    "sha256": "56b6e28431fded859f077484ec8d525d94abb693b1d9f4515a3233a5e69c5d11",
+    "local_source": "patrol_vision_demo_20261017/patrol_preview.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mission/scripts/patrol_preview.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_mission/scripts/plan_io.py",
+    "sha256": "cd6b7bd3bcf7d14a9961f7437c4c6adbc41261c6488d00e198962f92e36fafef",
+    "local_source": "end_heading_line_20261017/candidate/plan_io.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_mission/scripts/plan_io.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/README.md",
+    "sha256": "1efea612f8a0312c407de4d5ac67fe3456522b33c0fa9ad96a82e1a6da87f622",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/README.md",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/README.md"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/UPSTREAM_COMMIT",
+    "sha256": "c3b3cdcb8fb55bba14096139ad3e5c117c626ca59d3155112abe89f47214bac8",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/UPSTREAM_COMMIT",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/UPSTREAM_COMMIT"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml",
+    "sha256": "633d22f42b562775a1d293db12ef88710d75ea88121fa3d5fa4e613f9f9cabd1",
+    "local_source": "deployment_20261017/patch/navigation/candidate/navigation.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.backup_width_20261008_193533",
+    "sha256": "3b963f63e5bfdb30c8afcc221c1a75080e74c2c1c242dab3bdad3dac7b8cb497",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/config/real/navigation.yaml.backup_width_20261008_193533",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.backup_width_20261008_193533"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.before_equal_reverse_20261010_172816",
+    "sha256": "fd8c7021e301faf8b47bbfd63b35243ed8c293da86b02db96209e0a39aa91c8c",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/config/real/navigation.yaml.before_equal_reverse_20261010_172816",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.before_equal_reverse_20261010_172816"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.before_final_tolerance_20261010_200659",
+    "sha256": "f58df7b3cd5ac2d4e20ca0d2c560bd7c5db9a113ed8fd13e451745dc0da674b4",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/config/real/navigation.yaml.before_final_tolerance_20261010_200659",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.before_final_tolerance_20261010_200659"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.before_global_margin_20261010_161129",
+    "sha256": "b6a33ded0d72cb1ab729e3c09d8838ff065586346e029a2cbc975a65b67469e9",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/config/real/navigation.yaml.before_global_margin_20261010_161129",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.before_global_margin_20261010_161129"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.before_global_radius_20261010_174033",
+    "sha256": "87cd8f5e84797745b9744afc9f2e53b51a179cc1dd6787050b9d05a2b84a5bf0",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/config/real/navigation.yaml.before_global_radius_20261010_174033",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.before_global_radius_20261010_174033"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.before_live_test_20261006_191033",
+    "sha256": "b1b6b6a3de1f03d607cf5d9acdc9859ace0704c699610976b06cd5bac3acc50e",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/config/real/navigation.yaml.before_live_test_20261006_191033",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.before_live_test_20261006_191033"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.before_local_radius_20261010_173046",
+    "sha256": "cadde50f8996960aad22a1b623b547dd2ad8b2c88e4eccbff2ea6b448ab87f66",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/config/real/navigation.yaml.before_local_radius_20261010_173046",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.before_local_radius_20261010_173046"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.before_planning_margin_20261010_200011",
+    "sha256": "a796985f0b21d7e9b4a702fb6beb9923e407b538eb0a2560c8c4f710b69413d1",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/config/real/navigation.yaml.before_planning_margin_20261010_200011",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.before_planning_margin_20261010_200011"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.before_probe8_20261010_205825",
+    "sha256": "d35b0e3af347f873f5678e89c6d69b189d8c2ddae4a8b4ac69b7b161b95d2c90",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/config/real/navigation.yaml.before_probe8_20261010_205825",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.before_probe8_20261010_205825"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.before_size_20261006_185310",
+    "sha256": "90458ea0a4625b243f53e15d1611d0d436ac64b2afb4185ca504d1ff0aa55d46",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/config/real/navigation.yaml.before_size_20261006_185310",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.before_size_20261006_185310"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.before_stage_tolerance_20261010_195524",
+    "sha256": "2b15965ab26aa3f7bb020eed92a33cb1841884add0d00771e95184cf73367f85",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/config/real/navigation.yaml.before_stage_tolerance_20261010_195524",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/config/real/navigation.yaml.before_stage_tolerance_20261010_195524"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/config/real/navigation_speed_test.yaml",
+    "sha256": "88f3335098c127b394a49ad2668d3bdccae20de7953f8ae287d0bcaf7021e478",
+    "local_source": "deployment_20261017/patch/navigation/candidate/navigation_speed_test.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/config/real/navigation_speed_test.yaml"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/launch/corridor.launch",
+    "sha256": "df57c2bc5e526db774fe70572fc64ae5d661674bdae5f8a6b426c7fb73a295df",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/launch/corridor.launch",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/launch/corridor.launch"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/launch/navigation_ui.launch",
+    "sha256": "aa8b403fd6dddbc6f142a0c00f79975c6289d77341acff888592c02df46d9a95",
+    "local_source": "deployment_20261017/smartcar_2026_ws/src/smartcar_navigation/launch/navigation_ui.launch",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/launch/navigation_ui.launch"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/launch/single_goal.launch",
+    "sha256": "d93f69aa0fdb77dd04001b2d129f704a47539a3dce1f3482db2fb3e571194c45",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/launch/single_goal.launch",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/launch/single_goal.launch"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/launch/single_real.launch",
+    "sha256": "a0ad95dc07354897cf6d7209db970b85d548a5ed890e9a79d868f4c9099c08f2",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/launch/single_real.launch",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/launch/single_real.launch"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/package.xml",
+    "sha256": "a37096a6ffc3319e6f0de4410fd34e72c06092109fc761a154d295e74bee8834",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/package.xml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/package.xml"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/scripts/ackermann_core.py",
+    "sha256": "a238d88f9f0f60c88a9e9e6cf08e3774a13bedfcd8c990bef77a1ed3163a5c04",
+    "local_source": "deployment_20261017/patch/navigation/runtime/ackermann_core.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/scripts/ackermann_core.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/scripts/actuator_model.py",
+    "sha256": "53676c42ee8bc0f4dc967930d8ce99271190871deb99444514937fc690c640d1",
+    "local_source": "deployment_20261017/patch/navigation/runtime/actuator_model.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/scripts/actuator_model.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/scripts/corridor_geometry.py",
+    "sha256": "73113ac59fb384cd7b4bb278440295f99fa1f2a62b74fe0dad6023967a3faafa",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/scripts/corridor_geometry.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/scripts/corridor_geometry.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/scripts/corridor_monitor.py",
+    "sha256": "62af8c9dc8afd29b0afeb2a7cf164a1feaba1336b91ee84204174431b8ab907a",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/scripts/corridor_monitor.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/scripts/corridor_monitor.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/scripts/execution_patch.py",
+    "sha256": "8ad23a68371ad525feab2f7a6e6515cceacf975bce234ff2f9d1329325801789",
+    "local_source": "navigation_recovery_deploy_20261017/candidate/execution_patch.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/scripts/execution_patch.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/scripts/fast_turn90.py",
+    "sha256": "350812352f08358dc856c3470180d39fb9457c0a2de96ae01e4f672a65631e2e",
+    "local_source": "deployment_20261017/patch/navigation/runtime/fast_turn90.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/scripts/fast_turn90.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/scripts/ground_truth_pose.py",
+    "sha256": "07b57de0fd58e64436a46a343994f06f7a4e984a79f3f666f6a39989decbd57a",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/scripts/ground_truth_pose.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/scripts/ground_truth_pose.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/scripts/inspection_depth.py",
+    "sha256": "a29493114d3d1158454be9a50af51ae922a4908d97ccee7131dc1f8866338b49",
+    "local_source": "deployment_20261017/patch/navigation/candidate/inspection_depth.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/scripts/inspection_depth.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/scripts/laser_recovery.py",
+    "sha256": "f2407af7651af05fcb7640a3b4f51786e0d8f412f9c0b515d0510134a9a62032",
+    "local_source": "deployment_20261017/patch/navigation/candidate/laser_recovery.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/scripts/laser_recovery.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/scripts/local_planner.py",
+    "sha256": "5867c1e225669388d25a1c27a25a043d8ddb6cba035f0945643641977f74265b",
+    "local_source": "deployment_20261017/patch/navigation/runtime/local_planner.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/scripts/local_planner.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/scripts/low_cost_lines.py",
+    "sha256": "f5e019f8541dcbb66319a8139bf97adb8c6109c2f7e3d3755234672ee47935fe",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/scripts/low_cost_lines.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/scripts/low_cost_lines.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/scripts/nav_config.py",
+    "sha256": "f9504ffd48a7499a954e0ebe4a96867c4c799813f6f30888b3374342ebfe6bd8",
+    "local_source": "deployment_20261017/patch/navigation/runtime/nav_config.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/scripts/nav_config.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/scripts/nav_obstacles.py",
+    "sha256": "6dd1fc136d9d262b87c24b6f5e822eedfec21f5b078f5d871e40306e56573c96",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/scripts/nav_obstacles.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/scripts/nav_obstacles.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/scripts/path_tracking.py",
+    "sha256": "0909c40752e0da976750bbfe8e29c4754276e89c7ae0dde2d8f4f6ca79d34374",
+    "local_source": "deployment_20261017/patch/navigation/runtime/path_tracking.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/scripts/path_tracking.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/scripts/position_goal.py",
+    "sha256": "dc5a1731a68f1eb601357b388e16269939c22a66207a3b7bb539015002e77091",
+    "local_source": "deployment_20261017/patch/navigation/runtime/position_goal.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/scripts/position_goal.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/scripts/region_editor.py",
+    "sha256": "97306e56379fa8d3cdd5ea7cf1d268983c0b4428f0c33ff9cd4a41888061685d",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/scripts/region_editor.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/scripts/region_editor.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/scripts/region_geometry.py",
+    "sha256": "af591f3ae2f6181cebf031f95e95cc0dfdef480092d82985a24336accea4e28c",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/scripts/region_geometry.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/scripts/region_geometry.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/scripts/send_single_goal.py",
+    "sha256": "91b4aeaed597ed62f0f27df04a4228054cae0aa91e2b19ff66abab40552518ac",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/scripts/send_single_goal.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/scripts/send_single_goal.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/scripts/single_goal_nav.py",
+    "sha256": "0a1f6b80571fe0e85ec849cdf7fb09b654293a7d23d4879593bc0e1c2f9f01bd",
+    "local_source": "stable_baseline_restore_20261017/candidate/single_goal_nav.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/scripts/single_goal_nav.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/scripts/steering_dynamics.py",
+    "sha256": "8ab6ae7f0c51d9a251a0af42fba2451d2b4af6ce8c7d2b19c1cf8ba1a757ca4a",
+    "local_source": "deployment_20261017/patch/navigation/runtime/steering_dynamics.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/scripts/steering_dynamics.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_navigation/scripts/vehicle_visual.py",
+    "sha256": "f4cda1d35b444c0d3dd3ba9acec6e322205f095047f75f153adc68ad74900951",
+    "local_source": "deployment_20261011/live_before/smartcar_navigation/scripts/vehicle_visual.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_navigation/scripts/vehicle_visual.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_region_tool/CMakeLists.txt",
+    "sha256": "12611feb2696490cd81d77a87fc04a919528ab82afa6719fd9825b299ae19cf8",
+    "local_source": "deployment_20261011/live_before/smartcar_region_tool/CMakeLists.txt",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_region_tool/CMakeLists.txt"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_region_tool/package.xml",
+    "sha256": "a0af8adb79b654e6bc63835ee2c4104431cc774254396a7f83cd0fc445e8483a",
+    "local_source": "deployment_20261011/live_before/smartcar_region_tool/package.xml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_region_tool/package.xml"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_region_tool/plugin_description.xml",
+    "sha256": "4a3d7f1bdcb859ea71f52d0caefc00744e0846e98dd315a89a20bb07e93571bc",
+    "local_source": "deployment_20261011/live_before/smartcar_region_tool/plugin_description.xml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_region_tool/plugin_description.xml"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_region_tool/src.cpp",
+    "sha256": "b210efb7d026162d1e6f17482584ed0d76fa0834283ca5620bcb2f784c2fbde9",
+    "local_source": "deployment_20261011/live_before/smartcar_region_tool/src.cpp",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_region_tool/src.cpp"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_vehicle_bridge/config/vehicle.yaml.before_reverse_20261006_191033",
+    "sha256": "08c15931edca129be7185339586a27e9bc32c829e2e5ac409a34fde515a15723",
+    "local_source": "github_release_recovered_20261025/08c15931edca129be7185339586a27e9bc32c829e2e5ac409a34fde515a15723/vehicle.yaml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_vehicle_bridge/config/vehicle.yaml.before_reverse_20261006_191033"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_vehicle_bridge/launch/bridge.launch",
+    "sha256": "05222171c7d7ff7c891ef6f9b4088144d003b9c2a55b000b965c9f51270706e2",
+    "local_source": "vehicle_bridge_deploy/src/smartcar_vehicle_bridge/launch/bridge.launch",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_vehicle_bridge/launch/bridge.launch"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_vehicle_bridge/scripts/calibration.py",
+    "sha256": "f0a272753597042f3305a75ff36aa91479c514e3947ccd6478d66f7c87e6effa",
+    "local_source": "execution_optimization_20261012/smartcar_vehicle_bridge/scripts/calibration.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_vehicle_bridge/scripts/calibration.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_vehicle_bridge/scripts/feedback_monitor.py",
+    "sha256": "c6b23bd91f2fb511b86ac6b47f8af162229b7345347ccf81879142ed1084f064",
+    "local_source": "execution_optimization_20261012/smartcar_vehicle_bridge/scripts/feedback_monitor.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_vehicle_bridge/scripts/feedback_monitor.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_vehicle_bridge/scripts/speed_observer.py",
+    "sha256": "e06107cff97e4d959c3221b85bb6211bce77509be9a60642ced902f661999559",
+    "local_source": "execution_optimization_20261012/smartcar_vehicle_bridge/scripts/speed_observer.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_vehicle_bridge/scripts/speed_observer.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_vehicle_bridge/scripts/standstill.py",
+    "sha256": "2752b632d42864665d72e5edf03460d02923187ac7aad876ac31bc51bb19f152",
+    "local_source": "execution_optimization_20261012/smartcar_vehicle_bridge/scripts/standstill.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_vehicle_bridge/scripts/standstill.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_vehicle_bridge/scripts/test_bridge_remote.py",
+    "sha256": "ff7e27333c0912ef7a1187e62123a9dbbe2a32401f6dd4f11698d125564084af",
+    "local_source": "feedback_fix_20261008/test_bridge_remote.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_vehicle_bridge/scripts/test_bridge_remote.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/smartcar_vehicle_bridge/scripts/vehicle_bridge.py",
+    "sha256": "83ec8190102a5d2497447b6a047dada9e66a49c6594f883d1f980b2d44eebe05",
+    "local_source": "navigation_diagnosis_20261015/code_191524/vehicle_bridge.py",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/smartcar_vehicle_bridge/scripts/vehicle_bridge.py"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/.vscode/settings.json",
+    "sha256": "ee25bbe45b218cd024fd37807f3176372c5a3afb769f76861a73b0126d55c97e",
+    "local_source": "h30_review_20261006/yesense_imu/.vscode/settings.json",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/.vscode/settings.json"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/CMakeLists.txt.vendor_original",
+    "sha256": "9bf1352c7a36dfc7099b12abcb2c097c816bba42cfbfdb4ec5947e1805885801",
+    "local_source": "h30_review_20261006/yesense_imu/CMakeLists.txt",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/CMakeLists.txt.vendor_original"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/cfg/Yesense.cfg",
+    "sha256": "d58f63f225c825d56d2dbe3055dc855b178f9cc50830838fe051ac9066551f59",
+    "local_source": "h30_review_20261006/yesense_imu/cfg/Yesense.cfg",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/cfg/Yesense.cfg"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/launch/yesense_ahrs.launch",
+    "sha256": "c6b09cf3699bb9e761c3f283527b5c8e6169460e6e48fddcc8dd23a6a3f7256a",
+    "local_source": "h30_review_20261006/yesense_imu/launch/yesense_ahrs.launch",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/launch/yesense_ahrs.launch"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/msg/YesenseImuAllData.msg",
+    "sha256": "1436b05e1fc1469c5941c230d73b0f6772439e381b54af5dbc36176e11156b6d",
+    "local_source": "h30_review_20261006/yesense_imu/msg/YesenseImuAllData.msg",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/msg/YesenseImuAllData.msg"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/msg/YesenseImuCmdResp.msg",
+    "sha256": "102ce80d520daec2551123ee63d0bc28e2342de7f2b0974dfbf8d8ab32d2e077",
+    "local_source": "h30_review_20261006/yesense_imu/msg/YesenseImuCmdResp.msg",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/msg/YesenseImuCmdResp.msg"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/msg/YesenseImuEulerAngle.msg",
+    "sha256": "db7c9089ba40732d480aa5b06b2dd916c1cade6cb018a01c4caf1d641060ef4a",
+    "local_source": "h30_review_20261006/yesense_imu/msg/YesenseImuEulerAngle.msg",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/msg/YesenseImuEulerAngle.msg"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/msg/YesenseImuGnssData.msg",
+    "sha256": "69b4d3766b56f5a5e14b4c748cb427b6dfe72c511393fdd469c47a59e29452cf",
+    "local_source": "h30_review_20261006/yesense_imu/msg/YesenseImuGnssData.msg",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/msg/YesenseImuGnssData.msg"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/msg/YesenseImuGpsData.msg",
+    "sha256": "5add634a121b7626a4a0a0518e3c6ab94f5d72317762288ae00ceca5b322e2fe",
+    "local_source": "h30_review_20261006/yesense_imu/msg/YesenseImuGpsData.msg",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/msg/YesenseImuGpsData.msg"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/msg/YesenseImuInertialData.msg",
+    "sha256": "27d73021e90d8be58ec78f02525cc1cd9a42fb9bbe8de181dc71a1f31320c94e",
+    "local_source": "h30_review_20261006/yesense_imu/msg/YesenseImuInertialData.msg",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/msg/YesenseImuInertialData.msg"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/msg/YesenseImuLocation.msg",
+    "sha256": "2d20a2d4a416bf1877e3ffe90a6cda71911f91bc51e5792d04389c2b18371ae9",
+    "local_source": "h30_review_20261006/yesense_imu/msg/YesenseImuLocation.msg",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/msg/YesenseImuLocation.msg"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/msg/YesenseImuMasterGnssData.msg",
+    "sha256": "ff708266124afa461849b37c448936a93f48cec6baf686dec3133f2ede34672a",
+    "local_source": "h30_review_20261006/yesense_imu/msg/YesenseImuMasterGnssData.msg",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/msg/YesenseImuMasterGnssData.msg"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/msg/YesenseImuNavData.msg",
+    "sha256": "dec438201c1c5ac8915e2a8055b45b9a02b47e21b971b8bbcb80123fe7517e2d",
+    "local_source": "h30_review_20261006/yesense_imu/msg/YesenseImuNavData.msg",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/msg/YesenseImuNavData.msg"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/msg/YesenseImuQuaternion.msg",
+    "sha256": "0f820919dbff16df14e6be3330b9ecad4c520783571abf33f824c6b1af39060e",
+    "local_source": "h30_review_20261006/yesense_imu/msg/YesenseImuQuaternion.msg",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/msg/YesenseImuQuaternion.msg"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/msg/YesenseImuSensorData.msg",
+    "sha256": "c997b9e5867d2bf6e5cc9ec55f12e073a3c20317b4210154ad0b05cd290c1c5a",
+    "local_source": "h30_review_20261006/yesense_imu/msg/YesenseImuSensorData.msg",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/msg/YesenseImuSensorData.msg"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/msg/YesenseImuSlaveGnssData.msg",
+    "sha256": "8aad5d0e291892a8d93f873b163c3384c9c959abd1e77a825b460db14b3bcd14",
+    "local_source": "h30_review_20261006/yesense_imu/msg/YesenseImuSlaveGnssData.msg",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/msg/YesenseImuSlaveGnssData.msg"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/msg/YesenseImuStatus.msg",
+    "sha256": "2f6172151552564a44c01635fd6ecc5a1924bc8d729b32b988215065715e41fa",
+    "local_source": "h30_review_20261006/yesense_imu/msg/YesenseImuStatus.msg",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/msg/YesenseImuStatus.msg"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/msg/YesenseImuUtcTime.msg",
+    "sha256": "5688caf83c1385f2e360f412eb451d7ca0d7b25efef7cce33ba46c264f870e03",
+    "local_source": "h30_review_20261006/yesense_imu/msg/YesenseImuUtcTime.msg",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/msg/YesenseImuUtcTime.msg"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/msg/YesenseImuVelocity.msg",
+    "sha256": "0b7608e37fc15c0a40125750e4e525bed868ca26d9fbd40b4ccf30b61ef1adf4",
+    "local_source": "h30_review_20261006/yesense_imu/msg/YesenseImuVelocity.msg",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/msg/YesenseImuVelocity.msg"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/package.xml.vendor_original",
+    "sha256": "41919e37e3f96535c59f6fdd4361fc335b0094321947e31276499026362ba586",
+    "local_source": "h30_review_20261006/yesense_imu/package.xml",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/package.xml.vendor_original"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/rviz/yesense.rviz",
+    "sha256": "cd74c1c8043e92bf7b487278f6b8279019af87a084c5edc25e5a3f2325e87b62",
+    "local_source": "h30_review_20261006/yesense_imu/rviz/yesense.rviz",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/rviz/yesense.rviz"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/src/analysis_data.cpp",
+    "sha256": "8e97750ce9634868e6269f4371f1b354fb228a6dd9175fc8c3c4cf2bbf0619d2",
+    "local_source": "h30_review_20261006/yesense_imu/src/analysis_data.cpp",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/src/analysis_data.cpp"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/src/analysis_data.h",
+    "sha256": "45c2613be88c0d6afacbb0a759211ae73acb63ec46b3a01746a8dbc8c49276eb",
+    "local_source": "h30_review_20261006/yesense_imu/src/analysis_data.h",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/src/analysis_data.h"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/src/yesense_driver.cpp",
+    "sha256": "aad4a03963fad1f571a4ab43fd1f5f39e62bf78408443b181ba3932f271c16c8",
+    "local_source": "h30_review_20261006/yesense_imu/src/yesense_driver.cpp",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/src/yesense_driver.cpp"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/src/yesense_driver.h",
+    "sha256": "98757d038a3c640ba9996a5f0b0c7376c4267973b8ef191b1a56198e5a7f7ca4",
+    "local_source": "h30_review_20261006/yesense_imu/src/yesense_driver.h",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/src/yesense_driver.h"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/src/yesense_node.cpp",
+    "sha256": "3b60f40bbf0c8bfd4602c72be49355946164ccd98b3d8ae32676a21d3c6d6645",
+    "local_source": "h30_review_20261006/yesense_imu/src/yesense_node.cpp",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/src/yesense_node.cpp"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/wheeltec_udev.sh",
+    "sha256": "35e32d212a8a6694d3647e86f70679896ca8d0d6ed46f183379308d11f894c54",
+    "local_source": "h30_review_20261006/yesense_imu/wheeltec_udev.sh",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/wheeltec_udev.sh"
+  },
+  {
+    "path": "smartcar_2026_ws/src/yesense_imu/yesense.md",
+    "sha256": "f950944e4cc604d3197240d4319ce53a1f3ad0ced350382fa819bda8ec66d442",
+    "local_source": "h30_review_20261006/yesense_imu/yesense.md",
+    "vehicle_target": "/home/smartcar/smartcar_2026_ws/src/yesense_imu/yesense.md"
+  },
+  {
+    "path": "vision_v5/patrol_vision_demo.py",
+    "sha256": "4fafbfd929ba26d653a07f37debc7ac44d81de7cabbd0761d74a6de54d45006b",
+    "local_source": "camera_low_load_20261017/candidate/patrol_vision_demo.py",
+    "vehicle_target": "/home/smartcar/vision_v5/patrol_vision_demo.py"
+  },
+  {
+    "path": "camera",
+    "sha256": "5ba541625e1fbb8cc1b622a16dc23ab6b22776504a510990ee63ad9c8102addf",
+    "local_source": "camera_low_load_20261017/candidate/camera",
+    "vehicle_target": "/home/smartcar/camera"
+  },
+  {
+    "path": "vision_v5/overhead_pic_detector_v5.py",
+    "sha256": "6a6583ae2473179405286088a0ebdcfd32e20f9add40bc3f8368637e2325f4d2",
+    "local_source": "display_jitter_20261017/candidate/overhead_pic_detector_v5.py",
+    "vehicle_target": "/home/smartcar/vision_v5/overhead_pic_detector_v5.py"
+  },
+  {
+    "path": "vision_v5/run_patrol_demo.sh",
+    "sha256": "239023fa56137ba23544d3a89778517916a17135b880df8c720ce8c723f582c1",
+    "local_source": "patrol_vision_demo_20261017/run_patrol_demo.sh",
+    "vehicle_target": "/home/smartcar/vision_v5/run_patrol_demo.sh"
+  },
+  {
+    "path": "notes/stable_baseline_restore_20261017_恢复说明.md",
+    "sha256": "d6ca52c4aeb35f5feb225fc0b85227690d03089888fa446ee4b59c830ebda301",
+    "local_source": "stable_baseline_restore_20261017/恢复说明.md",
+    "vehicle_target": null
+  },
+  {
+    "path": "notes/loc_startup_fix_20261017_说明.md",
+    "sha256": "8b09b0a34ad675fa0c03ea0757861cc48091bbbb6a35c96670d2c600c6a07c0a",
+    "local_source": "loc_startup_fix_20261017/说明.md",
+    "vehicle_target": null
+  },
+  {
+    "path": "notes/hollow_map_20261017_说明.md",
+    "sha256": "c6d4c2d77a7e09f458c64de246e35df37eda61e32abebd6c53ed292af5708583",
+    "local_source": "hollow_map_20261017/说明.md",
+    "vehicle_target": null
+  },
+  {
+    "path": "notes/navigation_oscillation_monitor_20261017_监测结果.md",
+    "sha256": "c6b93aa354b93b20ac232640528ca3b13c98a1e99309896e26b7287e06482fa9",
+    "local_source": "navigation_oscillation_monitor_20261017/监测结果.md",
+    "vehicle_target": null
+  },
+  {
+    "path": "notes/patrol_vision_demo_20261017_使用说明.md",
+    "sha256": "f45a0522ecb29b13f0e9bd11bdd5300fd0a5aa89aeb9f52f89688137206debdd",
+    "local_source": "patrol_vision_demo_20261017/使用说明.md",
+    "vehicle_target": null
+  },
+  {
+    "path": "notes/display_jitter_20261017_使用说明.md",
+    "sha256": "f37934d965c8319a66115bb69ab5b73acac1fbb3c21760b41408e8a5cdb2a315",
+    "local_source": "display_jitter_20261017/使用说明.md",
+    "vehicle_target": null
+  },
+  {
+    "path": "evidence/stable_baseline_restore_20261017_results_vehicle_verification.json",
+    "sha256": "d0f89b7bd6119b4a98aa72f2559540128bbe1d358cd43dc50e3380ea0a9d3472",
+    "local_source": "stable_baseline_restore_20261017/results/vehicle_verification.json",
+    "vehicle_target": null
+  },
+  {
+    "path": "evidence/hollow_map_20261017_results_checks.json",
+    "sha256": "2d087f01ed2c359e042265bd0beba02a90c15ceae3790059e03f757d7e5a9a4d",
+    "local_source": "hollow_map_20261017/results/checks.json",
+    "vehicle_target": null
+  },
+  {
+    "path": "evidence/loc_startup_fix_20261017_results_installation.json",
+    "sha256": "77beb4d1602bf698f733a3eec93da3aca2c841574c2b96a1676556614bb31348",
+    "local_source": "loc_startup_fix_20261017/results/installation.json",
+    "vehicle_target": null
+  },
+  {
+    "path": "evidence/navigation_oscillation_monitor_20261017_20261017_205307_summary.json",
+    "sha256": "869d197f1dcf0e8b4a4e7978321f5070cf9830448abb48f879b5798259b746a3",
+    "local_source": "navigation_oscillation_monitor_20261017/20261017_205307/summary.json",
+    "vehicle_target": null
+  },
+  {
+    "path": "evidence/navigation_oscillation_monitor_20261017_20261017_205307_parameters.yaml",
+    "sha256": "e4139904897f9c16d964f9b457409e0b5992c22463034ca6f3083732432a095d",
+    "local_source": "navigation_oscillation_monitor_20261017/20261017_205307/parameters.yaml",
+    "vehicle_target": null
+  }
+]

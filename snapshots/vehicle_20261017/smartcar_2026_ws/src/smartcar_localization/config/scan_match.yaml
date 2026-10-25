@@ -1,0 +1,15 @@
+# Initial values from the existing custom localizer; field tuning required.
+sigma: 0.08
+min_score: 0.30
+xy_win: 0.18
+xy_step: 0.06
+yaw_win: 0.12
+yaw_step: 0.04
+stride: 8
+max_xy: 0.15
+max_yaw: 0.14
+freeze_xy: 0.02
+freeze_yaw: 0.015
+v_max: 0.40
+w_max: 0.60
+scan_timeout: 0.5

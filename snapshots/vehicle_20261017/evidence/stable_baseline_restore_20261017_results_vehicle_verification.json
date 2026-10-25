@@ -1,0 +1,24 @@
+{
+  "nodes_started": false, 
+  "files": 12, 
+  "vehicle_driving_tested": false, 
+  "localization_weights": {
+    "enter_inset": 0.04, 
+    "group_max_rms": 0.08, 
+    "enabled": true, 
+    "anchor_weight": 0.55, 
+    "normal_angle_deg": 25.0, 
+    "side_weight": 0.35, 
+    "anchor_min_points": 8, 
+    "confirm_time": 0.3, 
+    "anchor_max_rms": 0.06, 
+    "exit_margin": 0.12, 
+    "definition_file": "/home/smartcar/smartcar_2026_ws/data/localization/corridor_definition_20261016.json", 
+    "other_weight": 0.1
+  }, 
+  "commands_sent": false, 
+  "protected_files": 281, 
+  "status": "INSTALLED_AND_READBACK_VERIFIED", 
+  "actual_ros_modules_imported": true, 
+  "backup": "/home/smartcar/smartcar_2026_ws/data/backups/stable_weighted_restore_20261017_200747"
+}

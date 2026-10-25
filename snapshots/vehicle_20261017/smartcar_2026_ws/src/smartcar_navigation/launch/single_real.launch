@@ -1,0 +1,11 @@
+<launch>
+  <arg name="enable_drive" default="false" />
+  <arg name="config_file" default="$(find smartcar_navigation)/config/real/navigation.yaml" />
+  <include file="$(find smartcar_vehicle_bridge)/launch/bridge.launch">
+    <arg name="enable_drive" value="$(arg enable_drive)" />
+  </include>
+  <include file="$(find smartcar_navigation)/launch/single_goal.launch">
+    <arg name="config_file" value="$(arg config_file)" />
+    <arg name="low_cost_lines_file" value="/home/smartcar/smartcar_2026_ws/data/navigation/map_20261006_160146_lines.json" />
+  </include>
+</launch>
